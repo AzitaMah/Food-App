@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
-// braucht man diesen controller oder reicht einer für matches only?
 @RestController
 public class CandidateController {
 
@@ -25,13 +25,11 @@ public class CandidateController {
         return candidateRepository.findAll();
     }
 
-    @GetMapping("/candidate")
-    // parameter userId and foodId returning all users with the same food id -> matches
-    public Person getById(@RequestParam(value="userId") Long id){
-        return candidateRepository.findById(id);
-    }
-
-
-    @PostMapping("/candidate")
-    // parameter userId and foodId
+    //@GetMapping("/candidate/{id}")
+    //// parameter userId and foodId returning all users with the same food id -> matches
+    //public Optional<Candidate> getById(@RequestParam(value="userId") Long id){
+    //    return candidateRepository.findById(id);
+    //}
+    //@PostMapping("/candidate")
+    //// parameter userId and foodId
 }
