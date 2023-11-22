@@ -1,0 +1,2 @@
+# Checkin and checkout every text file with lf line endings
+* text=auto eol=lf
