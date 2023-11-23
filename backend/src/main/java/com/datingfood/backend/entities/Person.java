@@ -3,13 +3,13 @@ package com.datingfood.backend.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
-
-//import java.sql.Date;
 import java.time.LocalDate;
 
 @Getter
 @Entity
+
 public class Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -39,6 +39,7 @@ public class Person {
         this.contact= contact;
         this.date = date;
         this.role = role;
+
     }
     public void setId(Long id) {
         this.id = id;
@@ -52,4 +53,5 @@ public class Person {
     public void setContact(String contact) {this.contact = contact;}
     public void setDate(LocalDate date) {this.date = date;}
     public void setRole(Role role) {this.role = role;}
+
 }

@@ -5,3 +5,7 @@ INSERT INTO person (id, first_name, last_name,contact,date,role) VALUES (1, 'Chr
 INSERT INTO person (id, first_name, last_name,contact,date,role) VALUES (2, 'Peter','Eberhard','0175 1234 5678','2021.01.01',0);
 INSERT INTO person (id, first_name, last_name,contact,date,role) VALUES (3, 'Mia', 'Fischer','0711 345678','2021.01.01',0);
 
+INSERT INTO food (id,name) VALUES (0,'Pizza');
+INSERT INTO food (id,name) VALUES (1,'Pasta');
+INSERT INTO food (id,name) VALUES (2,'HotPod');
+
