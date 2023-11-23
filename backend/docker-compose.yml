@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  db_backend:
+    image: postgres:15
+    container_name: db_backend
+    environment:
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: test
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+    ports:
+      - '5432:5432'
