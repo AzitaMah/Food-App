@@ -3,6 +3,7 @@ package com.datingfood.backend.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+
 @Getter
 @Entity
 public class Food {
@@ -16,15 +17,17 @@ public class Food {
 
     public Food() {
     }
+
     public Food(String name) {
         this.name = name;
     }
 
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void setId(Long id) {
         this.id = id;
     }
-
 
 }

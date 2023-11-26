@@ -14,17 +14,18 @@ public class PersonController {
 
     private final PersonRepository personRepository;
 
-    PersonController(PersonRepository personRepository){
+    PersonController(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
+
     @GetMapping("/person")
     List<Person> all() {
         return personRepository.findAll();
     }
 
-    
+
     @GetMapping("/person/{id}")
-    Optional<Person> getById(@PathVariable Long id){
+    Optional<Person> getById(@PathVariable Long id) {
         return personRepository.findById(id);
     }
 }
