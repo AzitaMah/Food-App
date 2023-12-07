@@ -1,30 +1,42 @@
 package com.datingfood.backend.api;
 
-import com.datingfood.backend.entities.Person;
-import com.datingfood.backend.repositories.PersonRepository;
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
+import com.datingfood.backend.entities.Person;
+import com.datingfood.backend.service.PersonService;
 
 @RestController
 public class PersonController {
 
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
-    PersonController(PersonRepository personRepository){
-        this.personRepository = personRepository;
-    }
-    @GetMapping("/person")
-    List<Person> all() {
-        return personRepository.findAll();
+    PersonController(final PersonService personService) {
+        this.personService = personService;
     }
 
-    
-    @GetMapping("/person/{id}")
-    Optional<Person> getById(@PathVariable Long id){
-        return personRepository.findById(id);
+    @GetMapping("/person/{username}")
+    Optional<Person> getByUserName(@PathVariable final String username) {
+        return personService.findByUserName(username);
     }
+
+    @PostMapping(value = "/person", consumes = "application/json", produces = "application/json")
+    public String addPerson(@RequestBody final Person person) {
+        return personService.addPerson(person);
+    }
+
+    @PostMapping(value = "/person/authentication")
+    @ResponseBody
+    public String authenticatePerson(@RequestParam(name = "username") final String userName,
+            @RequestParam(name = "password") final String password) {
+        return personService.authenticatePerson(userName, password);
+    }
+
 }

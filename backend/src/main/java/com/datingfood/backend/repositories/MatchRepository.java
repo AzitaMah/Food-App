@@ -6,4 +6,5 @@ import com.datingfood.backend.entities.Match;
 
 public interface MatchRepository extends JpaRepository<Match, Long> {
 
+
 }
