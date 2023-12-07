@@ -41,7 +41,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(String userName, String firstName, String lastName, String contact, LocalDate birthDate, Role role, String password) {
+    public Person(final String userName, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final Role role, final String password) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,36 +52,35 @@ public class Person {
 
     }
 
-
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
-    public void setuUserName(String uId) {
+    public void setUserName(final String uId) {
         this.userName = uId;
     }
 
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
-    public void setContact(String contact) {
+    public void setContact(final String contact) {
         this.contact = contact;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(final LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public void setRole(Role role) {
+    public void setRole(final Role role) {
         this.role = role;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
