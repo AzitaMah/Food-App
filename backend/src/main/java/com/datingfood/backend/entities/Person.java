@@ -1,6 +1,8 @@
 package com.datingfood.backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -27,12 +29,14 @@ public class Person {
     private LocalDate birthDate;
 
     @Column(nullable = false)
+    @JsonIgnore
     private Role role;
 
     @Column(nullable = false)
     private String contact;
 
     @Column(nullable = false)
+    //@JsonIgnore
     private String password;
 
     @Column(nullable = false, unique = true)
@@ -41,16 +45,15 @@ public class Person {
     public Person() {
     }
 
-    public Person(final String userName, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final Role role, final String password) {
+    public Person(final String userName, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contact = contact;
         this.birthDate = birthDate;
-        this.role = role;
         this.password = password;
-
     }
+
 
     public void setId(final Long id) {
         this.id = id;

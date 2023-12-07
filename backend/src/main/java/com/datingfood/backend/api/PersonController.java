@@ -2,6 +2,7 @@ package com.datingfood.backend.api;
 
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,9 +28,13 @@ public class PersonController {
         return personService.findByUserName(username);
     }
 
-    @PostMapping(value = "/person", consumes = "application/json", produces = "application/json")
-    public String addPerson(@RequestBody final Person person) {
-        return personService.addPerson(person);
+    @PostMapping(value = "/person/registration", consumes = "application/json")
+    public ResponseEntity<String> createPerson(@RequestBody final Person person) {
+        final Person optionalPerson = personService.addPerson(person);
+        if (optionalPerson == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping(value = "/person/authentication")
