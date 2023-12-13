@@ -1,22 +1,18 @@
 package com.datingfood.backend.api;
 
 import com.datingfood.backend.entities.Candidate;
-import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.repositories.CandidateRepository;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CandidateController {
 
     private final CandidateRepository candidateRepository;
 
-    CandidateController(CandidateRepository candidateRepository){
+    CandidateController(CandidateRepository candidateRepository) {
         this.candidateRepository = candidateRepository;
     }
 
