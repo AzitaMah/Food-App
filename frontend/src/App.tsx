@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+import HomeScreen from './HomeScreen';
 import {
     BottomNavigation,
     BottomNavigationAction,
@@ -23,6 +24,9 @@ function FixedBottomNavigation() {
         <Box sx={{pb: 7}} ref={ref}>
             <CssBaseline/>
             <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
+                <div>
+                </HomeScreen>
+                </div>
                 <BottomNavigation
                     showLabels
                     value={value}
