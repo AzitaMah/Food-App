@@ -1,46 +1,53 @@
 import React, { useState } from 'react';
-import ProfileCard from './ProfileCard';
+import React, { useState } from 'react';
+import FoodCard from './ProfileCard';
 
 
-const HomeScreen: React.FC = () => {
-  const initialProfiles = [
-    { id: 1, name: 'Matt Smith', age: 24, imageUrl: 'matt.jpg' },
-    { id: 2, name: 'Jane Tristan', age: 22, imageUrl: 'jane.jpg' },
 
+
+
+const FoodScreen: React.FC = () => {
+  // Raw code Foods since not connected yet to the database
+  
+  const initialFoods = [
+    { id: 1, name: 'Pizza', description: 'Delicious pizza with various toppings', imageUrl: 'pizza.jpg' },
+    { id: 2, name: 'Burger', description: 'Classic burger with a juicy patty', imageUrl: 'burger.jpg' },
+    { id: 3, name: 'Sushi', description: 'Fresh and tasty sushi rolls', imageUrl: 'sushi.jpg' },
+    
   ];
 
-  
-  const [profiles, setProfiles] = useState(initialProfiles);
+
+
+
+  const [foods, setFoods] = useState(initialFoods);
 
   const handleSwipe = (id: number, direction: 'left' | 'right') => {
-
-    console.log(`Swiped ${direction} on profile with ID ${id}`);
+    // Handle swipe action (e.g., remove food from the list, update preferences, etc.)
+    // This is a placeholder, and you would typically update the state or make API calls.
+    console.log(`Swiped ${direction} on food with ID ${id}`);
   };
+
+
 
   return (
     <div>
-      <h1>Dating Food App</h1>
+      <h1>Food Swipe App</h1>
       <div>
-        
-   
-      {profiles.map(profile => (
-          
-          
-          <ProfileCard
-           
-            key={profile.id}
-            id={profile.id}
-            name={profile.name}
-            age={profile.age}
-            imageUrl={profile.imageUrl}
-            onSwipe={handleSwipe}
-          /> 
 
-          
-        ))} 
+        {foods.map(food => (
+          <FoodCard
+            key={food.id}
+            id={food.id}
+            name={food.name}
+            description={food.description}
+            imageUrl={food.imageUrl}
+            onSwipe={handleSwipe}
+          />
+        ))}
       </div>
     </div>
   );
 }
+
 
 export default HomeScreen;

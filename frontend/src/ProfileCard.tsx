@@ -47,7 +47,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ id, name, age, imageUrl, onSw
       style={{ width: '300px', height: '400px', border: '1px solid #ccc', margin: '15px' }}
       draggable
       onDragStart={handleDragStart}
-      
+       
       onDragEnd={handleDragEnd}
       onDrag={handleDrag}
       >
