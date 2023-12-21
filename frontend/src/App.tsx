@@ -318,7 +318,7 @@ function FixedBottomNavigation() {
 //const FoodSwipeToolbar = () => <p>FoodSwipeToolbar</p>
 
 //placeholders for main components
-const HomePage = () => <p>Homepage</p>
+//const HomePage = () => <p>Homepage</p>
 const LoginPage = () => <p>Login</p>
 const Matches = () => <p>Matches</p>
 const Profile = () => <p>Profile</p>

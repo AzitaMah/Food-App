@@ -11,6 +11,8 @@ interface FoodCardProps {
 }
 
 
+ const [triggering, setTriggering] = useState(false);
+ const [opening, setOpening] = useState(null);
 
 
 //handled when user drags left or right
@@ -18,6 +20,7 @@ const FoodCard: React.FC<FoodCardProps> = ({ id, name, description, imageUrl, on
   
   const [dragging, setDragging] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  
 
   const handleDragStart = () => {
     setDragging(true);
@@ -52,8 +55,11 @@ const FoodCard: React.FC<FoodCardProps> = ({ id, name, description, imageUrl, on
       onDragEnd={handleDragEnd}
       onDrag={handleDrag}
     >
-      <img src={imageUrl} alt={name} style={{ width: '100%', height: '80%', objectFit: 'cover' }} />
+
+      <img src={imageUrl}></img>
+       <img src={imageUrl} alt={name} style={{ width: '100%', height: '80%', objectFit: 'cover' }} />
       <div style={{ padding: '10px' }}>
+
         <h3>{name}</h3>
         <p>{description}</p>
       </div>

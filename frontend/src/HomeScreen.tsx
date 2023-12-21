@@ -49,4 +49,4 @@ const FoodScreen: React.FC = () => {
 }
 
 
-export default HomeScreen;
+export default FoodScreen;
