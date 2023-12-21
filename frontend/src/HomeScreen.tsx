@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import React, { useState } from 'react';
-import FoodCard from './ProfileCard';
+import FoodCard from './FoodCard';
 
 
 
@@ -21,12 +20,12 @@ const FoodScreen: React.FC = () => {
 
   const [foods, setFoods] = useState(initialFoods);
 
+
+
   const handleSwipe = (id: number, direction: 'left' | 'right') => {
-    // Handle swipe action (e.g., remove food from the list, update preferences, etc.)
-    // This is a placeholder, and you would typically update the state or make API calls.
+    // Handle swipe action remove food from the list, update preferences, etc.
     console.log(`Swiped ${direction} on food with ID ${id}`);
   };
-
 
 
   return (

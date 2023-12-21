@@ -2,12 +2,18 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
 import HomeScreen from './HomeScreen';
+import FoodCard from './FoodCard';
+
+
+
 import {
     BottomNavigation,
     BottomNavigationAction,
     Box,
     CssBaseline,
     Paper,
+
+    
 } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SwipeIcon from '@mui/icons-material/Swipe';
@@ -25,7 +31,7 @@ function FixedBottomNavigation() {
             <CssBaseline/>
             <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
                 <div>
-                </HomeScreen>
+                {/* </HomeScreen> */}
                 </div>
                 <BottomNavigation
                     showLabels
