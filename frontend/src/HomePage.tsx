@@ -9,7 +9,7 @@ const HomeScreen: React.FC = () => {
 
   ];
 
-  
+
   const [profiles, setProfiles] = useState(initialProfiles);
 
   const handleSwipe = (id: number, direction: 'left' | 'right') => {
@@ -21,23 +21,23 @@ const HomeScreen: React.FC = () => {
     <div>
       <h1>Dating Food App</h1>
       <div>
-        
-   
-      {profiles.map(profile => (
-          
-          
+
+
+        {profiles.map(profile => (
+
+
           <ProfileCard
-           
+
             key={profile.id}
             id={profile.id}
             name={profile.name}
             age={profile.age}
             imageUrl={profile.imageUrl}
             onSwipe={handleSwipe}
-          /> 
+          />
 
-          
-        ))} 
+
+        ))}
       </div>
     </div>
   );
