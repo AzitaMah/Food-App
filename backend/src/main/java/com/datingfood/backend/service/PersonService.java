@@ -24,15 +24,15 @@ public class PersonService {
     }
 
     /**
-     * @param userName of questioned Person
+     * @param username of questioned Person
      * @param password of questioned Person
      * @return If the given person is correspondent to the person-userName in database the right or wrong input of the Password will be returned
      * @throws PersonNotFoundException when given Person has no matching Person id in the db
      */
-    public String authenticatePerson(final String userName, final String password) throws PersonNotFoundException {
+    public String authenticatePerson(final String username, final String password) throws PersonNotFoundException {
         final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(); //makes hashed password
 
-        final Optional<Person> opPerson = personRepository.findByUserName(userName);
+        final Optional<Person> opPerson = personRepository.findByUsername(username);
         if (opPerson.isPresent()) { //check if person is in dB
             final Person dbPerson = opPerson.get(); // get actual person in dB
             if (bcrypt.matches(
@@ -60,8 +60,8 @@ public class PersonService {
         }
     }
 
-    public Optional<Person> findByUserName(final String userName) {
-        return personRepository.findByUserName(userName);
+    public Optional<Person> findByUsername(final String username) {
+        return personRepository.findByUsername(username);
     }
 
 }

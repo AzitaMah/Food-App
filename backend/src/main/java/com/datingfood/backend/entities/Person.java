@@ -13,7 +13,6 @@ import java.time.LocalDate;
 
 public class Person {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -40,13 +39,13 @@ public class Person {
     private String password;
 
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String username;
 
     public Person() {
     }
 
-    public Person(final String userName, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password) {
-        this.userName = userName;
+    public Person(final String username, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contact = contact;
@@ -59,8 +58,8 @@ public class Person {
         this.id = id;
     }
 
-    public void setUserName(final String uId) {
-        this.userName = uId;
+    public void setUsername(final String username) {
+        this.username = username;
     }
 
     public void setFirstName(final String firstName) {

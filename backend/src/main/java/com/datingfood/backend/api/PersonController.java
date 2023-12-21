@@ -25,7 +25,7 @@ public class PersonController {
 
     @GetMapping("/person/{username}")
     Optional<Person> getByUserName(@PathVariable final String username) {
-        return personService.findByUserName(username);
+        return personService.findByUsername(username);
     }
 
     @PostMapping(value = "/person/registration", consumes = "application/json")
