@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.datingfood.backend.entities.Person;
-import com.datingfood.backend.entities.Role;
 import com.datingfood.backend.exception.PersonNotFoundException;
 import com.datingfood.backend.repositories.PersonRepository;
 
@@ -24,9 +23,9 @@ public class PersonService {
     }
 
     /**
-     * @param username of questioned Person
-     * @param password of questioned Person
-     * @return If the given person is correspondent to the person-userName in database the right or wrong input of the Password will be returned
+     * @param username username of the user
+     * @param password password of the user
+     * @return returns a response whether the username and the password matched
      * @throws PersonNotFoundException when given Person has no matching Person id in the db
      */
     public String authenticatePerson(final String username, final String password) throws PersonNotFoundException {
@@ -51,7 +50,6 @@ public class PersonService {
         final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder(); //makes hashed password
         final String encryptedPwd = bcrypt.encode(person.getPassword()); //hashed password
         person.setPassword(encryptedPwd); //set hashed pwd before saving person into the db
-        person.setRole(Role.USR);
         try {
             return personRepository.save(person);
         }catch(final DataIntegrityViolationException exception){

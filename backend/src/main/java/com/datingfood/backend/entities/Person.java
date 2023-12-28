@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -27,15 +29,16 @@ public class Person {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @Column(nullable = false)
-    @JsonIgnore
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles = new ArrayList<>();
 
     @Column(nullable = false)
     private String contact;
 
     @Column(nullable = false)
-    //@JsonIgnore
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false, unique = true)
@@ -78,9 +81,6 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public void setRole(final Role role) {
-        this.role = role;
-    }
 
     public void setPassword(final String password) {
         this.password = password;
