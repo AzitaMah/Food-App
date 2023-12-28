@@ -5,7 +5,6 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -32,18 +31,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
+        //TODO does not work yet
         http
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(antMatcher(HttpMethod.GET, "/user/**"))
-                        .hasRole("USER")
-                        .requestMatchers(antMatcher("/user/**"))
-                        .hasRole("USER")
-                        .requestMatchers(antMatcher(HttpMethod.POST, "/user/**"))
-                        .hasRole("ADMIN")
-                        .anyRequest()
-                        .authenticated())
-                .httpBasic(Customizer.withDefaults());
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .anyRequest().authenticated());
+                //.httpBasic(Customizer.withDefaults())
+                //.formLogin(Customizer.withDefaults());
 
         return http.build();
     }
