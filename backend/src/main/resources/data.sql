@@ -27,6 +27,11 @@ INSERT INTO food (id,name) VALUES (18,'Caesar Salad');
 INSERT INTO food (id,name) VALUES (19,'Hamburger');
 INSERT INTO food (id,name) VALUES (20,'Pad Thai');
 
+-- roles --
+INSERT INTO roles (id,name) VALUES (1,'ADMIN');
+INSERT INTO roles (id,name) VALUES (2,'USER');
+
+
 
 
 

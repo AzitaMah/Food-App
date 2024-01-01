@@ -43,7 +43,7 @@ public class AuthController {
             return new ResponseEntity<>("This username is taken.", HttpStatus.BAD_REQUEST);
         }
 
-        Person person = new Person();
+        final Person person = new Person();
         person.setUsername(registerDto.getUsername());
         person.setPassword(passwordEncoder.encode((registerDto.getPassword())));
         person.setFirstName(registerDto.getFirstName());
