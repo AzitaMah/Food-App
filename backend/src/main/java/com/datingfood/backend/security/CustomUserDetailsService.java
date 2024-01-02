@@ -27,13 +27,24 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.personRepository = personRepository;
     }
 
+    /***
+     * Loads user details from the database based on the provided username.
+     * @param username the username for which user details are to be loaded
+     * @return the User Information retrieved from the database
+     * @throws UsernameNotFoundException if the provided username is not found in the database
+     */
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         final Person person = personRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         return new User(person.getUsername(), person.getPassword(), mapRolesToAuthorities(person.getRoles()));
     }
 
+    /**
+     * Maps roles to GrantedAuthority objects for user authorization.
+     * @param roles the list of roles to be mapped
+     * @return a collection of GrantedAuthority objects representing the user's roles
+     */
     private Collection<GrantedAuthority> mapRolesToAuthorities(final List<Role> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList()); // pass on each role and tun into a list
     }
 }
