@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +25,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -41,30 +44,43 @@ public class SecurityConfig {
     }
 
 
+
+
     /**
-     * Configures and returns the Spring Security Filter Chain for handling security in the application.
-     * @param http the HttpSecurity object to configure security settings
-     * @return the needed Spring Security Filter Chain for the current request
+     * Configures the security filter chain for the application.
+     *
+     * @param httpSecurity the HttpSecurity object to configure security settings
+     * @return the configured Spring Security Filter Chain
      * @throws Exception if an error occurs during configuration
      */
     @Bean
-    public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
-        //TODO check necessary URLs
-        http
-                .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint)
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+    public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) throws Exception {
+        // Shared security configuration for all endpoints
+        sharedSecurityConfiguration(httpSecurity);
+        httpSecurity
+                .securityMatcher("/api/auth/**")
                 .authorizeRequests(authz -> authz
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated())
-                 .httpBasic();
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-        return http.build();
+                .requestMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        return httpSecurity.build();
     }
+
+    /**
+     * Configures shared security settings for all endpoints.
+     *
+     * @param httpSecurity the HttpSecurity object to configure security settings
+     * @throws Exception if an error occurs during configuration
+     */
+    private void sharedSecurityConfiguration (HttpSecurity httpSecurity) throws Exception{
+        httpSecurity
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> {
+                    httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                });
+    }
+
 
     @Bean
     public AuthenticationManager authenticationManager(final AuthenticationConfiguration authenticationConfiguration)
