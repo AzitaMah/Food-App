@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
-import HomeScreen from './HomePage';
+import HomeScreen from './HomeScreen';
 import FoodCard from './FoodCard';
-
+import ProfileScreen from './Profile';
 
 
 import {
@@ -291,7 +291,7 @@ function FixedBottomNavigation() {
 
         <Box sx={{ pb: 7 }} ref={ref}>
             <div>
-                <HomePage />
+               {/* <HomeScreen /> */}
             </div>
             <CssBaseline />
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
@@ -321,7 +321,7 @@ function FixedBottomNavigation() {
 //const HomePage = () => <p>Homepage</p>
 const LoginPage = () => <p>Login</p>
 const Matches = () => <p>Matches</p>
-const Profile = () => <p>Profile</p>
+// const Profile = () => <p>Profile</p>
 const FoodSwipe = () => <p>FoodSwipe</p>
 const Registrieren = () => <p>Registrieren</p>
 
@@ -348,10 +348,10 @@ const App: React.FC = () => {
             </aside>
             <main>
                 <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route path="/" element={<HomeScreen />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/matches" element={<Matches />} />
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile" element={<ProfileScreen />} />
                     <Route path="/foodswipe" element={<FoodSwipe />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="registrieren" element={<Registrieren />} />
