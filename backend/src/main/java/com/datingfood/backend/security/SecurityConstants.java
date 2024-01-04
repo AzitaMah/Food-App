@@ -1,6 +1,6 @@
 package com.datingfood.backend.security;
 
 public class SecurityConstants {
-    public static final long JWT_EXPIRATION = 70000;
-    public static final String JWT_SECRET = "S3cret";
+    public static final long JWT_EXPIRATION = 10 * 60 * 1000;
+
 }

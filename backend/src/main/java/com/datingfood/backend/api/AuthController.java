@@ -2,7 +2,6 @@ package com.datingfood.backend.api;
 
 import java.util.Collections;
 
-
 import com.datingfood.backend.dto.AuthResponseDTO;
 import com.datingfood.backend.dto.LoginDto;
 import com.datingfood.backend.security.JwtGenerator;
