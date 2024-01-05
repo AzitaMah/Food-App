@@ -7,12 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datingfood.backend.logging.LoggingController;
 import com.datingfood.backend.repositories.FoodRepository;
 
 @RestController
+@RequestMapping("/api")
 public class FoodController {
 
     private final Logger logger = LoggerFactory.getLogger(LoggingController.class);
@@ -23,7 +25,7 @@ public class FoodController {
         this.foodRepository = foodRepository;
     }
 
-    @GetMapping("/food")
+    @GetMapping("food")
     public ResponseEntity<List<String>> getRandomFood() {
         final List<String> foodSelection = foodRepository.findFiveRandomFood();
 

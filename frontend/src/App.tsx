@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
-import HomeScreen from './HomePage';
+import HomeScreen from './HomeScreen';
 import FoodCard from './FoodCard';
 
 
@@ -186,24 +186,31 @@ function RegistrierenToolbar() {
 
 //register textfields
 function RegistrierenTextfields() {
+    const handleRegister = () => {
+        // logic behind this function
+        console.log('Registrierung abgeschlossen!');
+    };
+
     return (
-        <Box sx={{ '& > :not(style)': { m: 1 } }}>
-            <TextField
-                id="input-username"
-                label="Username"
-                variant="standard"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <AccountCircle />
-                        </InputAdornment>
-                    ),
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '75vh',
+            }}
+        >
+            <Box
+                sx={{
+                    width: '75%', 
+                    marginLeft: 'auto', 
+                    marginRight: 'auto', 
                 }}
-            />
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            >
                 <TextField
-                    id="input-firstname"
-                    label="First Name"
+                    id="input-username"
+                    label="Username"
                     variant="standard"
                     InputProps={{
                         startAdornment: (
@@ -213,20 +220,41 @@ function RegistrierenTextfields() {
                         ),
                     }}
                 />
-                <TextField
-                    id="input-lastname"
-                    label="Last Name"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        marginTop: 1,
                     }}
-                />
-            </Box>
-            <Box sx={{ display: 'flex', gap: 1 }}>
+                >
+                    <TextField
+                        id="input-firstname"
+                        label="First Name"
+                        variant="standard"
+                        sx={{ width: '48%' }} // 48% der Breite für den Vornamen
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircle />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <TextField
+                        id="input-lastname"
+                        label="Last Name"
+                        variant="standard"
+                        sx={{ width: '48%' }} // 48% der Breite für den Nachnamen
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <AccountCircle />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                </Box>
                 <TextField
                     id="input-contact"
                     label="Contact"
@@ -251,20 +279,24 @@ function RegistrierenTextfields() {
                         ),
                     }}
                 />
+                <TextField
+                    id="input-password"
+                    label="Password"
+                    type="password"
+                    variant="standard"
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <AccountCircle />
+                            </InputAdornment>
+                        ),
+                    }}
+                    sx={{ marginTop: 1 }}
+                />
+                <Button variant="contained" onClick={handleRegister} sx={{ marginTop: 2 }}>
+                    Register
+                </Button>
             </Box>
-            <TextField
-                id="input-password"
-                label="Password"
-                type="password"
-                variant="standard"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <AccountCircle />
-                        </InputAdornment>
-                    ),
-                }}
-            />
         </Box>
     );
 }
@@ -291,7 +323,7 @@ function FixedBottomNavigation() {
 
         <Box sx={{ pb: 7 }} ref={ref}>
             <div>
-                <HomePage />
+                <HomeScreen />
             </div>
             <CssBaseline />
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
@@ -323,7 +355,6 @@ const LoginPage = () => <p>Login</p>
 const Matches = () => <p>Matches</p>
 const Profile = () => <p>Profile</p>
 const FoodSwipe = () => <p>FoodSwipe</p>
-const Registrieren = () => <p>Registrieren</p>
 
 const NotFoundPage = () => <p>404</p>
 
@@ -342,19 +373,18 @@ const App: React.FC = () => {
                     <Route path="/matches" element={<MatchesToolbar />} />
                     <Route path="/profile" element={<ProfileToolbar />} />
                     <Route path="/foodswipe" element={<SwipeToolbar />} />
-                    <Route path="/registrieren" element={<RegistrierenPage />} />
                 </Routes>
 
             </aside>
             <main>
                 <Routes>
-                    <Route path="/" element={<HomePage />} />
+                    <Route path="/" element={<HomeScreen />} />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/matches" element={<Matches />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/foodswipe" element={<FoodSwipe />} />
                     <Route path="*" element={<NotFoundPage />} />
-                    <Route path="registrieren" element={<Registrieren />} />
+                    <Route path="/registrieren" element={<RegistrierenPage />} />
                 </Routes>
                 <FixedBottomNavigation></FixedBottomNavigation>
             </main>
