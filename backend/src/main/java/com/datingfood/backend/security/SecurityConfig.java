@@ -45,8 +45,9 @@ public class SecurityConfig {
                 .securityMatcher("/api/**")
                 .authorizeRequests(authz -> authz
                         .requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated())
-                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        .anyRequest().authenticated());
+        httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
@@ -81,15 +82,6 @@ public class SecurityConfig {
     public JWTAuthenticationFilter jwtAuthenticationFilter() {
         return new JWTAuthenticationFilter();
     }
-    //@Bean
-    //CorsConfigurationSource corsConfigurationSource() {
-    //    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    //    final CorsConfiguration corsConfiguration = new CorsConfiguration();
-    //    corsConfiguration.setAllowedMethods(List.of("GET", "HEAD", "PUT", "DELETE", "POST"));
-    //    corsConfiguration.applyPermitDefaultValues();
-    //    source.registerCorsConfiguration("/**", corsConfiguration);
-    //    return source;
-    //}
 
 }
 
