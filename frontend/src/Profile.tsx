@@ -74,26 +74,30 @@ const ProfileScreen: React.FC = () => {
         {/* sx={{ border: "1px solid black" }} */}
         <Stack
           direction={{ xs: 'column', md: 'row' }}
-          spacing={{ xs: 1, md: 2 }}
+          spacing={{ xs: 2, md: 4 }}
           
           divider={<Divider orientation={useMediaQuery(theme.breakpoints.down("md")) ? "horizontal" : "vertical"} flexItem />}
+          sx={{ "& > div": { maxWidth: "500px", flex: "1 1 auto" } }}
         >
-          <Stack direction="column" sx={{ width: "100%" }}>
+          
+            <Paper elevation={3} sx={{ padding: "15px", borderRadius: "20px" }}>
+              <Stack direction="column" gap={"5px"}>
+                <img 
+                  src={foodSwipe} 
+                  className="profile-image"
+                  
+                />
 
-            <img 
-              src={foodSwipe} 
-              className="profile-image"
-            
-            />
+                <Stack direction="row" justifyContent="space-between">
+                  <Typography variant="h5">{mockPerson.firstName} {mockPerson.lastName}</Typography>
+                  <Typography variant="h5">{mockPerson.food.name}</Typography>
+                </Stack>
+                <Typography variant="body1">{mockPerson.birthDate}</Typography>
+                <Typography variant="body1">{mockPerson.contact}</Typography>
+              </Stack>
+            </Paper>
+          
 
-            <Stack direction="row" justifyContent="space-between">
-              <Typography variant="h5">{mockPerson.firstName} {mockPerson.lastName}</Typography>
-              <Typography variant="h5">{mockPerson.food.name}</Typography>
-            </Stack>
-            <Typography variant="body1">{mockPerson.birthDate}</Typography>
-            <Typography variant="body1">{mockPerson.contact}</Typography>
-
-          </Stack>
 
           <Stack direction="column" gap="20px">
             
