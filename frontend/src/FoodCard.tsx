@@ -11,8 +11,8 @@ interface FoodCardProps {
 }
 
 
- /*const [triggering, setTriggering] = useState(false); 
- const [opening, setOpening] = useState(null); */
+ //const [triggering, setTriggering] = useState(false);
+ //const [opening, setOpening] = useState(null);
 
 
 //handled when user drags left or right

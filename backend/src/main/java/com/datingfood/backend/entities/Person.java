@@ -1,16 +1,21 @@
 package com.datingfood.backend.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
+@Setter
 @Entity
 
 public class Person {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,38 +31,40 @@ public class Person {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @Column(nullable = false)
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles = new ArrayList<>();
 
     @Column(nullable = false)
     private String contact;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String username;
 
     public Person() {
     }
 
-    public Person(final String userName, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final Role role, final String password) {
-        this.userName = userName;
+    public Person(final String username, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password) {
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contact = contact;
         this.birthDate = birthDate;
-        this.role = role;
         this.password = password;
-
     }
+
 
     public void setId(final Long id) {
         this.id = id;
     }
 
-    public void setUserName(final String uId) {
-        this.userName = uId;
+    public void setUsername(final String username) {
+        this.username = username;
     }
 
     public void setFirstName(final String firstName) {
@@ -76,9 +83,6 @@ public class Person {
         this.birthDate = birthDate;
     }
 
-    public void setRole(final Role role) {
-        this.role = role;
-    }
 
     public void setPassword(final String password) {
         this.password = password;

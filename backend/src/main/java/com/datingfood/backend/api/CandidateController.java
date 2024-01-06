@@ -1,13 +1,17 @@
 package com.datingfood.backend.api;
 
-import com.datingfood.backend.entities.Candidate;
-import com.datingfood.backend.repositories.CandidateRepository;
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.datingfood.backend.entities.Candidate;
+import com.datingfood.backend.repositories.CandidateRepository;
 
 @RestController
+@RequestMapping("/api")
 public class CandidateController {
 
     private final CandidateRepository candidateRepository;
@@ -16,16 +20,12 @@ public class CandidateController {
         this.candidateRepository = candidateRepository;
     }
 
-    @GetMapping("/candidate")
-    List<Candidate> all() {
-        return candidateRepository.findAll();
-    }
-
-    //@GetMapping("/candidate/{id}")
+    //@GetMapping("/candidate/{foodId}")
     //// parameter userId and foodId returning all users with the same food id -> matches
-    //public Optional<Candidate> getById(@RequestParam(value="userId") Long id){
-    //    return candidateRepository.findById(id);
+    //public Optional<Candidate> getById(@PathVariable final Long foodId) {
+    //    return candidateRepository.findAll;
     //}
-    //@PostMapping("/candidate")
-    //// parameter userId and foodId
+
+    // parameter userId and foodId
+
 }
