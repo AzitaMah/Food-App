@@ -53,15 +53,17 @@ public class PersonController {
         }
     }
 
-    @GetMapping("person/foodchoice/{foodId}")
-    ResponseEntity<List<UsernameDto>> getUsersByFoodId(@PathVariable int foodId) {
+    @GetMapping("person/foodchoice/{username}/{foodId}")
+    ResponseEntity<List<UsernameDto>> getUsersByFoodId(@PathVariable String username, @PathVariable int foodId) {
 
         List<Person> personList = personRepository.findAllByFood_Id(foodId);
 
         if (!personList.isEmpty()) {
             List<UsernameDto> usernameDtos = personList
                     .stream()
-                    .map(person -> new UsernameDto(person.getUsername()))
+                    .map(person ->
+                            new UsernameDto(person.getUsername()))
+                    .filter(person -> !person.getUsername().equals(username))
                     .toList();
 
             return ResponseEntity.ok(usernameDtos);
