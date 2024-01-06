@@ -52,3 +52,63 @@
 "contact": "+12333333"
 }
 ```
+```json
+{
+"firstname": "Liam",
+"lastname": "Taylor",
+"username": "liamt",
+"password": "12345",
+"birthdate": "1999-11-08",
+"contact": "+1888777666"
+}
+```
+```json
+{
+"firstname": "Noah",
+"lastname": "Clark",
+"username": "noahc",
+"password": "noahPass",
+"birthdate": "1997-05-12",
+"contact": "+1777666555"
+}
+```
+```json
+{
+"firstname": "Olivia",
+"lastname": "Martin",
+"username": "oliviam_22",
+"password": "simple456",
+"birthdate": "2001-02-28",
+"contact": "+1999888777"
+}
+```
+```json
+{
+"firstname": "Sophia",
+"lastname": "Miller",
+"username": "sophiam",
+"password": "easyPwd789",
+"birthdate": "1996-08-17",
+"contact": "+1666777888"
+}
+```
+```json
+{
+"firstname": "Ava",
+"lastname": "Baker",
+"username": "avab",
+"password": "bakerPwd",
+"birthdate": "1997-12-12",
+"contact": "+1999333444"
+}
+```
+```json
+{
+"firstname": "Lucas",
+"lastname": "Fisher",
+"username": "lucasf",
+"password": "fisherPass",
+"birthdate": "1996-02-10",
+"contact": "+1555666777"
+}
+```

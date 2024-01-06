@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,7 +19,8 @@ import java.util.List;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
+    @SequenceGenerator(name = "person_seq", sequenceName = "person_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)
@@ -34,6 +36,7 @@ public class Person {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
 
     @Column(nullable = false)
@@ -45,6 +48,10 @@ public class Person {
 
     @Column(nullable = false, unique = true)
     private String username;
+
+    @ManyToOne
+    @JoinColumn(name = "food_id")
+    private Food food;
 
     public Person() {
     }
