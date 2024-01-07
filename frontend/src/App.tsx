@@ -26,6 +26,7 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputAdornment from '@mui/material/InputAdornment';
+import Registration from "./components/Registration/Registration";
 
 
 
@@ -184,132 +185,6 @@ function RegistrierenToolbar() {
     )
 }
 
-//register textfields
-function RegistrierenTextfields() {
-    const handleRegister = () => {
-        // logic behind this function
-        console.log('Registrierung abgeschlossen!');
-    };
-
-    return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '75vh',
-            }}
-        >
-            <Box
-                sx={{
-                    width: '75%', 
-                    marginLeft: 'auto', 
-                    marginRight: 'auto', 
-                }}
-            >
-                <TextField
-                    id="input-username"
-                    label="Username"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginTop: 1,
-                    }}
-                >
-                    <TextField
-                        id="input-firstname"
-                        label="First Name"
-                        variant="standard"
-                        sx={{ width: '48%' }} // 48% der Breite für den Vornamen
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircle />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <TextField
-                        id="input-lastname"
-                        label="Last Name"
-                        variant="standard"
-                        sx={{ width: '48%' }} // 48% der Breite für den Nachnamen
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircle />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Box>
-                <TextField
-                    id="input-contact"
-                    label="Contact"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <TextField
-                    id="input-birthdate"
-                    label="Birthdate"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <TextField
-                    id="input-password"
-                    label="Password"
-                    type="password"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                    sx={{ marginTop: 1 }}
-                />
-                <Button variant="contained" onClick={handleRegister} sx={{ marginTop: 2 }}>
-                    Register
-                </Button>
-            </Box>
-        </Box>
-    );
-}
-
-//Function for both register
-function RegistrierenPage() {
-    return (
-        <div>
-            <RegistrierenToolbar />
-            <RegistrierenTextfields />
-        </div>
-    );
-}
 
 //Fixed Tabbar which is always displayed
 function FixedBottomNavigation() {
@@ -323,7 +198,6 @@ function FixedBottomNavigation() {
 
         <Box sx={{ pb: 7 }} ref={ref}>
             <div>
-                <HomeScreen />
             </div>
             <CssBaseline />
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
@@ -373,6 +247,7 @@ const App: React.FC = () => {
                     <Route path="/matches" element={<MatchesToolbar />} />
                     <Route path="/profile" element={<ProfileToolbar />} />
                     <Route path="/foodswipe" element={<SwipeToolbar />} />
+                    <Route path="/registrieren" element={<RegistrierenToolbar />} />
                 </Routes>
 
             </aside>
@@ -384,7 +259,7 @@ const App: React.FC = () => {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/foodswipe" element={<FoodSwipe />} />
                     <Route path="*" element={<NotFoundPage />} />
-                    <Route path="/registrieren" element={<RegistrierenPage />} />
+                    <Route path="/registrieren" element={<Registration />} />
                 </Routes>
                 <FixedBottomNavigation></FixedBottomNavigation>
             </main>
