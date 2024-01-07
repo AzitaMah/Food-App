@@ -1,132 +1,102 @@
-import React, { FC } from 'react';
-import styles from './Registration.module.css';
-import {Box, Button} from "@mui/material";
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import {Button, Container, Typography, Grid, TextField} from "@mui/material";
+import {useState} from "react";
 
-interface RegistrationProps {}
+const Registration: React.FC = () => {
+    // Zustand für die Formulardaten
+    const [formData, setFormData] = useState({
+        username: '',
+        firstName: '',
+        lastName: '',
+        birthdate: '',
+        contactInfo: '',
+        password: '',
+    });
 
-function RegistrationTextfields() {
-    const handleRegister = () => {
-        // logic behind this function
-        console.log('Registrierung abgeschlossen!');
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        // Hier kannst du die Formulardaten verwenden (formData)
+        console.log(formData);
+        // Handle registration logic
+    };
+
+    // Funktion zum Aktualisieren des Zustands bei Eingabeänderungen
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '75vh',
-            }}
-        >
-            <Box
-                sx={{
-                    width: '75%',
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                }}
-            >
-                <TextField
-                    id="input-username"
-                    label="Username"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginTop: 1,
-                    }}
-                >
-                    <TextField
-                        id="input-firstname"
-                        label="First Name"
-                        variant="standard"
-                        sx={{ width: '48%' }} // 48% der Breite für den Vornamen
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircle />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                    <TextField
-                        id="input-lastname"
-                        label="Last Name"
-                        variant="standard"
-                        sx={{ width: '48%' }} // 48% der Breite für den Nachnamen
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment position="start">
-                                    <AccountCircle />
-                                </InputAdornment>
-                            ),
-                        }}
-                    />
-                </Box>
-                <TextField
-                    id="input-contact"
-                    label="Contact"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <TextField
-                    id="input-birthdate"
-                    label="Birthdate"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <TextField
-                    id="input-password"
-                    label="Password"
-                    type="password"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                    sx={{ marginTop: 1 }}
-                />
-                <Button variant="contained" onClick={handleRegister} sx={{ marginTop: 2 }}>
-                    Register
-                </Button>
-            </Box>
-        </Box>
+        <Container>
+            <form onSubmit={handleSubmit}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            label="Username"
+                            variant="outlined"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            required
+                            fullWidth
+                            label="First Name"
+                            variant="outlined"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            required
+                            fullWidth
+                            label="Last Name"
+                            variant="outlined"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        {/* Implement DatePicker component here */}
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            label="Contact Information"
+                            variant="outlined"
+                            name="contactInfo"
+                            value={formData.contactInfo}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            label="Password"
+                            type="password"
+                            variant="outlined"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button type="submit" variant="contained" color="primary">
+                            Register
+                        </Button>
+                    </Grid>
+                </Grid>
+            </form>
+        </Container>
     );
-}
-
-const Registration: FC<RegistrationProps> = () => (
-  <div className={styles.Registration} data-testid="Registration">
-    <RegistrationTextfields/>
-  </div>
-);
+};
 
 export default Registration;
