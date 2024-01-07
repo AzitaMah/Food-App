@@ -24,8 +24,8 @@ public class PersonServiceTest {
         PersonRepository personRepository = mock(PersonRepository.class);
         FoodRepository foodRepository = mock(FoodRepository.class);
         PersonService personService = new PersonService(personRepository, foodRepository);
-        String username = "test.user";
-        Optional<Person> optionalPerson = Optional.of(new Person("test.user","Tina","Smith", "+4912345678", LocalDate.of(2002,1,1), "password",null));
+        String username = "tina.smith";
+        Optional<Person> optionalPerson = Optional.of(new Person("tina.smith","Tina","Smith", "+4912345678", LocalDate.of(2002,1,1), "password",null));
 
         when(personRepository.findByUsername(username)).thenReturn(optionalPerson);
 
@@ -42,7 +42,7 @@ public class PersonServiceTest {
         PersonRepository personRepository = mock(PersonRepository.class);
         FoodRepository foodRepository = mock(FoodRepository.class);
         PersonService personService = new PersonService(personRepository, foodRepository);
-        String username = "user.not.existing";
+        String username = "person.not.existing";
         Optional<Person> optionalPerson = Optional.empty();
 
         when(personRepository.findByUsername(username)).thenReturn(optionalPerson);
