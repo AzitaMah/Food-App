@@ -1,81 +1,64 @@
 package com.datingfood.backend.api;
 
-import com.datingfood.backend.dto.FoodRequestDto;
-import com.datingfood.backend.dto.UsernameDto;
-import com.datingfood.backend.entities.Food;
+import com.datingfood.backend.dto.FoodRequestDTO;
+import com.datingfood.backend.dto.UsernameDTO;
 import com.datingfood.backend.entities.Person;
-import com.datingfood.backend.repositories.FoodRepository;
-import com.datingfood.backend.repositories.PersonRepository;
+import com.datingfood.backend.services.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api")
 public class PersonController {
 
-    private final PersonRepository personRepository;
-    private final FoodRepository foodRepository;
+    private final PersonService personService;
 
-    PersonController(PersonRepository personRepository, FoodRepository foodRepository) {
-        this.personRepository = personRepository;
-        this.foodRepository = foodRepository;
+    @Autowired
+    public PersonController(PersonService personService) {
+        this.personService = personService;
     }
 
     @GetMapping("person/{username}")
     ResponseEntity<Person> getByUsername(@PathVariable final String username) {
-        Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        if (optionalPerson.isPresent()) {
-            Person person = optionalPerson.get();
+        try {
+            Person person = personService.getPersonByUsername(username);
 
             return ResponseEntity.ok(person);
+        } catch (UsernameNotFoundException exception) {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("person/{username}")
-    ResponseEntity<String> setFoodChoice(@PathVariable String username, @RequestBody FoodRequestDto foodRequestDto) {
-        Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        Optional<Food> optionalFood = foodRepository.findFoodById(foodRequestDto.getFoodId());
-
-        if (optionalPerson.isPresent() && optionalFood.isPresent()) {
-            Person person = optionalPerson.get();
-            Food food = optionalFood.get();
-
-            person.setFood(food);
-            personRepository.save(person);
+    @PutMapping("person/{username}")
+    ResponseEntity<String> updateFoodChoice(@PathVariable String username, @RequestBody FoodRequestDTO foodRequestDto) {
+        int foodId = foodRequestDto.getFoodId();
+        try{
+            personService.setFoodChoiceForPerson(username,foodId);
 
             return ResponseEntity.ok("The food choice was saved successfully for: " + username);
-        } else {
+        } catch(NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping("person/foodchoice/{username}/{foodId}")
-    ResponseEntity<List<UsernameDto>> getUsersByFoodId(@PathVariable String username, @PathVariable int foodId) {
+    ResponseEntity<List<UsernameDTO>> getUsersByFoodId(@PathVariable String username, @PathVariable int foodId) {
 
-        List<Person> personList = personRepository.findAllByFood_Id(foodId);
-
-        if (!personList.isEmpty()) {
-            List<UsernameDto> usernameDtos = personList
-                    .stream()
-                    .map(person ->
-                            new UsernameDto(person.getUsername()))
-                    .filter(person -> !person.getUsername().equals(username))
-                    .toList();
-
-            return ResponseEntity.ok(usernameDtos);
-        }
-        return ResponseEntity.notFound().build();
+        List<UsernameDTO> usernameDTOList = personService.getAllUsernamesWithSameFood(username, foodId);
+        // TODO currently no error handling because an empty list is not an error
+        return ResponseEntity.ok(usernameDTOList);
     }
 
     @GetMapping("admin/person")
     ResponseEntity<List<Person>> getAllUser() {
-        List<Person> personList = personRepository.findAll();
+        List<Person> personList = personService.getOverviewForAdmin();
 
-        if(personList.isEmpty()){
+        if (personList.isEmpty()) {
             return ResponseEntity.internalServerError().build();
         }
 

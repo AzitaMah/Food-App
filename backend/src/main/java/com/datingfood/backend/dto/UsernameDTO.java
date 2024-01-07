@@ -3,14 +3,14 @@ package com.datingfood.backend.dto;
 import lombok.Data;
 
 @Data
-public class UsernameDto {
+public class UsernameDTO {
 
     private String username;
 
-    public UsernameDto() {
+    public UsernameDTO() {
     }
 
-    public UsernameDto(String username) {
+    public UsernameDTO(String username) {
         this.username = username;
     }
 

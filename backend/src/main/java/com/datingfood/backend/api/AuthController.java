@@ -3,7 +3,7 @@ package com.datingfood.backend.api;
 import java.util.Collections;
 
 import com.datingfood.backend.dto.AuthResponseDTO;
-import com.datingfood.backend.dto.LoginDto;
+import com.datingfood.backend.dto.LoginDTO;
 import com.datingfood.backend.security.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datingfood.backend.dto.RegisterDto;
+import com.datingfood.backend.dto.RegisterDTO;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.entities.Role;
 import com.datingfood.backend.repositories.PersonRepository;
@@ -45,7 +45,7 @@ public class AuthController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDto loginDto){
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDto){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(),loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -54,7 +54,7 @@ public class AuthController {
     }
 
     @PostMapping("registration")
-    public ResponseEntity<String> register(@RequestBody final RegisterDto registerDto) {
+    public ResponseEntity<String> register(@RequestBody final RegisterDTO registerDto) {
         if(personRepository.existsByUsername(registerDto.getUsername())){
             return new ResponseEntity<>("This username is taken.", HttpStatus.BAD_REQUEST);
         }

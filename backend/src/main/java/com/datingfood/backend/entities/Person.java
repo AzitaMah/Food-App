@@ -56,13 +56,14 @@ public class Person {
     public Person() {
     }
 
-    public Person(final String username, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password) {
+    public Person(final String username, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password, final Food food) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contact = contact;
         this.birthDate = birthDate;
         this.password = password;
+        this.food = food;
     }
 
 

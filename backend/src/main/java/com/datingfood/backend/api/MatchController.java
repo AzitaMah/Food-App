@@ -1,6 +1,6 @@
 package com.datingfood.backend.api;
 
-import com.datingfood.backend.dto.UsernameDto;
+import com.datingfood.backend.dto.UsernameDTO;
 import com.datingfood.backend.entities.Match;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.repositories.PersonRepository;
@@ -25,7 +25,7 @@ public class MatchController {
     }
 
     @PostMapping("/match/{username}")
-    ResponseEntity<String> setMatch(@PathVariable String username, @RequestBody UsernameDto usernameDto) {
+    ResponseEntity<String> setMatch(@PathVariable String username, @RequestBody UsernameDTO usernameDto) {
         Optional<Person> optionalPartner = personRepository.findByUsername(usernameDto.getUsername());
         Optional<Person> optionalPerson = personRepository.findByUsername(username);
 

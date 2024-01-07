@@ -22,9 +22,12 @@ public class Food {
 
     public Food() {
     }
-
     public Food(final String name) {
         this.name = name;
     }
 
+    public Food(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
