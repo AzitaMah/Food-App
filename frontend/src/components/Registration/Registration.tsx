@@ -7,7 +7,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 
 interface RegistrationProps {}
 
-function RegistrierenTextfields() {
+function RegistrationTextfields() {
     const handleRegister = () => {
         // logic behind this function
         console.log('Registrierung abgeschlossen!');
@@ -125,7 +125,7 @@ function RegistrierenTextfields() {
 
 const Registration: FC<RegistrationProps> = () => (
   <div className={styles.Registration} data-testid="Registration">
-    <RegistrierenTextfields/>
+    <RegistrationTextfields/>
   </div>
 );
 

@@ -161,7 +161,7 @@ function SwipeToolbar() {
 }
 
 //Toolbar Register
-function RegistrierenToolbar() {
+function RegistrationToolbar() {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
@@ -247,7 +247,7 @@ const App: React.FC = () => {
                     <Route path="/matches" element={<MatchesToolbar />} />
                     <Route path="/profile" element={<ProfileToolbar />} />
                     <Route path="/foodswipe" element={<SwipeToolbar />} />
-                    <Route path="/registrieren" element={<RegistrierenToolbar />} />
+                    <Route path="/registration" element={<RegistrationToolbar />} />
                 </Routes>
 
             </aside>
@@ -259,7 +259,7 @@ const App: React.FC = () => {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/foodswipe" element={<FoodSwipe />} />
                     <Route path="*" element={<NotFoundPage />} />
-                    <Route path="/registrieren" element={<Registration />} />
+                    <Route path="/registration" element={<Registration />} />
                 </Routes>
                 <FixedBottomNavigation></FixedBottomNavigation>
             </main>
