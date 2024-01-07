@@ -1,10 +1,9 @@
-import {Button, Container, Typography, Grid, TextField} from "@mui/material";
+import {Button, Container, Grid, TextField} from "@mui/material";
 import {useState} from "react";
 import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 
 const Registration: React.FC = () => {
-    // Zustand für die Formulardaten
     const [formData, setFormData] = useState({
         username: '',
         firstName: '',
@@ -14,13 +13,20 @@ const Registration: React.FC = () => {
         password: '',
     });
 
+    /**
+     * sends data to database
+     * @param event
+     */
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         console.log(formData);
-        // Handle registration logic
+        // TODO: Handle registration logic
     };
 
-    // Funktion zum Aktualisieren des Zustands bei Eingabeänderungen
+    /**
+     * handles change on data
+     * @param event
+     */
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -81,6 +87,7 @@ const Registration: React.FC = () => {
                             value={formData.contactInfo}
                             onChange={handleChange}
                         />
+                        {/* TODO: select between number, mail or social media */}
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
