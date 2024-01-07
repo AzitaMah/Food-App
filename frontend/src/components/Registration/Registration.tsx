@@ -1,5 +1,7 @@
 import {Button, Container, Typography, Grid, TextField} from "@mui/material";
 import {useState} from "react";
+import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 
 const Registration: React.FC = () => {
     // Zustand für die Formulardaten
@@ -14,7 +16,6 @@ const Registration: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        // Hier kannst du die Formulardaten verwenden (formData)
         console.log(formData);
         // Handle registration logic
     };
@@ -26,7 +27,7 @@ const Registration: React.FC = () => {
     };
 
     return (
-        <Container>
+        <Container style={{ paddingTop: '20px' }}>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
@@ -63,7 +64,12 @@ const Registration: React.FC = () => {
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        {/* Implement DatePicker component here */}
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                label="Birthdate"
+                                value={formData.birthdate}
+                            />
+                        </LocalizationProvider>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
