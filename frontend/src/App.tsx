@@ -45,7 +45,6 @@ function Topbar() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Dating-Food-App
                     </Typography>
-                    <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
         </Box>
@@ -118,7 +117,6 @@ function SwipeToolbar() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Food-Swipe
                     </Typography>
-                    <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
         </Box>
@@ -198,8 +196,9 @@ const App: React.FC = () => {
                     <Route path="/login" element={ <LoginTopbar/>} />
                     <Route path="/matches" element={<MatchesToolbar />} />
                     <Route path="/profile" element={<ProfileToolbar />} />
-                    <Route path="/foodswipe" element={<SwipeToolbar />} />
+                    <Route path="/foodswipe" element={<SwipeToolbar />} /> {/*we probably don't need that because swipe component is visible for Route: '/' */}
                     <Route path="/registration" element={<RegistrationToolbar />} />
+                    <Route path="*" element={<Topbar />} />
                 </Routes>
 
             </aside>
