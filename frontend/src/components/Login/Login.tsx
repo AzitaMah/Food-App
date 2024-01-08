@@ -1,7 +1,5 @@
 import {Button, Container, Grid, TextField} from "@mui/material";
 import {useState} from "react";
-import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 
 const Login: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -10,13 +8,13 @@ const Login: React.FC = () => {
     });
 
     /**
-     * sends data to database
+     * checks if user is already registered.
      * @param event
      */
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         console.log(formData);
-        // TODO: Handle registration logic
+        // TODO: Handle login logic, check for role as well?
     };
 
     /**

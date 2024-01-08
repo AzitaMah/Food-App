@@ -141,7 +141,7 @@ function RegistrationToolbar() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Registrieren
                     </Typography>
-                    <Button color="inherit">or already a member?</Button>
+                    <Button color="inherit" href="/login">already a member?</Button>
                 </Toolbar>
             </AppBar>
         </Box>
