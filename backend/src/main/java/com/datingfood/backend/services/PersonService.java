@@ -23,6 +23,11 @@ public class PersonService {
         this.foodRepository = foodRepository;
     }
 
+    /**
+     * receive all information from database from client
+     * @param username username of client
+     * @return all data from the client
+     */
     public Person getPersonByUsername(final String username) {
         Optional<Person> optionalPerson = personRepository.findByUsername(username);
         if (optionalPerson.isPresent()) {
@@ -33,7 +38,11 @@ public class PersonService {
         throw new UsernameNotFoundException(username + " does not exist");
     }
 
-
+    /**
+     * updates the food choice in the database
+     * @param username username of client
+     * @param foodId id of food which the client chose
+     */
     public void setFoodChoiceForPerson(final String username, final int foodId) {
         Optional<Person> optionalPerson = personRepository.findByUsername(username);
         Optional<Food> optionalFood = foodRepository.findFoodById(foodId);
@@ -48,6 +57,12 @@ public class PersonService {
         }
     }
 
+    /**
+     * retrieves a List of usernames from the database where the food choice is the same as the clients food choice
+     * @param username username of client
+     * @param foodId id of food which the client chose
+     * @return List with usernames of persons who have the same food choice
+     */
     public List<UsernameDTO> getAllUsernamesWithSameFood(final String username, final int foodId) {
         List<Person> personList = personRepository.findAllByFood_Id(foodId);
 
@@ -61,6 +76,10 @@ public class PersonService {
         return usernameDTOSList;
     }
 
+    /**
+     * method for admin only. retrieves a complete list of all person
+     * @return List of all persons
+     */
     public List<Person> getOverviewForAdmin(){
         List<Person> personList = personRepository.findAllByOrderByIdAsc();
 
