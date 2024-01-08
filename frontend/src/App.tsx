@@ -27,6 +27,7 @@ import Grid from '@mui/material/Grid';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import InputAdornment from '@mui/material/InputAdornment';
 import Registration from "./components/Registration/Registration";
+import Login from "./components/Login/Login";
 
 
 
@@ -68,38 +69,6 @@ function LoginTopbar() {
                 </Typography>
             </Toolbar>
         </AppBar>
-    )
-}
-
-//Loginfield on the loginpage
-function Log() {
-    return (
-        <Grid container justifyContent="center" alignItems="center" height="100vh">
-            <Stack
-                component="form"
-                sx={{
-                    width: '25ch',
-                }}
-                spacing={2}
-                noValidate
-                autoComplete="off"
-            >
-                <TextField
-                    hiddenLabel
-                    id="filled-hidden-label-small"
-                    defaultValue="Username"
-                    variant="filled"
-                    size="small"
-                />
-                <TextField
-                    hiddenLabel
-                    id="filled-hidden-label-normal"
-                    defaultValue="Password"
-                    variant="filled"
-                />
-            </Stack>
-        </Grid>
-
     )
 }
 
@@ -238,12 +207,7 @@ const App: React.FC = () => {
             <aside>
                 <Routes>
                     <Route path="/" element={<Topbar />} />
-                    <Route path="/login" element={
-                        <div>
-                            <LoginTopbar />
-                            <Log />
-                        </div>
-                    } />
+                    <Route path="/login" element={ <LoginTopbar/>} />
                     <Route path="/matches" element={<MatchesToolbar />} />
                     <Route path="/profile" element={<ProfileToolbar />} />
                     <Route path="/foodswipe" element={<SwipeToolbar />} />
@@ -254,7 +218,7 @@ const App: React.FC = () => {
             <main>
                 <Routes>
                     <Route path="/" element={<HomeScreen />} />
-                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/login" element={<Login/>} />
                     <Route path="/matches" element={<Matches />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/foodswipe" element={<FoodSwipe />} />
