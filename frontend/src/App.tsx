@@ -1,9 +1,7 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomeScreen from './HomeScreen';
-import FoodCard from './FoodCard';
-
 
 
 import {
@@ -21,16 +19,14 @@ import {
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SwipeIcon from '@mui/icons-material/Swipe';
 import MenuIcon from '@mui/icons-material/Menu';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import InputAdornment from '@mui/material/InputAdornment';
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
+import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
+import AccessDeniedPage from "./components/AccessDeniedPage/AccessDeniedPage";
 
 
 
+//different toolbars for different screens
 //Toolbar
 function Topbar() {
     return (
@@ -129,7 +125,7 @@ function SwipeToolbar() {
     );
 }
 
-//Toolbar Register
+//Registrationtoolbar
 function RegistrationToolbar() {
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -188,18 +184,10 @@ function FixedBottomNavigation() {
     );
 }
 
-//different toolbars for different screens
-//const Toolbar = () => <p>Toolbar</p>
-//const FoodSwipeToolbar = () => <p>FoodSwipeToolbar</p>
-
 //placeholders for main components
-//const HomePage = () => <p>Homepage</p>
-const LoginPage = () => <p>Login</p>
 const Matches = () => <p>Matches</p>
 const Profile = () => <p>Profile</p>
 const FoodSwipe = () => <p>FoodSwipe</p>
-
-const NotFoundPage = () => <p>404</p>
 
 const App: React.FC = () => {
     return (
@@ -224,6 +212,7 @@ const App: React.FC = () => {
                     <Route path="/foodswipe" element={<FoodSwipe />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/registration" element={<Registration />} />
+                    <Route path="/access-denied" element={<AccessDeniedPage />} />
                 </Routes>
                 <FixedBottomNavigation></FixedBottomNavigation>
             </main>
