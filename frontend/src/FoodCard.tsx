@@ -11,16 +11,22 @@ interface FoodCardProps {
 }
 
 
- const [triggering, setTriggering] = useState(false);
- const [opening, setOpening] = useState(null);
 
+
+/*  const [triggering, setTriggering] = useState(false);
+ const [opening, setOpening] = useState(null); 
+ */
 
 //handled when user drags left or right
+
+
+
 const FoodCard: React.FC<FoodCardProps> = ({ id, name, description, imageUrl, onSwipe }) => {
   
   const [dragging, setDragging] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   
+
 
   const handleDragStart = () => {
     setDragging(true);
@@ -30,6 +36,8 @@ const FoodCard: React.FC<FoodCardProps> = ({ id, name, description, imageUrl, on
     setDragging(false);
   };
 
+
+  
   const handleDrag = (event: React.DragEvent<HTMLDivElement>) => {
     if (cardRef.current && dragging) {
       // calculate the drag distance and determine the swipe direction
