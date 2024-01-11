@@ -4,21 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.Setter;
 
+
+@Setter
 @Getter
 @Entity
-public class Match {
+@Table(name = "roles")
+public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    public Match() {
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
+    private String name;
 }

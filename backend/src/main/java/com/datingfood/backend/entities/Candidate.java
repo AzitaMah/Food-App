@@ -14,11 +14,13 @@ public class Candidate {
     //@Column
     //@OneToOne
     //Person person;
+    @Column
+    private String username;
 
     public Candidate() {
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 

@@ -3,6 +3,8 @@ services:
   db_backend:
     image: postgres:15
     container_name: db_backend
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_PORT: 5432
       POSTGRES_DB: test
