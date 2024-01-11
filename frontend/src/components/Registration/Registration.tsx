@@ -82,12 +82,12 @@ const Registration: React.FC = () => {
                             required
                             fullWidth
                             label="Contact Information"
+                            helperText="If you use your social media you might want to mention the platform."
                             variant="outlined"
                             name="contactInfo"
                             value={formData.contactInfo}
                             onChange={handleChange}
                         />
-                        {/* TODO: select between number, mail or social media */}
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
