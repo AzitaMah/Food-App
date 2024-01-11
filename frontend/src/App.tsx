@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import HomeScreen from './HomeScreen';
+import HomeScreen from './components/HomeScreen';
 
 
 import {
@@ -35,9 +35,9 @@ function FixedBottomNavigation() {
 
     return (
 
-        <Box sx={{ pb: 7 }} ref={ref}>
-            <CssBaseline />
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <Box sx={{pb: 7}} ref={ref}>
+            <CssBaseline/>
+            <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
 
                 <BottomNavigation
                     showLabels
@@ -47,9 +47,9 @@ function FixedBottomNavigation() {
                     }}
                 >
                     <BottomNavigationAction label="Swipe" href="/foodswipe"
-                        icon={<SwipeIcon />}></BottomNavigationAction>
+                                            icon={<SwipeIcon/>}></BottomNavigationAction>
                     <BottomNavigationAction label="Matches" href="/matches"
-                        icon={<FavoriteBorderIcon />}></BottomNavigationAction>
+                                            icon={<FavoriteBorderIcon/>}></BottomNavigationAction>
                 </BottomNavigation>
             </Paper>
         </Box>
@@ -66,26 +66,27 @@ const App: React.FC = () => {
         <Router>
             <aside>
                 <Routes>
-                    <Route path="/" element={<Toolbar />} />
-                    <Route path="/login" element={ <LoginToolbar/>} />
-                    <Route path="/matches" element={<MatchesToolbar />} />
-                    <Route path="/profile" element={<ProfileToolbar />} />
-                    <Route path="/foodswipe" element={<SwipeToolbar />} /> {/*we probably don't need that because swipe component is visible for Route: '/' */}
-                    <Route path="/registration" element={<RegistrationToolbar />} />
-                    <Route path="*" element={<Toolbar />} />
+                    <Route path="/" element={<Toolbar/>}/>
+                    <Route path="/login" element={<LoginToolbar/>}/>
+                    <Route path="/matches" element={<MatchesToolbar/>}/>
+                    <Route path="/profile" element={<ProfileToolbar/>}/>
+                    <Route path="/foodswipe" element={
+                        <SwipeToolbar/>}/> {/*we probably don't need that because swipe component is visible for Route: '/' */}
+                    <Route path="/registration" element={<RegistrationToolbar/>}/>
+                    <Route path="*" element={<Toolbar/>}/>
                 </Routes>
 
             </aside>
             <main>
                 <Routes>
-                    <Route path="/" element={<HomeScreen />} />
-                    <Route path="/login" element={<Login/>} />
-                    <Route path="/matches" element={<Matches />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/foodswipe" element={<FoodSwipe />} />
-                    <Route path="/registration" element={<Registration />} />
-                    <Route path="/access-denied" element={<AccessDeniedPage />} />
-                    <Route path="*" element={<NotFoundPage />} />
+                    <Route path="/" element={<HomeScreen/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/matches" element={<Matches/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/foodswipe" element={<FoodSwipe/>}/>
+                    <Route path="/registration" element={<Registration/>}/>
+                    <Route path="/access-denied" element={<AccessDeniedPage/>}/>
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Routes>
                 <FixedBottomNavigation></FixedBottomNavigation>
             </main>
