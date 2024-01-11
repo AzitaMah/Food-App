@@ -66,6 +66,7 @@ public class AuthController {
         person.setLastName(registerDto.getLastname());
         person.setBirthDate(registerDto.getBirthdate());
         person.setContact(registerDto.getContact());
+        person.setProfileImage(registerDto.getProfileimage());
 
         Role roles = roleRepository.findByName("USER").get();
         person.setRoles(Collections.singletonList(roles));

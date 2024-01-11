@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -16,6 +18,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 public class Person {
 
     @Id
@@ -53,10 +56,14 @@ public class Person {
     @JoinColumn(name = "food_id")
     private Food food;
 
+    private String profileImage;
+
     public Person() {
     }
 
-    public Person(final String username, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password, final Food food) {
+
+
+    public Person(final String username, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password, final Food food, final String profileImage) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -64,6 +71,7 @@ public class Person {
         this.birthDate = birthDate;
         this.password = password;
         this.food = food;
+        this.profileImage=profileImage;
     }
 
 
@@ -95,7 +103,7 @@ public class Person {
     public void setPassword(final String password) {
         this.password = password;
     }
-
+    public void setProfileImage(String profileImage) {this.profileImage = profileImage;}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

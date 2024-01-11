@@ -13,6 +13,7 @@ public class RegisterDTO {
     private String password;
     private LocalDate birthdate;
     private String contact;
+    private String profileimage;
 
 
 }
