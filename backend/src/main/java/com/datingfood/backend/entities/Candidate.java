@@ -14,6 +14,8 @@ public class Candidate {
     //@Column
     //@OneToOne
     //Person person;
+    @Column
+    private String username;
 
     public Candidate() {
     }

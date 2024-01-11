@@ -1,9 +1,7 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Link, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomeScreen from './HomeScreen';
-import FoodCard from './FoodCard';
-
 
 
 import {
@@ -21,14 +19,14 @@ import {
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SwipeIcon from '@mui/icons-material/Swipe';
 import MenuIcon from '@mui/icons-material/Menu';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import InputAdornment from '@mui/material/InputAdornment';
+import Registration from "./components/Registration/Registration";
+import Login from "./components/Login/Login";
+import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
+import AccessDeniedPage from "./components/AccessDeniedPage/AccessDeniedPage";
 
 
 
+//different toolbars for different screens
 //Toolbar
 function Topbar() {
     return (
@@ -47,7 +45,6 @@ function Topbar() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Dating-Food-App
                     </Typography>
-                    <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
         </Box>
@@ -67,38 +64,6 @@ function LoginTopbar() {
                 </Typography>
             </Toolbar>
         </AppBar>
-    )
-}
-
-//Loginfield on the loginpage
-function Log() {
-    return (
-        <Grid container justifyContent="center" alignItems="center" height="100vh">
-            <Stack
-                component="form"
-                sx={{
-                    width: '25ch',
-                }}
-                spacing={2}
-                noValidate
-                autoComplete="off"
-            >
-                <TextField
-                    hiddenLabel
-                    id="filled-hidden-label-small"
-                    defaultValue="Username"
-                    variant="filled"
-                    size="small"
-                />
-                <TextField
-                    hiddenLabel
-                    id="filled-hidden-label-normal"
-                    defaultValue="Password"
-                    variant="filled"
-                />
-            </Stack>
-        </Grid>
-
     )
 }
 
@@ -152,15 +117,14 @@ function SwipeToolbar() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Food-Swipe
                     </Typography>
-                    <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
         </Box>
     );
 }
 
-//Toolbar Register
-function RegistrierenToolbar() {
+//Registrationtoolbar
+function RegistrationToolbar() {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
@@ -177,107 +141,13 @@ function RegistrierenToolbar() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Registrieren
                     </Typography>
-                    <Button color="inherit">or already a member?</Button>
+                    <Button color="inherit" href="/login">already a member?</Button>
                 </Toolbar>
             </AppBar>
         </Box>
     )
 }
 
-//register textfields
-function RegistrierenTextfields() {
-    return (
-        <Box sx={{ '& > :not(style)': { m: 1 } }}>
-            <TextField
-                id="input-username"
-                label="Username"
-                variant="standard"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <AccountCircle />
-                        </InputAdornment>
-                    ),
-                }}
-            />
-            <Box sx={{ display: 'flex', gap: 1 }}>
-                <TextField
-                    id="input-firstname"
-                    label="First Name"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <TextField
-                    id="input-lastname"
-                    label="Last Name"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-            </Box>
-            <Box sx={{ display: 'flex', gap: 1 }}>
-                <TextField
-                    id="input-contact"
-                    label="Contact"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <TextField
-                    id="input-birthdate"
-                    label="Birthdate"
-                    variant="standard"
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <AccountCircle />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-            </Box>
-            <TextField
-                id="input-password"
-                label="Password"
-                type="password"
-                variant="standard"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <AccountCircle />
-                        </InputAdornment>
-                    ),
-                }}
-            />
-        </Box>
-    );
-}
-
-//Function for both register
-function RegistrierenPage() {
-    return (
-        <div>
-            <RegistrierenToolbar />
-            <RegistrierenTextfields />
-        </div>
-    );
-}
 
 //Fixed Tabbar which is always displayed
 function FixedBottomNavigation() {
@@ -313,19 +183,10 @@ function FixedBottomNavigation() {
     );
 }
 
-//different toolbars for different screens
-//const Toolbar = () => <p>Toolbar</p>
-//const FoodSwipeToolbar = () => <p>FoodSwipeToolbar</p>
-
 //placeholders for main components
-//const HomePage = () => <p>Homepage</p>
-const LoginPage = () => <p>Login</p>
 const Matches = () => <p>Matches</p>
 const Profile = () => <p>Profile</p>
 const FoodSwipe = () => <p>FoodSwipe</p>
-const Registrieren = () => <p>Registrieren</p>
-
-const NotFoundPage = () => <p>404</p>
 
 const App: React.FC = () => {
     return (
@@ -333,28 +194,25 @@ const App: React.FC = () => {
             <aside>
                 <Routes>
                     <Route path="/" element={<Topbar />} />
-                    <Route path="/login" element={
-                        <div>
-                            <LoginTopbar />
-                            <Log />
-                        </div>
-                    } />
+                    <Route path="/login" element={ <LoginTopbar/>} />
                     <Route path="/matches" element={<MatchesToolbar />} />
                     <Route path="/profile" element={<ProfileToolbar />} />
-                    <Route path="/foodswipe" element={<SwipeToolbar />} />
-                    <Route path="/registrieren" element={<RegistrierenPage />} />
+                    <Route path="/foodswipe" element={<SwipeToolbar />} /> {/*we probably don't need that because swipe component is visible for Route: '/' */}
+                    <Route path="/registration" element={<RegistrationToolbar />} />
+                    <Route path="*" element={<Topbar />} />
                 </Routes>
 
             </aside>
             <main>
                 <Routes>
                     <Route path="/" element={<HomeScreen />} />
-                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/login" element={<Login/>} />
                     <Route path="/matches" element={<Matches />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/foodswipe" element={<FoodSwipe />} />
                     <Route path="*" element={<NotFoundPage />} />
-                    <Route path="registrieren" element={<Registrieren />} />
+                    <Route path="/registration" element={<Registration />} />
+                    <Route path="/access-denied" element={<AccessDeniedPage />} />
                 </Routes>
                 <FixedBottomNavigation></FixedBottomNavigation>
             </main>
