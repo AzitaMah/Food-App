@@ -6,9 +6,9 @@ const FoodScreen: React.FC = () => {
     // Raw code Foods since not connected yet to the database
 
     const initialFoods = [
-        {id: 1, name: 'Pizza', description: 'Delicious pizza with various toppings', imageUrl: 'pizza.jpg'},
-        {id: 2, name: 'Burger', description: 'Classic burger with a juicy patty', imageUrl: 'burger.jpg'},
-        {id: 3, name: 'Sushi', description: 'Fresh and tasty sushi rolls', imageUrl: 'sushi.jpg'},
+        {id: 1, name: 'Pizza', description: 'Delicious pizza with various toppings', imageUrl: '../assets/pizza.jpg'},
+        {id: 2, name: 'Burger', description: 'Classic burger with a juicy patty', imageUrl: '../assets/burger.jpg'},
+        {id: 3, name: 'Sushi', description: 'Fresh and tasty sushi rolls', imageUrl: '../assets/sushi.jpg'},
 
     ];
 

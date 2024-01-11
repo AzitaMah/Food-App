@@ -64,6 +64,7 @@ const FoodCard: React.FC<FoodCardProps> = ({id, name, description, imageUrl, onS
             <img src={imageUrl} alt={name} style={{width: '100%', height: '80%', objectFit: 'cover'}}/>
             <div style={{padding: '10px'}}>
                 <h3>{name}</h3>
+                <img src={imageUrl}/>
                 <p>{description}</p>
                 <div style={{display: 'flex', justifyContent: 'space-between'}}>
                     <button onClick={handleDislike}>Dislike</button>
