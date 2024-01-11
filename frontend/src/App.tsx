@@ -70,7 +70,6 @@ const App: React.FC = () => {
                     <Route path="/" element={<Toolbar/>}/>
                     <Route path="/login" element={<LoginToolbar/>}/>
                     <Route path="/matches" element={<MatchesToolbar/>}/>
-                    <Route path="/swipe-list" element={<Toolbar/>}/>
                     <Route path="/profile" element={<ProfileToolbar/>}/>
                     <Route path="/foodswipe" element={
                         <SwipeToolbar/>}/> {/*we probably don't need that because swipe component is visible for Route: '/' */}
@@ -84,7 +83,6 @@ const App: React.FC = () => {
                     <Route path="/" element={<HomeScreen/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/matches" element={<Matches/>}/>
-                    <Route path="/swipe-list" element={<SwipeList />} />
                     <Route path="/profile" element={<ProfileScreen/>}/>
                     <Route path="/foodswipe" element={<FoodSwipe/>}/>
                     <Route path="/registration" element={<Registration/>}/>
