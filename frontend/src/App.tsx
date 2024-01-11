@@ -24,6 +24,7 @@ import ProfileToolbar from "./components/Toolbars/ProfileToolbar/ProfileToolbar"
 import SwipeToolbar from "./components/Toolbars/SwipeToolbar/SwipeToolbar";
 import RegistrationToolbar from "./components/Toolbars/RegistrationToolbar/RegistrationToolbar";
 import ProfileScreen from "./components/Profile/Profile";
+import Matches from "./components/Matches/Matches";
 
 
 //Fixed Tabbar which is always displayed
@@ -58,8 +59,6 @@ function FixedBottomNavigation() {
 }
 
 //placeholders for main components
-const Matches = () => <p>Matches</p>
-const Profile = () => <p>Profile</p>
 const FoodSwipe = () => <p>FoodSwipe</p>
 
 const App: React.FC = () => {
