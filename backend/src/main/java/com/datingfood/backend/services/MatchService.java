@@ -4,8 +4,11 @@ import com.datingfood.backend.entities.Match;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.repositories.MatchRepository;
 import com.datingfood.backend.repositories.PersonRepository;
-import com.datingfood.backend.utils.PersonUtils;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import com.datingfood.backend.utils.MatchUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +17,12 @@ import java.util.Optional;
 
 @Service
 public class MatchService {
-
+    private final Logger logger = LoggerFactory.getLogger(MatchService.class);
     private final MatchRepository matchRepository;
     private final PersonRepository personRepository;
 
-    public MatchService(MatchRepository matchRepository, PersonRepository personRepository) {
+    @Autowired
+    public MatchService(final MatchRepository matchRepository, final PersonRepository personRepository) {
         this.matchRepository = matchRepository;
         this.personRepository = personRepository;
     }
@@ -29,14 +33,14 @@ public class MatchService {
      * @param partnerUsername username of partner that the client chose
      */
     public void addMatch(final String username, final String partnerUsername) {
-        Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        Optional<Person> optionalPartner = personRepository.findByUsername(partnerUsername);
+        final Optional<Person> optionalPerson = personRepository.findByUsername(username);
+        final Optional<Person> optionalPartner = personRepository.findByUsername(partnerUsername);
 
         if (optionalPerson.isPresent() && optionalPartner.isPresent()) {
-            Person person = optionalPerson.get();
-            Person partner = optionalPartner.get();
+            final Person person = optionalPerson.get();
+            final Person partner = optionalPartner.get();
 
-            Match match = new Match(person, partner);
+            final Match match = new Match(person, partner);
             matchRepository.save(match);
         } else {
             throw new NoSuchElementException();
@@ -51,18 +55,18 @@ public class MatchService {
      * @return List of Persons that all also accepted the client
      */
     public List<Person> getAllAcceptedPartners(final String username) {
-        Optional<Person> optionalPerson = personRepository.findByUsername(username);
+        final Optional<Person> optionalPerson = personRepository.findByUsername(username);
         if (optionalPerson.isPresent()) {
-            Person person = optionalPerson.get();
+            final Person person = optionalPerson.get();
 
-            List<Person> chosenPartners = matchRepository.findAllMatchesForPerson(person);
-            List<Person> personChosen = matchRepository.findPersonAsPartner(person);
+            final List<Person> chosenPartners = matchRepository.findAllMatchesForPerson(person);
+            final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
 
-            List<Person> acceptedPartners = PersonUtils.findCommonPersons(chosenPartners, personChosen);
+            final List<Person> acceptedPartners = MatchUtils.findCommonPersons(chosenPartners, personChosen);
 
             return acceptedPartners;
         } else {
-            throw new UsernameNotFoundException("Username does not exist.");
+            throw new NoSuchElementException("Username does not exist.");
         }
 
     }

@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PersonUtilsTest {
+public class MatchUtilsTest {
 
     @Test
     void test_findCommonPersons(){
@@ -28,7 +28,7 @@ public class PersonUtilsTest {
         personList2.add(new Person("admin", "Admin", "Admin", "+12333333", LocalDate.of(2000, 1, 1), "admin_password", null,null));
 
         // WHEN
-        List<Person> result =  PersonUtils.findCommonPersons(personList, personList2);
+        List<Person> result =  MatchUtils.findCommonPersons(personList, personList2);
 
         // THEN
         assertEquals(3, result.size());
@@ -51,7 +51,7 @@ public class PersonUtilsTest {
         personList2.add(new Person("ad", "Admin", "Admin", "+12333333", LocalDate.of(2000, 1, 1), "admin_password", null,null));
 
         // WHEN
-        List<Person> result =  PersonUtils.findCommonPersons(personList, personList2);
+        List<Person> result =  MatchUtils.findCommonPersons(personList, personList2);
 
         // THEN
         assertEquals(0, result.size());

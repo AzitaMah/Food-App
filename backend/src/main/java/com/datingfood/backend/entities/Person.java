@@ -4,21 +4,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@AllArgsConstructor
 public class Person {
 
     @Id
@@ -56,6 +52,7 @@ public class Person {
     @JoinColumn(name = "food_id")
     private Food food;
 
+    @Column(nullable = false)
     private String profileImage;
 
     public Person() {

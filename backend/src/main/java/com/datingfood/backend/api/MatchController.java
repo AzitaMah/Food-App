@@ -3,6 +3,9 @@ package com.datingfood.backend.api;
 import com.datingfood.backend.dto.UsernameDTO;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.services.MatchService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,8 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/api")
 public class MatchController {
+    private Logger logger = LoggerFactory.getLogger(MatchController.class);
+
 
     private final MatchService matchService;
 
@@ -41,6 +46,7 @@ public class MatchController {
 
             return ResponseEntity.ok(acceptedPartners);
         } catch (UsernameNotFoundException exception) {
+            logger.error(exception.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

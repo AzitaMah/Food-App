@@ -49,7 +49,7 @@ public class PersonServiceTest {
 
         // WHEN
         // THEN
-        assertThrows(UsernameNotFoundException.class, () -> personService.getPersonByUsername(username));
+        assertThrows(NoSuchElementException.class, () -> personService.getPersonByUsername(username));
     }
 
     @Test

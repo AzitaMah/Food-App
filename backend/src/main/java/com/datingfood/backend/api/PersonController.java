@@ -6,7 +6,6 @@ import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +25,10 @@ public class PersonController {
     @GetMapping("person/{username}")
     ResponseEntity<Person> getByUsername(@PathVariable final String username) {
         try {
-            Person person = personService.getPersonByUsername(username);
+            final Person person = personService.getPersonByUsername(username);
 
             return ResponseEntity.ok(person);
-        } catch (UsernameNotFoundException exception) {
+        } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }
     }

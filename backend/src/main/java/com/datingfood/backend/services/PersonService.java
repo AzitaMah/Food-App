@@ -5,7 +5,8 @@ import com.datingfood.backend.entities.Food;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.repositories.FoodRepository;
 import com.datingfood.backend.repositories.PersonRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +16,11 @@ import java.util.Optional;
 @Service
 public class PersonService {
 
-    private PersonRepository personRepository;
-    private FoodRepository foodRepository;
+    private final PersonRepository personRepository;
+    private final FoodRepository foodRepository;
 
-    public PersonService(final PersonRepository personRepository, FoodRepository foodRepository) {
+    @Autowired
+    public PersonService(final PersonRepository personRepository, final FoodRepository foodRepository) {
         this.personRepository = personRepository;
         this.foodRepository = foodRepository;
     }
@@ -29,13 +31,13 @@ public class PersonService {
      * @return all data from the client
      */
     public Person getPersonByUsername(final String username) {
-        Optional<Person> optionalPerson = personRepository.findByUsername(username);
+        final Optional<Person> optionalPerson = personRepository.findByUsername(username);
         if (optionalPerson.isPresent()) {
             Person person = optionalPerson.get();
 
             return person;
         }
-        throw new UsernameNotFoundException(username + " does not exist");
+        throw new NoSuchElementException(username + " does not exist");
     }
 
     /**
@@ -44,11 +46,11 @@ public class PersonService {
      * @param foodId id of food which the client chose
      */
     public void setFoodChoiceForPerson(final String username, final int foodId) {
-        Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        Optional<Food> optionalFood = foodRepository.findFoodById(foodId);
+        final Optional<Person> optionalPerson = personRepository.findByUsername(username);
+        final Optional<Food> optionalFood = foodRepository.findFoodById(foodId);
         if (optionalPerson.isPresent() && optionalFood.isPresent()) {
-            Person person = optionalPerson.get();
-            Food food = optionalFood.get();
+            final Person person = optionalPerson.get();
+            final Food food = optionalFood.get();
 
             person.setFood(food);
             personRepository.save(person);
@@ -64,9 +66,9 @@ public class PersonService {
      * @return List with usernames of persons who have the same food choice
      */
     public List<UsernameDTO> getAllUsernamesWithSameFood(final String username, final int foodId) {
-        List<Person> personList = personRepository.findAllByFood_Id(foodId);
+        final List<Person> personList = personRepository.findAllByFood_Id(foodId);
 
-        List<UsernameDTO> usernameDTOSList = personList
+        final List<UsernameDTO> usernameDTOSList = personList
                 .stream()
                 .map(person ->
                         new UsernameDTO(person.getUsername()))
@@ -81,7 +83,7 @@ public class PersonService {
      * @return List of all persons
      */
     public List<Person> getOverviewForAdmin(){
-        List<Person> personList = personRepository.findAllByOrderByIdAsc();
+        final List<Person> personList = personRepository.findAllByOrderByIdAsc();
 
         return personList;
     }
