@@ -41,6 +41,8 @@ function FixedBottomNavigation() {
             setValue(0);
         } else if (path === '/matches') {
             setValue(1);
+        } else {
+            setValue(2);
         }
     }, [location.pathname]);
 
