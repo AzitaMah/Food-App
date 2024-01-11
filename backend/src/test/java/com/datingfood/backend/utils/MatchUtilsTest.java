@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MatchUtilsTest {
+class MatchUtilsTest {
 
     @Test
     void test_findCommonPersons(){

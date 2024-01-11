@@ -35,7 +35,7 @@ public class PersonController {
 
     @PutMapping("person/{username}")
     ResponseEntity<String> updateFoodChoice(@PathVariable String username, @RequestBody FoodRequestDTO foodRequestDto) {
-        int foodId = foodRequestDto.getFoodId();
+        final int foodId = foodRequestDto.getFoodId();
         try{
             personService.setFoodChoiceForPerson(username,foodId);
 

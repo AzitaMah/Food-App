@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-public class PersonServiceTest {
+class PersonServiceTest {
 
     @Test
     void test_getPersonByUsername(){
@@ -61,7 +61,7 @@ public class PersonServiceTest {
         String username = "test.user";
         int foodId = 1;
         Optional<Person> optionalPerson = Optional.of(new Person("test.user","Tina","Smith", "+4912345678", LocalDate.of(2002,1,1), "password", null,null));
-        Optional<Food> optionalFood = Optional.of(new Food(1,"Pizza"));
+        Optional<Food> optionalFood = Optional.of(new Food(1,"Pizza","dummyBase64"));
 
         when(personRepository.findByUsername(username)).thenReturn(optionalPerson);
         when(foodRepository.findFoodById(foodId)).thenReturn(optionalFood);
@@ -85,7 +85,7 @@ public class PersonServiceTest {
         String username = "test.user";
         int foodId = 1;
         Optional<Person> optionalPerson = Optional.empty();
-        Optional<Food> optionalFood = Optional.of(new Food(1,"Pizza"));
+        Optional<Food> optionalFood = Optional.of(new Food(1,"Pizza","dummyBase64"));
 
         when(personRepository.findByUsername(username)).thenReturn(optionalPerson);
         when(foodRepository.findFoodById(foodId)).thenReturn(optionalFood);
