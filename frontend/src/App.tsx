@@ -23,6 +23,7 @@ import MatchesToolbar from "./components/Toolbars/MatchesToolbar/MatchesToolbar"
 import ProfileToolbar from "./components/Toolbars/ProfileToolbar/ProfileToolbar";
 import SwipeToolbar from "./components/Toolbars/SwipeToolbar/SwipeToolbar";
 import RegistrationToolbar from "./components/Toolbars/RegistrationToolbar/RegistrationToolbar";
+import ProfileScreen from "./components/Profile/Profile";
 
 
 //Fixed Tabbar which is always displayed
@@ -82,7 +83,7 @@ const App: React.FC = () => {
                     <Route path="/" element={<HomeScreen/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/matches" element={<Matches/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile" element={<ProfileScreen/>}/>
                     <Route path="/foodswipe" element={<FoodSwipe/>}/>
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/access-denied" element={<AccessDeniedPage/>}/>
