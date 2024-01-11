@@ -17,19 +17,26 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/api")
 public class MatchController {
-    private Logger logger = LoggerFactory.getLogger(MatchController.class);
-
+    private final Logger logger = LoggerFactory.getLogger(MatchController.class);
 
     private final MatchService matchService;
 
     @Autowired
-    MatchController(MatchService matchService) {
+    MatchController(final MatchService matchService) {
         this.matchService = matchService;
+    }
+
+    @GetMapping("match/selection/{username}/{foodId}")
+    ResponseEntity<List<UsernameDTO>> getUsersByFoodId(@PathVariable final String username, @PathVariable final int foodId) {
+
+        final List<UsernameDTO> usernameDTOList = matchService.getAllUsernamesWithSameFood(username, foodId);
+
+        return ResponseEntity.ok(usernameDTOList);
     }
 
     @PostMapping("/match/{username}")
     ResponseEntity<String> setMatch(@PathVariable String username, @RequestBody UsernameDTO usernameDto) {
-        String partnerUsername = usernameDto.getUsername();
+        final String partnerUsername = usernameDto.getUsername();
 
         try {
             matchService.addMatch(username, partnerUsername);
@@ -44,7 +51,7 @@ public class MatchController {
     @GetMapping("/match/{username}")
     ResponseEntity<List<Person>> getAllMatches(@PathVariable String username) {
         try {
-            List<Person> acceptedPartners = matchService.getAllAcceptedPartners(username);
+            final List<Person> acceptedPartners = matchService.getAllAcceptedPartners(username);
 
             return ResponseEntity.ok(acceptedPartners);
         } catch (UsernameNotFoundException exception) {

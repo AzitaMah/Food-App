@@ -23,4 +23,17 @@ public class MatchUtils {
 
         return new ArrayList<>(personList);
     }
+
+    /**
+     * create a List with elements that are one in personList
+     * @param personList
+     * @param partnerList
+     * @return
+     */
+    // TODO change naming?
+    public static  List<Person> findDifferentPersons(final List<Person> personList, final List<Person> partnerList){
+        personList.removeAll(partnerList);
+
+        return new ArrayList<>(personList);
+    }
 }

@@ -1,19 +1,20 @@
 package com.datingfood.backend.services;
 
-import com.datingfood.backend.entities.Match;
-import com.datingfood.backend.entities.Person;
-import com.datingfood.backend.repositories.MatchRepository;
-import com.datingfood.backend.repositories.PersonRepository;
-import com.datingfood.backend.utils.MatchUtils;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import com.datingfood.backend.dto.UsernameDTO;
+import com.datingfood.backend.entities.Match;
+import com.datingfood.backend.entities.Person;
+import com.datingfood.backend.repositories.MatchRepository;
+import com.datingfood.backend.repositories.PersonRepository;
+import com.datingfood.backend.utils.MatchUtils;
 
 @Service
 public class MatchService {
@@ -70,4 +71,40 @@ public class MatchService {
         }
 
     }
+
+    /**
+     * retrieves a List of usernames from the database where the food choice is the same as the clients food choice
+     * @param username username of client
+     * @param foodId id of food which the client chose
+     * @return List with usernames of persons who have the same food choice
+     */
+    public List<UsernameDTO> getAllUsernamesWithSameFood(final String username, final int foodId) {
+        final List<Person> personList = personRepository.findAllByFood_Id(foodId);
+
+        final List<Person> personSelectionList = getPossiblePartners(username, personList);
+
+        final List<UsernameDTO> usernameDTOSList = personSelectionList
+                .stream()
+                .map(person ->
+                        new UsernameDTO(person.getUsername()))
+                .filter(person -> !person.getUsername().equals(username))
+                .toList();
+
+        return usernameDTOSList;
+    }
+
+    private List<Person> getPossiblePartners(final String username, final List<Person> personList){
+        final Optional<Person> optionalPerson = personRepository.findByUsername(username);
+        if (optionalPerson.isPresent()) {
+            final Person person = optionalPerson.get();
+
+            final List<Person> partnerInMatch = matchRepository.findAllMatchesForPerson(person);
+
+            final List<Person> possiblePartner = MatchUtils.findDifferentPersons(personList, partnerInMatch);
+
+            return possiblePartner;
+        }
+        throw new NoSuchElementException("Person with " + username + " can't be found");
+    }
+
 }

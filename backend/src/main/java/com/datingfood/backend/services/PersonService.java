@@ -1,24 +1,22 @@
 package com.datingfood.backend.services;
 
-import com.datingfood.backend.dto.UsernameDTO;
-import com.datingfood.backend.entities.Food;
-import com.datingfood.backend.entities.Person;
-import com.datingfood.backend.repositories.FoodRepository;
-import com.datingfood.backend.repositories.PersonRepository;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import com.datingfood.backend.entities.Food;
+import com.datingfood.backend.entities.Person;
+import com.datingfood.backend.repositories.FoodRepository;
+import com.datingfood.backend.repositories.PersonRepository;
 
 @Service
 public class PersonService {
 
     private final PersonRepository personRepository;
     private final FoodRepository foodRepository;
-
     @Autowired
     public PersonService(final PersonRepository personRepository, final FoodRepository foodRepository) {
         this.personRepository = personRepository;
@@ -59,24 +57,6 @@ public class PersonService {
         }
     }
 
-    /**
-     * retrieves a List of usernames from the database where the food choice is the same as the clients food choice
-     * @param username username of client
-     * @param foodId id of food which the client chose
-     * @return List with usernames of persons who have the same food choice
-     */
-    public List<UsernameDTO> getAllUsernamesWithSameFood(final String username, final int foodId) {
-        final List<Person> personList = personRepository.findAllByFood_Id(foodId);
-
-        final List<UsernameDTO> usernameDTOSList = personList
-                .stream()
-                .map(person ->
-                        new UsernameDTO(person.getUsername()))
-                .filter(person -> !person.getUsername().equals(username))
-                .toList();
-
-        return usernameDTOSList;
-    }
 
     /**
      * method for admin only. retrieves a complete list of all person
