@@ -35,17 +35,25 @@ function FixedBottomNavigation() {
 
     // Effekt, um den Zustand basierend auf der aktuellen URL zu aktualisieren
     useEffect(() => {
-        const path = location.pathname;
-
-        if (path === '/foodswipe') {
+        const path: string = location.pathname;
+        //to highlight correct bottom navigation icon
+        if (path === '/') {
             setValue(0);
         } else if (path === '/matches') {
             setValue(1);
         } else {
             setValue(2);
         }
+
+        //to hide bottom navigation for special urls
+        if (!(path === '/login' || path === '/registration' ||path === '/access-denied')) {
+            hideBottomNavBar = false;
+        }
     }, [location.pathname]);
 
+    if(hideBottomNavBar) {
+        return null;
+    }
     return (
         <Box sx={{ pb: 7 }}>
             <CssBaseline />
@@ -57,16 +65,15 @@ function FixedBottomNavigation() {
                         setValue(newValue);
                     }}
                 >
-                    <BottomNavigationAction label="Swipe" href="/foodswipe" icon={<SwipeIcon />} />
+                    <BottomNavigationAction label="Swipe" href="/" icon={<SwipeIcon />} />
                     <BottomNavigationAction label="Matches" href="/matches" icon={<FavoriteBorderIcon />} />
                 </BottomNavigation>
             </Paper>
         </Box>
     );
 }
-
-//placeholders for main components
 const FoodSwipe = () => <p>FoodSwipe</p>
+let hideBottomNavBar: boolean = true;
 
 const App: React.FC = () => {
     return (
