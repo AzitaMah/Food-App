@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
 import HomeScreen from './components/HomeScreen';
 
 
@@ -30,18 +30,24 @@ import Toolbar from "./components/Toolbars/Toolbar/Toolbar";
 
 //Fixed Tabbar which is always displayed
 function FixedBottomNavigation() {
-    const [value, setValue] = React.useState(0);
-    const ref = React.useRef<HTMLDivElement>(null);
-    React.useEffect(() => {
-        (ref.current as HTMLDivElement).ownerDocument.body.scrollTop = 0;
-    }, [value,]);
+    const location = useLocation();
+    const [value, setValue] = useState(0);
+
+    // Effekt, um den Zustand basierend auf der aktuellen URL zu aktualisieren
+    useEffect(() => {
+        const path = location.pathname;
+
+        if (path === '/foodswipe') {
+            setValue(0);
+        } else if (path === '/matches') {
+            setValue(1);
+        }
+    }, [location.pathname]);
 
     return (
-
-        <Box sx={{pb: 7}} ref={ref}>
-            <CssBaseline/>
-            <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
-
+        <Box sx={{ pb: 7 }}>
+            <CssBaseline />
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                 <BottomNavigation
                     showLabels
                     value={value}
@@ -49,10 +55,8 @@ function FixedBottomNavigation() {
                         setValue(newValue);
                     }}
                 >
-                    <BottomNavigationAction label="Swipe" href="/foodswipe"
-                                            icon={<SwipeIcon/>}></BottomNavigationAction>
-                    <BottomNavigationAction label="Matches" href="/matches"
-                                            icon={<FavoriteBorderIcon/>}></BottomNavigationAction>
+                    <BottomNavigationAction label="Swipe" href="/foodswipe" icon={<SwipeIcon />} />
+                    <BottomNavigationAction label="Matches" href="/matches" icon={<FavoriteBorderIcon />} />
                 </BottomNavigation>
             </Paper>
         </Box>
