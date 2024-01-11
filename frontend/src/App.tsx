@@ -5,7 +5,6 @@ import HomeScreen from './components/HomeScreen';
 
 
 import {
-    Toolbar,
     BottomNavigation,
     BottomNavigationAction,
     Box,
@@ -25,6 +24,8 @@ import SwipeToolbar from "./components/Toolbars/SwipeToolbar/SwipeToolbar";
 import RegistrationToolbar from "./components/Toolbars/RegistrationToolbar/RegistrationToolbar";
 import ProfileScreen from "./components/Profile/Profile";
 import Matches from "./components/Matches/Matches";
+import SwipeList from "./components/SwipeList/SwipeList";
+import Toolbar from "./components/Toolbars/Toolbar/Toolbar";
 
 
 //Fixed Tabbar which is always displayed
@@ -69,6 +70,7 @@ const App: React.FC = () => {
                     <Route path="/" element={<Toolbar/>}/>
                     <Route path="/login" element={<LoginToolbar/>}/>
                     <Route path="/matches" element={<MatchesToolbar/>}/>
+                    <Route path="/swipe-list" element={<Toolbar/>}/>
                     <Route path="/profile" element={<ProfileToolbar/>}/>
                     <Route path="/foodswipe" element={
                         <SwipeToolbar/>}/> {/*we probably don't need that because swipe component is visible for Route: '/' */}
@@ -82,6 +84,7 @@ const App: React.FC = () => {
                     <Route path="/" element={<HomeScreen/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/matches" element={<Matches/>}/>
+                    <Route path="/swipe-list" element={<SwipeList />} />
                     <Route path="/profile" element={<ProfileScreen/>}/>
                     <Route path="/foodswipe" element={<FoodSwipe/>}/>
                     <Route path="/registration" element={<Registration/>}/>
