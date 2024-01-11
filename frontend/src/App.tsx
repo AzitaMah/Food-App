@@ -5,148 +5,24 @@ import HomeScreen from './HomeScreen';
 
 
 import {
-    AppBar,
     Toolbar,
     BottomNavigation,
     BottomNavigationAction,
     Box,
-    Button,
     CssBaseline,
-    IconButton,
     Paper,
-    Typography,
 } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SwipeIcon from '@mui/icons-material/Swipe';
-import MenuIcon from '@mui/icons-material/Menu';
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import AccessDeniedPage from "./components/AccessDeniedPage/AccessDeniedPage";
-
-
-
-//different toolbars for different screens
-//Toolbar
-function Topbar() {
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Dating-Food-App
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </Box>
-    );
-}
-
-//Logintoolbar
-function LoginTopbar() {
-    return (
-        <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
-            <Toolbar variant="dense">
-                <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" color="inherit" component="div">
-                    Login Dating-Food-App
-                </Typography>
-            </Toolbar>
-        </AppBar>
-    )
-}
-
-//Matchestoolbar
-function MatchesToolbar() {
-    return (
-        <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
-            <Toolbar variant="dense">
-                <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" color="inherit" component="div">
-                    Your Matches
-                </Typography>
-            </Toolbar>
-        </AppBar>
-    )
-}
-
-//Profiletoolbar
-function ProfileToolbar() {
-    return (
-        <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
-            <Toolbar variant="dense">
-                <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" color="inherit" component="div">
-                    Your Profile
-                </Typography>
-            </Toolbar>
-        </AppBar>
-    )
-}
-
-//Swipetoolbar
-function SwipeToolbar() {
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Food-Swipe
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-        </Box>
-    );
-}
-
-//Registrationtoolbar
-function RegistrationToolbar() {
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Registrieren
-                    </Typography>
-                    <Button color="inherit" href="/login">already a member?</Button>
-                </Toolbar>
-            </AppBar>
-        </Box>
-    )
-}
+import LoginToolbar from "./components/Toolbars/LoginToolbar/LoginToolbar";
+import MatchesToolbar from "./components/Toolbars/MatchesToolbar/MatchesToolbar";
+import ProfileToolbar from "./components/Toolbars/ProfileToolbar/ProfileToolbar";
+import SwipeToolbar from "./components/Toolbars/SwipeToolbar/SwipeToolbar";
+import RegistrationToolbar from "./components/Toolbars/RegistrationToolbar/RegistrationToolbar";
 
 
 //Fixed Tabbar which is always displayed
@@ -160,9 +36,6 @@ function FixedBottomNavigation() {
     return (
 
         <Box sx={{ pb: 7 }} ref={ref}>
-            <div>
-                <HomeScreen />
-            </div>
             <CssBaseline />
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
 
@@ -193,13 +66,13 @@ const App: React.FC = () => {
         <Router>
             <aside>
                 <Routes>
-                    <Route path="/" element={<Topbar />} />
-                    <Route path="/login" element={ <LoginTopbar/>} />
+                    <Route path="/" element={<Toolbar />} />
+                    <Route path="/login" element={ <LoginToolbar/>} />
                     <Route path="/matches" element={<MatchesToolbar />} />
                     <Route path="/profile" element={<ProfileToolbar />} />
                     <Route path="/foodswipe" element={<SwipeToolbar />} /> {/*we probably don't need that because swipe component is visible for Route: '/' */}
                     <Route path="/registration" element={<RegistrationToolbar />} />
-                    <Route path="*" element={<Topbar />} />
+                    <Route path="*" element={<Toolbar />} />
                 </Routes>
 
             </aside>
@@ -210,9 +83,9 @@ const App: React.FC = () => {
                     <Route path="/matches" element={<Matches />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/foodswipe" element={<FoodSwipe />} />
-                    <Route path="*" element={<NotFoundPage />} />
                     <Route path="/registration" element={<Registration />} />
                     <Route path="/access-denied" element={<AccessDeniedPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
                 </Routes>
                 <FixedBottomNavigation></FixedBottomNavigation>
             </main>

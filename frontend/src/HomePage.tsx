@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ProfileCard from './ProfileCard';
 
 const HomeScreen: React.FC = () => {
   const initialProfiles = [
