@@ -73,6 +73,28 @@ public class MatchService {
     }
 
     /**
+     * finds all matches for client that are still incomplete because the corresponding partner did not 'accept'
+     * @param username username of client
+     * @return List with all incomplete matches
+     */
+    public List<Person> getAllIncompleteMatches(final String username) {
+        final Optional<Person> optionalPerson = personRepository.findByUsername(username);
+        if (optionalPerson.isPresent()) {
+            final Person person = optionalPerson.get();
+
+            final List<Person> chosenPartners = matchRepository.findAllMatchesForPerson(person);
+            final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
+
+            final List<Person> incompleteMatches = MatchUtils.findDifferentPersons(chosenPartners, personChosen);
+
+            return incompleteMatches;
+        }
+        else {
+            throw new NoSuchElementException("Username does not exist.");
+        }
+    }
+
+    /**
      * retrieves a List of usernames from the database where the food choice is the same as the clients food choice
      * @param username username of client
      * @param foodId id of food which the client chose

@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -49,11 +51,16 @@ public class MatchController {
 
     //TODO check what needs to be in the responseEntity
     @GetMapping("/match/{username}")
-    ResponseEntity<List<Person>> getAllMatches(@PathVariable String username) {
+    public ResponseEntity<Map<String,List<Person>>> getAllPartnersAndMatches(@PathVariable String username) {
         try {
-            final List<Person> acceptedPartners = matchService.getAllAcceptedPartners(username);
+            final List<Person> matches = matchService.getAllAcceptedPartners(username);
+            final List<Person> incompletedMatches = matchService.getAllIncompleteMatches(username);
 
-            return ResponseEntity.ok(acceptedPartners);
+            Map<String, List<Person>> allMatchInfo = new HashMap<>();
+            allMatchInfo.put("complete", matches);
+            allMatchInfo.put("incomplete", incompletedMatches);
+
+            return ResponseEntity.ok(allMatchInfo);
         } catch (UsernameNotFoundException exception) {
             logger.error(exception.getMessage());
             return ResponseEntity.notFound().build();
