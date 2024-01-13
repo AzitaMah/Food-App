@@ -5,14 +5,13 @@ import './Profile.module.css';
 import Person from "../../models/Person";
 import Food from "../../models/Food";
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import ProfileCard from "./ProfileCard";
 
 
 interface ExtendedPerson extends Person {
   hobbies : string[],
   description: string,
 }
-
-
 
 const initialFoods: Food[] = [
   { id: 1, name: 'Pizza', description: 'Delicious pizza with various toppings', imageUrl: 'pizza.jpg' },
@@ -47,7 +46,7 @@ const ProfileScreen: React.FC = () => {
 
     
     return (
-
+<>
       <Stack direction="row" justifyContent="center" sx={{ p: "20px", }}>
         <Stack
           direction={{ xs: 'column', md: 'row' }}
@@ -61,7 +60,6 @@ const ProfileScreen: React.FC = () => {
               <Stack direction="column" gap={"5px"}>
                 <img 
                   src={burger} 
-                  // className="profile-image"
                   style={{width: "300px", margin: "5px auto"}}
                 />
 
@@ -114,6 +112,9 @@ const ProfileScreen: React.FC = () => {
         </Stack>
 
       </Stack>
+      <ProfileCard />
+      </>
+
 
                  
 

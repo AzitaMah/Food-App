@@ -1,11 +1,8 @@
 import React from "react";
-import './Profile.css';
-import Person from "../../models/Person";
-import { Divider, Paper, Stack } from "@mui/material";
+import { Box, Divider, Paper} from "@mui/material";
 import { mockPerson } from "./Profile";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import foodSwipe from "./components/Homepage/foodSwipe.jpg"
-import sizes from "native-base/lib/typescript/theme/base/sizes";
+import burger from "../../assets/burger.jpg"
 
 
 
@@ -13,18 +10,18 @@ const ProfileCard: React.FC = () => {
     return(
         
         <Paper elevation={3} sx={{ padding: " 0 15px", borderRadius: "20px", display: "flex", alignItems: "center" , }}> 
-            <img 
-                  src={foodSwipe} 
-                  className="profile-imageCard"
+            <img   
+                  src={burger} 
+                  style={{ width: "100px" }}
             />
-            <div className="middle-container">
+            <Box sx={{ marginLeft: "10px", "& > p": { margin: "0 0 10px 0" }, "& > p:first-child": { marginTop: "10px" } }}>
                 <p>{mockPerson.firstName + " " + mockPerson.lastName}</p> 
                 <p>{mockPerson.contact}</p>
-            </div>
-            <div className="right-container">
+            </Box>
+            <Box sx={{ alignSelf: "stretch", marginLeft: "auto", display: "flex", alignItems: "center", gap: "15px" }}>
                 <Divider orientation="vertical" flexItem sx={{ borderColor: "rgba(0, 0, 0, 0.24)" }} />
                 <FavoriteBorderIcon />
-            </div>
+            </Box>
             
         </Paper>
     )
