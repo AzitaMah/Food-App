@@ -1,11 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
-import HomeScreen from './components/HomeScreen';
-import ProfileScreen from './components/Profile';
-import FoodCard from './FoodCard';
-
-
 import {
     BottomNavigation,
     BottomNavigationAction,
@@ -28,7 +23,7 @@ import ProfileScreen from "./components/Profile/Profile";
 import Matches from "./components/Matches/Matches";
 import SwipeList from "./components/SwipeList/SwipeList";
 import Toolbar from "./components/Toolbars/Toolbar/Toolbar";
-
+import HomeScreen from './components/HomeScreen';
 
 //Fixed Tabbar which is always displayed
 function FixedBottomNavigation() {

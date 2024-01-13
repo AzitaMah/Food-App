@@ -1,6 +1,6 @@
 import React from "react";
 import './Profile.css';
-import Person from "./models/Person";
+import Person from "../../models/Person";
 import { Divider, Paper, Stack } from "@mui/material";
 import { mockPerson } from "./Profile";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
