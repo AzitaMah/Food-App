@@ -46,7 +46,6 @@ const ProfileScreen: React.FC = () => {
 
     
     return (
-<>
       <Stack direction="row" justifyContent="center" sx={{ p: "20px", }}>
         <Stack
           direction={{ xs: 'column', md: 'row' }}
@@ -112,13 +111,6 @@ const ProfileScreen: React.FC = () => {
         </Stack>
 
       </Stack>
-      <ProfileCard />
-      </>
-
-
-                 
-
-     
     );
   }
   
