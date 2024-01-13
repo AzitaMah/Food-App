@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import com.datingfood.backend.dto.ContactDTO;
+import com.datingfood.backend.dto.PersonInfoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +55,9 @@ public class MatchService {
      * checks the database for entries where the client username is saved in column 'partner_id'
      * and compares them with the clients matches to return a list with matching person
      * @param username username of the client
-     * @return List of Persons that all also accepted the client
+     * @return List of Persons with contact information that all also accepted the client
      */
-    public List<Person> getAllAcceptedPartners(final String username) {
+    public List<ContactDTO> getAllAcceptedPartners(final String username) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
         if (optionalPerson.isPresent()) {
             final Person person = optionalPerson.get();
@@ -63,7 +65,7 @@ public class MatchService {
             final List<Person> chosenPartners = matchRepository.findAllMatchesForPerson(person);
             final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
 
-            final List<Person> acceptedPartners = MatchUtils.findCommonPersons(chosenPartners, personChosen);
+            final List<ContactDTO> acceptedPartners = MatchUtils.findPersonContactDTOList(MatchUtils.findCommonPersons(chosenPartners, personChosen));
 
             return acceptedPartners;
         } else {
@@ -77,7 +79,7 @@ public class MatchService {
      * @param username username of client
      * @return List with all incomplete matches
      */
-    public List<Person> getAllIncompleteMatches(final String username) {
+    public List<PersonInfoDTO> getAllIncompleteMatches(final String username) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
         if (optionalPerson.isPresent()) {
             final Person person = optionalPerson.get();
@@ -85,7 +87,8 @@ public class MatchService {
             final List<Person> chosenPartners = matchRepository.findAllMatchesForPerson(person);
             final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
 
-            final List<Person> incompleteMatches = MatchUtils.findDifferentPersons(chosenPartners, personChosen);
+            final List<PersonInfoDTO> incompleteMatches = MatchUtils.findPersonInfoDTOList(
+                    MatchUtils.findDifferentPersons(chosenPartners, personChosen));
 
             return incompleteMatches;
         }
@@ -100,19 +103,19 @@ public class MatchService {
      * @param foodId id of food which the client chose
      * @return List with usernames of persons who have the same food choice
      */
-    public List<UsernameDTO> getAllUsernamesWithSameFood(final String username, final int foodId) {
+    public List<PersonInfoDTO> getAllUsernamesWithSameFood(final String username, final int foodId) {
         final List<Person> personList = personRepository.findAllByFood_Id(foodId);
 
         final List<Person> personSelectionList = getPossiblePartners(username, personList);
 
-        final List<UsernameDTO> usernameDTOSList = personSelectionList
+        final List<PersonInfoDTO> personInfoDTOList = personSelectionList
                 .stream()
                 .map(person ->
-                        new UsernameDTO(person.getUsername()))
+                        new PersonInfoDTO(person.getUsername(),person.getProfileImage(),person.getBirthDate()))
                 .filter(person -> !person.getUsername().equals(username))
                 .toList();
 
-        return usernameDTOSList;
+        return personInfoDTOList;
     }
 
     private List<Person> getPossiblePartners(final String username, final List<Person> personList){

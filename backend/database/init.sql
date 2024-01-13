@@ -161,17 +161,17 @@ VALUES (1, 11);
 
 INSERT INTO match (id, person_id, partner_id)
 VALUES (1, 2, 6);
-INSERT INTO match (id, person_id, partner_id)
+INSERT INTO match (id, person_id, partner_id)--incomplete matches
 VALUES (2, 2, 5);
 INSERT INTO match (id, person_id, partner_id)
-VALUES (3, 2, 6);
+VALUES (3, 2, 7);
 INSERT INTO match (id, person_id, partner_id)
-VALUES (4, 2, 7);
+VALUES (4, 2, 10);
 INSERT INTO match (id, person_id, partner_id)
-VALUES (5, 2, 10);
-INSERT INTO match (id, person_id, partner_id)
+VALUES (5, 10, 2);
+INSERT INTO match (id, person_id, partner_id)--complete matches
 VALUES (6, 7, 2);
-INSERT INTO match (id, person_id, partner_id)
-VALUES (7, 10, 2);
+INSERT INTO match (id, person_id, partner_id)--no/other match
+VALUES (7, 7, 10);
 
 

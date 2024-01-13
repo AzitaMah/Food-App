@@ -1,5 +1,7 @@
 package com.datingfood.backend.api;
 
+import com.datingfood.backend.dto.ContactDTO;
+import com.datingfood.backend.dto.PersonInfoDTO;
 import com.datingfood.backend.dto.UsernameDTO;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.services.MatchService;
@@ -29,9 +31,9 @@ public class MatchController {
     }
 
     @GetMapping("match/selection/{username}/{foodId}")
-    ResponseEntity<List<UsernameDTO>> getUsersByFoodId(@PathVariable final String username, @PathVariable final int foodId) {
+    ResponseEntity<List<PersonInfoDTO>> getUsersByFoodId(@PathVariable final String username, @PathVariable final int foodId) {
 
-        final List<UsernameDTO> usernameDTOList = matchService.getAllUsernamesWithSameFood(username, foodId);
+        final List<PersonInfoDTO> usernameDTOList = matchService.getAllUsernamesWithSameFood(username, foodId);
 
         return ResponseEntity.ok(usernameDTOList);
     }
@@ -51,12 +53,12 @@ public class MatchController {
 
     //TODO check what needs to be in the responseEntity
     @GetMapping("/match/{username}")
-    public ResponseEntity<Map<String,List<Person>>> getAllPartnersAndMatches(@PathVariable String username) {
+    public ResponseEntity<Map<String,List<?>>> getAllPartnersAndMatches(@PathVariable String username) {
         try {
-            final List<Person> matches = matchService.getAllAcceptedPartners(username);
-            final List<Person> incompletedMatches = matchService.getAllIncompleteMatches(username);
+            final List<ContactDTO> matches = matchService.getAllAcceptedPartners(username);
+            final List<PersonInfoDTO> incompletedMatches = matchService.getAllIncompleteMatches(username);
 
-            Map<String, List<Person>> allMatchInfo = new HashMap<>();
+            Map<String, List<?>> allMatchInfo = new HashMap<>();
             allMatchInfo.put("complete", matches);
             allMatchInfo.put("incomplete", incompletedMatches);
 

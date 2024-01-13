@@ -1,5 +1,7 @@
 package com.datingfood.backend.services;
 
+import com.datingfood.backend.dto.ContactDTO;
+import com.datingfood.backend.dto.PersonInfoDTO;
 import com.datingfood.backend.dto.UsernameDTO;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.repositories.FoodRepository;
@@ -109,7 +111,7 @@ class MatchServiceTest {
         when(matchRepository.findPersonAsPartner(optionalPerson.get())).thenReturn(personList2);
 
         // WHEN
-        List<Person> result = matchService.getAllAcceptedPartners(username);
+        List<ContactDTO> result = matchService.getAllAcceptedPartners(username);
 
         // THEN
         assertEquals(3, result.size());
@@ -140,7 +142,7 @@ class MatchServiceTest {
         when(personRepository.findAllByFood_Id(0)).thenReturn(personList);
 
         // WHEN
-        List<UsernameDTO> actualList = matchService.getAllUsernamesWithSameFood(username,0);
+        List<PersonInfoDTO> actualList = matchService.getAllUsernamesWithSameFood(username,0);
 
         // THEN
         assertEquals(expectedList,actualList);

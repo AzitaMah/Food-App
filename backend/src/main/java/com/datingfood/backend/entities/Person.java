@@ -52,7 +52,7 @@ public class Person {
     @JoinColumn(name = "food_id")
     private Food food;
 
-    @Column(nullable = false)
+
     private String profileImage;
 
     public Person() {
