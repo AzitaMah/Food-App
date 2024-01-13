@@ -1,77 +1,56 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HomeScreen from "./HomeScreen";
 import { Box, Divider, Paper, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import foodSwipe from "./components/Homepage/foodSwipe.jpg"
 import './Profile.css';
+import Person from "./models/Person";
+import Food from "./models/Food";
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import { log } from "console";
+import ProfileCard from "./ProfileCard";
 
-// name 
-// last name
-// (food) 
-// ProfileImage
-// (Hobbies) 
-// (Description) 
-// (Bool Edit if true == allow edit) 
-// (hidden Id? - if userID == hidden ID) 
-// display timer 
-// contact information
+interface ExtendedPerson extends Person {
+  hobbies : string[],
+  description: string,
+}
 
-const initialFoods:  Food[] = [
+
+
+const initialFoods: Food[] = [
   { id: 1, name: 'Pizza', description: 'Delicious pizza with various toppings', imageUrl: 'pizza.jpg' },
   { id: 2, name: 'Burger', description: 'Classic burger with a juicy patty', imageUrl: 'burger.jpg' },
   { id: 3, name: 'Sushi', description: 'Fresh and tasty sushi rolls', imageUrl: 'sushi.jpg' },
   
 ];
-// role , userName, password
-interface Food{
-  id: number,
-  name : string,
-  description : string,
-  imageUrl: string,
-}
 
-interface Person {
-  firstName : string,
-  lastName : string,
-  contact : string,
-  birthDate : string,
-  food : Food,
-  hobbies : string[],
-  description: string,
-  image: string,
-}
-
-const mockPerson: Person = 
+export const mockPerson: ExtendedPerson = 
   {
     image: "17cm",
     firstName: "Peter", 
     lastName: "Pan", 
-    birthDate: "01.08.2007", 
+    birthDate: new Date("1995-11-16"),
     food: initialFoods[0], 
     contact: "+49 156 696969", 
     
 
-    hobbies: ["Fußball", "Tiere Töten", "Basketball", "Enten fangen", "Gaming", "Pokemon Karten sammeln", "Lernen", "Schlafen", "Bitches respecten"], 
-    description: "Ich bin Peter Pan du hoe amiefhjviejkv id dvc df9j vc voefko vcovm vvfoei vokfe vi mkvcc dsf9vk dfjvh bsdp09 v dfjkl bv09eqr viuldfsaz v9edfj gv98erqz ve", 
+    hobbies: ["Fußball", "Tiere Streicheln", "Basketball", "Enten fangen", "Gaming", "Pokemon Karten sammeln", "Lernen", "Schlafen", "Tinker Bell ärgern"], 
+    description: "Ich bin Peter Pan amiefhjviejkv id dvc df9j vc voefko vcovm vvfoei vokfe vi mkvcc dsf9vk dfjvh bsdp09 v dfjkl bv09eqr viuldfsaz v9edfj gv98erqz veasdsadasd", 
   
   }
 
 
 const ProfileScreen: React.FC = () => {
     const theme = useTheme();
-    const profileData = [
-        
-    ]
-    // direction: { xs: "column", sm: "row" }
+
+    function calculateAge(birthDate: Date): number {
+      let timeDiff = Math.abs(Date.now() - birthDate.getTime());
+      return Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+    }
+
+    
     return (
-      <Stack direction="row" justifyContent="center" sx={{ p: "20px" }}>
-        {/* <Box sx={{ 
-          display: "flex", 
-          flexDirection: { xs: "column", md: "row" }, 
-          border: "1px solid black", 
-          maxWidth: "899px", 
-          
-        }}> */}
-        {/* sx={{ border: "1px solid black" }} */}
+
+      <Stack direction="row" justifyContent="center" sx={{ p: "20px", }}>
         <Stack
           direction={{ xs: 'column', md: 'row' }}
           spacing={{ xs: 2, md: 4 }}
@@ -90,9 +69,16 @@ const ProfileScreen: React.FC = () => {
 
                 <Stack direction="row" justifyContent="space-between">
                   <Typography variant="h5">{mockPerson.firstName} {mockPerson.lastName}</Typography>
-                  <Typography variant="h5">{mockPerson.food.name}</Typography>
+
+                  <Stack direction="row" alignItems="center" gap="5px">
+                    <RestaurantMenuIcon />
+                    <Typography variant="h5">{mockPerson.food.name}</Typography>
+                  </Stack>
                 </Stack>
-                <Typography variant="body1">{mockPerson.birthDate}</Typography>
+                <Typography variant="body1">
+                  {mockPerson.birthDate.getDate() +  "." + (1 + mockPerson.birthDate.getMonth()) + "." + mockPerson.birthDate.getFullYear() + " "
+                  + " (age " + calculateAge(mockPerson.birthDate) + ")"}
+                </Typography>
                 <Typography variant="body1">{mockPerson.contact}</Typography>
               </Stack>
             </Paper>
@@ -105,7 +91,9 @@ const ProfileScreen: React.FC = () => {
               <Typography variant="h5">Hobbies</Typography>
               <Box sx={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                 {mockPerson.hobbies.map((hobby) => (
-                  <Box sx={{ 
+                  <Box 
+                    key={mockPerson.hobbies.findIndex((h) => h === hobby)}
+                    sx={{ 
                     padding: "0 10px",
                     borderRadius: "100px",
                     border: "3px solid #0400C0"
@@ -126,7 +114,12 @@ const ProfileScreen: React.FC = () => {
           </Stack>
 
         </Stack>
+
       </Stack>
+
+                 
+
+     
     );
   }
   
