@@ -72,7 +72,6 @@ function FixedBottomNavigation() {
         </Box>
     );
 }
-const FoodSwipe = () => <p>FoodSwipe</p>
 let hideBottomNavBar: boolean = true;
 
 const App: React.FC = () => {
@@ -80,14 +79,13 @@ const App: React.FC = () => {
         <Router>
             <aside>
                 <Routes>
-                    <Route path="/" element={<Toolbar/>}/>
+                    <Route path="/" element={<MatchesToolbar/>}/>
                     <Route path="/login" element={<LoginToolbar/>}/>
                     <Route path="/matches" element={<MatchesToolbar/>}/>
                     <Route path="/profile" element={<ProfileToolbar/>}/>
-                    <Route path="/foodswipe" element={
-                        <SwipeToolbar/>}/> {/*we probably don't need that because swipe component is visible for Route: '/' */}
+                    <Route path="/swipe-list" element={<SwipeToolbar/>}/>
                     <Route path="/registration" element={<RegistrationToolbar/>}/>
-                    <Route path="*" element={<Toolbar/>}/>
+                    <Route path="*" element={<LoginToolbar/>}/>
                 </Routes>
 
             </aside>
@@ -97,7 +95,7 @@ const App: React.FC = () => {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/matches" element={<Matches/>}/>
                     <Route path="/profile" element={<ProfileScreen/>}/>
-                    <Route path="/foodswipe" element={<FoodSwipe/>}/>
+                    <Route path="/swipe-list" element={<SwipeList/>}/>
                     <Route path="/registration" element={<Registration/>}/>
                     <Route path="/access-denied" element={<AccessDeniedPage/>}/>
                     <Route path="*" element={<NotFoundPage/>}/>
