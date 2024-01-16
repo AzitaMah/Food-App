@@ -45,7 +45,7 @@ public class MatchUtils {
      * @param persons The list of Person objects to be converted
      * @return List of PersonInfoDTO objects
      */
-    public static List<PersonInfoDTO> findPersonInfoDTOList(List<Person> persons) {
+    public static List<PersonInfoDTO> createPersonInfoDTOList(List<Person> persons) {
         return persons.stream()
                 .map(person -> new PersonInfoDTO(
                         person.getUsername(),
@@ -59,7 +59,7 @@ public class MatchUtils {
      * @param persons The list of Person objects to be converted
      * @return List of ContactDTO objects
      */
-    public static List<ContactDTO> findPersonContactDTOList(List<Person> persons){
+    public static List<ContactDTO> createPersonContactDTOList(List<Person> persons){
         return persons.stream()
                 .map(person -> new ContactDTO(
                         person.getUsername(),

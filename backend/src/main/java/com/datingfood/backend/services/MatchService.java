@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.datingfood.backend.dto.UsernameDTO;
 import com.datingfood.backend.entities.Match;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.repositories.MatchRepository;
@@ -65,7 +64,7 @@ public class MatchService {
             final List<Person> chosenPartners = matchRepository.findAllMatchesForPerson(person);
             final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
 
-            final List<ContactDTO> acceptedPartners = MatchUtils.findPersonContactDTOList(MatchUtils.findCommonPersons(chosenPartners, personChosen));
+            final List<ContactDTO> acceptedPartners = MatchUtils.createPersonContactDTOList(MatchUtils.findCommonPersons(chosenPartners, personChosen));
 
             return acceptedPartners;
         } else {
@@ -87,7 +86,7 @@ public class MatchService {
             final List<Person> chosenPartners = matchRepository.findAllMatchesForPerson(person);
             final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
 
-            final List<PersonInfoDTO> incompleteMatches = MatchUtils.findPersonInfoDTOList(
+            final List<PersonInfoDTO> incompleteMatches = MatchUtils.createPersonInfoDTOList(
                     MatchUtils.findDifferentPersons(chosenPartners, personChosen));
 
             return incompleteMatches;

@@ -120,7 +120,7 @@ class MatchServiceTest {
     }
 
     @Test
-    void test_getAllUsernamesWithSameFood(){
+    void test_getAllPersonInfosWithSameFood(){
         // GIVEN
         MatchRepository matchRepository = mock(MatchRepository.class);
         PersonRepository personRepository = mock(PersonRepository.class);
@@ -134,9 +134,13 @@ class MatchServiceTest {
         personList.add(new Person("emily_w", "Emily", "Williams", "+9876543210", LocalDate.of(1995, 7, 8), "password4",null,null));
         personList.add(new Person("admin", "Admin", "Admin", "+12333333", LocalDate.of(2000, 1, 1), "admin_password",null,null));
 
-        List<UsernameDTO> expectedList = Stream.of("alice_smith", "michael_j", "emily_w", "admin")
-                .map(UsernameDTO::new)
-                .toList();
+
+        List<PersonInfoDTO> expectedLists = Stream.of(
+                new PersonInfoDTO("alice_smith", null, LocalDate.of(1985, 5, 15)),
+                new PersonInfoDTO("michael_j", null, LocalDate.of(1982, 9, 22)),
+                new PersonInfoDTO("emily_w", null, LocalDate.of(1995, 7, 8)),
+                new PersonInfoDTO("admin", null, LocalDate.of(2000, 1, 1))
+        ).toList();
 
         when(personRepository.findByUsername(username)).thenReturn(person);
         when(personRepository.findAllByFood_Id(0)).thenReturn(personList);
@@ -145,6 +149,6 @@ class MatchServiceTest {
         List<PersonInfoDTO> actualList = matchService.getAllUsernamesWithSameFood(username,0);
 
         // THEN
-        assertEquals(expectedList,actualList);
+        assertEquals(expectedLists,actualList);
     }
 }
