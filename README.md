@@ -11,8 +11,10 @@ You start the application by running "docker-compose up" in the root directory.
 2. run BackendApplication in "src/main/java/com/datingfood/backend/BackendApplication.java"
 
 ## How to work in the frontend
-1. start backend and database via docker-compose
+Make sure to pull the latest changes from the backend before development.
+1. start backend and database by running "docker-compose up --build" 
 2. then start the frontend for local development
 
+
 ### notice
-If you have trouble building the backend image, check if "backend/mvnw" is checkout with LF line endings. 
+If you have trouble building the backend image, check if "backend/mvnw" is checkout with LF line endings.(This should be fixed with gitattributes.)
