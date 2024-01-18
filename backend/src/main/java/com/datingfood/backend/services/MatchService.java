@@ -61,7 +61,7 @@ public class MatchService {
         if (optionalPerson.isPresent()) {
             final Person person = optionalPerson.get();
 
-            final List<Person> chosenPartners = matchRepository.findAllMatchesForPerson(person);
+            final List<Person> chosenPartners = matchRepository.findAllPartnersOfPerson(person);
             final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
 
             final List<ContactDTO> acceptedPartners = MatchUtils.createPersonContactDTOList(MatchUtils.findCommonPersons(chosenPartners, personChosen));
@@ -83,7 +83,7 @@ public class MatchService {
         if (optionalPerson.isPresent()) {
             final Person person = optionalPerson.get();
 
-            final List<Person> chosenPartners = matchRepository.findAllMatchesForPerson(person);
+            final List<Person> chosenPartners = matchRepository.findAllPartnersOfPerson(person);
             final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
 
             final List<PersonInfoDTO> incompleteMatches = MatchUtils.createPersonInfoDTOList(
@@ -122,7 +122,7 @@ public class MatchService {
         if (optionalPerson.isPresent()) {
             final Person person = optionalPerson.get();
 
-            final List<Person> partnerInMatch = matchRepository.findAllMatchesForPerson(person);
+            final List<Person> partnerInMatch = matchRepository.findAllPartnersOfPerson(person);
 
             final List<Person> possiblePartner = MatchUtils.findDifferentPersons(personList, partnerInMatch);
 

@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import com.datingfood.backend.repositories.MatchRepository;
 import org.junit.jupiter.api.Test;
 
 import com.datingfood.backend.entities.Food;
@@ -25,7 +26,8 @@ class PersonServiceTest {
         // GIVEN
         PersonRepository personRepository = mock(PersonRepository.class);
         FoodRepository foodRepository = mock(FoodRepository.class);
-        PersonService personService = new PersonService(personRepository, foodRepository);
+        MatchRepository matchRepository = mock(MatchRepository.class);
+        PersonService personService = new PersonService(personRepository, foodRepository,matchRepository);
         String username = "tina.smith";
         Optional<Person> optionalPerson = Optional.of(new Person("tina.smith","Tina","Smith", "+4912345678", LocalDate.of(2002,1,1), "password",null,null));
 
@@ -43,7 +45,8 @@ class PersonServiceTest {
         // GIVEN
         PersonRepository personRepository = mock(PersonRepository.class);
         FoodRepository foodRepository = mock(FoodRepository.class);
-        PersonService personService = new PersonService(personRepository, foodRepository);
+        MatchRepository matchRepository = mock(MatchRepository.class);
+        PersonService personService = new PersonService(personRepository, foodRepository,matchRepository);
         String username = "person.not.existing";
         Optional<Person> optionalPerson = Optional.empty();
 
@@ -59,7 +62,8 @@ class PersonServiceTest {
         // GIVEN
         PersonRepository personRepository = mock(PersonRepository.class);
         FoodRepository foodRepository = mock(FoodRepository.class);
-        PersonService personService = new PersonService(personRepository, foodRepository);
+        MatchRepository matchRepository = mock(MatchRepository.class);
+        PersonService personService = new PersonService(personRepository, foodRepository,matchRepository);
         String username = "test.user";
         int foodId = 1;
         Optional<Person> optionalPerson = Optional.of(new Person("test.user","Tina","Smith", "+4912345678", LocalDate.of(2002,1,1), "password", null,null));
@@ -83,7 +87,8 @@ class PersonServiceTest {
         // GIVEN
         PersonRepository personRepository = mock(PersonRepository.class);
         FoodRepository foodRepository = mock(FoodRepository.class);
-        PersonService personService = new PersonService(personRepository, foodRepository);
+        MatchRepository matchRepository = mock(MatchRepository.class);
+        PersonService personService = new PersonService(personRepository, foodRepository,matchRepository);
         String username = "test.user";
         int foodId = 1;
         Optional<Person> optionalPerson = Optional.empty();
@@ -106,7 +111,8 @@ class PersonServiceTest {
         // GIVEN
         PersonRepository personRepository = mock(PersonRepository.class);
         FoodRepository foodRepository = mock(FoodRepository.class);
-        PersonService personService = new PersonService(personRepository, foodRepository);
+        MatchRepository matchRepository = mock(MatchRepository.class);
+        PersonService personService = new PersonService(personRepository, foodRepository,matchRepository);
         String username = "test.user";
         int foodId = 1;
         Optional<Person> optionalPerson = Optional.of(new Person("test.user","Tina","Smith", "+4912345678", LocalDate.of(2002,1,1), "password", null,null));

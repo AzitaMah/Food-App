@@ -12,10 +12,13 @@ import java.util.List;
 public interface MatchRepository extends JpaRepository<Match, Long> {
 
     @Query("SELECT m.partner FROM Match m WHERE m.person = :person")
-    List<Person> findAllMatchesForPerson(@Param("person") Person person);
+    List<Person> findAllPartnersOfPerson(@Param("person") Person person);
 
     @Query("SELECT m.person FROM Match m WHERE m.partner = :person")
     List<Person> findPersonAsPartner(Person person);
+
+    @Query("SELECT m FROM Match m WHERE m.person = :person")
+    List<Match> findAllMatchesForPerson(@Param("person") Person person);
 
 
 }

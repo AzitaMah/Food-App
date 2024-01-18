@@ -2,9 +2,7 @@ package com.datingfood.backend.services;
 
 import com.datingfood.backend.dto.ContactDTO;
 import com.datingfood.backend.dto.PersonInfoDTO;
-import com.datingfood.backend.dto.UsernameDTO;
 import com.datingfood.backend.entities.Person;
-import com.datingfood.backend.repositories.FoodRepository;
 import com.datingfood.backend.repositories.MatchRepository;
 import com.datingfood.backend.repositories.PersonRepository;
 import org.junit.jupiter.api.Test;
@@ -107,7 +105,7 @@ class MatchServiceTest {
         personList2.add(new Person("admin", "Admin", "Admin", "+12333333", LocalDate.of(2000, 1, 1), "admin_password", null,null));
 
         when(personRepository.findByUsername(username)).thenReturn(optionalPerson);
-        when(matchRepository.findAllMatchesForPerson(optionalPerson.get())).thenReturn(personList);
+        when(matchRepository.findAllPartnersOfPerson(optionalPerson.get())).thenReturn(personList);
         when(matchRepository.findPersonAsPartner(optionalPerson.get())).thenReturn(personList2);
 
         // WHEN
@@ -115,7 +113,7 @@ class MatchServiceTest {
 
         // THEN
         assertEquals(3, result.size());
-        verify(matchRepository, times(1)).findAllMatchesForPerson(any());
+        verify(matchRepository, times(1)).findAllPartnersOfPerson(any());
         verify(matchRepository, times(1)).findPersonAsPartner(any());
     }
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import com.datingfood.backend.repositories.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +18,12 @@ public class PersonService {
 
     private final PersonRepository personRepository;
     private final FoodRepository foodRepository;
+    private final MatchRepository matchRepository;
     @Autowired
-    public PersonService(final PersonRepository personRepository, final FoodRepository foodRepository) {
+    public PersonService(final PersonRepository personRepository, final FoodRepository foodRepository,final MatchRepository matchRepository) {
         this.personRepository = personRepository;
         this.foodRepository = foodRepository;
+        this.matchRepository=matchRepository;
     }
 
     /**
@@ -52,8 +55,11 @@ public class PersonService {
 
             person.setFood(food);
             personRepository.save(person);
+
+            matchRepository.deleteAll(matchRepository.findAllMatchesForPerson(person));
+
         } else {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Person or food not found");
         }
     }
 
