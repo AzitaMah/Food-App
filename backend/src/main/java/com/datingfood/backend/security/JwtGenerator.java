@@ -1,12 +1,10 @@
 package com.datingfood.backend.security;
 
-import com.datingfood.backend.logging.LoggingController;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class JwtGenerator {
 
-    private final Logger logger = LoggerFactory.getLogger(LoggingController.class);
+    private final Logger logger = LoggerFactory.getLogger(JwtGenerator.class);
 
     private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 

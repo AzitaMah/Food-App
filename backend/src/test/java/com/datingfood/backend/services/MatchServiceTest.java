@@ -2,6 +2,7 @@ package com.datingfood.backend.services;
 
 import com.datingfood.backend.dto.ContactDTO;
 import com.datingfood.backend.dto.PersonInfoDTO;
+import com.datingfood.backend.entities.Food;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.repositories.MatchRepository;
 import com.datingfood.backend.repositories.PersonRepository;
@@ -124,7 +125,7 @@ class MatchServiceTest {
         PersonRepository personRepository = mock(PersonRepository.class);
         MatchService matchService = new MatchService(matchRepository, personRepository);
         String username = "john_doe";
-        Optional<Person> person = Optional.of(new Person("john_doe", "John", "Doe", "+1234567890", LocalDate.of(1990, 1, 1), "password1",null,null));
+        Optional<Person> person = Optional.of(new Person("john_doe", "John", "Doe", "+1234567890", LocalDate.of(1990, 1, 1), "password1",new Food(0,"dish","test"),null));
         List<Person> personList = new ArrayList<>();
         personList.add(new Person("john_doe", "John", "Doe", "+1234567890", LocalDate.of(1990, 1, 1), "password1",null,null));
         personList.add(new Person("alice_smith", "Alice", "Smith", "+9876543210", LocalDate.of(1985, 5, 15), "password2", null,null));
@@ -141,10 +142,10 @@ class MatchServiceTest {
         ).toList();
 
         when(personRepository.findByUsername(username)).thenReturn(person);
-        when(personRepository.findAllByFood_Id(0)).thenReturn(personList);
+        when(personRepository.findAllByFood_Id(person.get().getFood().getId())).thenReturn(personList);
 
         // WHEN
-        List<PersonInfoDTO> actualList = matchService.getAllUsernamesWithSameFood(username,0);
+        List<PersonInfoDTO> actualList = matchService.getAllPersonInfoWithSameFood(username);
 
         // THEN
         assertEquals(expectedLists,actualList);
