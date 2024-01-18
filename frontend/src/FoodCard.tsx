@@ -8,6 +8,7 @@ interface FoodCardProps {
   description: string;
   imageUrl: string;
   onSwipe: (id: number, direction: 'left' | 'right') => void;
+  swipeThreshold: number;
 }
 
 
@@ -54,6 +55,7 @@ const FoodCard: React.FC<FoodCardProps> = ({ id, name, description, imageUrl, on
 
 
 
+  
 
   return (
     <div
