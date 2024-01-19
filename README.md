@@ -18,3 +18,8 @@ Make sure to pull the latest changes from the backend before development.
 
 ### notice
 If you have trouble building the backend image, check if "backend/mvnw" is checkout with LF line endings.(This should be fixed with gitattributes.)
+
+### test coverage for backend
+1. mvn clean test
+2. mvn jacoco:report
+Afterwards you can check the coverage backend/target/site/jacoco/index.html.

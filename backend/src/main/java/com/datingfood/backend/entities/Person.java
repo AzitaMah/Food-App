@@ -10,15 +10,16 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
 @Entity
-
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
+    @SequenceGenerator(name = "person_seq", sequenceName = "person_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)
@@ -34,6 +35,7 @@ public class Person {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
 
     @Column(nullable = false)
@@ -46,16 +48,27 @@ public class Person {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @ManyToOne
+    @JoinColumn(name = "food_id")
+    private Food food;
+
+
+    private String profileImage;
+
     public Person() {
     }
 
-    public Person(final String username, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password) {
+
+
+    public Person(final String username, final String firstName, final String lastName, final String contact, final LocalDate birthDate, final String password, final Food food, final String profileImage) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contact = contact;
         this.birthDate = birthDate;
         this.password = password;
+        this.food = food;
+        this.profileImage=profileImage;
     }
 
 
@@ -87,5 +100,17 @@ public class Person {
     public void setPassword(final String password) {
         this.password = password;
     }
+    public void setProfileImage(String profileImage) {this.profileImage = profileImage;}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(username, person.username);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
+    }
 }

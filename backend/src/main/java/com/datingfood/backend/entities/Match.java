@@ -1,9 +1,6 @@
 package com.datingfood.backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Getter
@@ -11,14 +8,23 @@ import lombok.Getter;
 public class Match {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "match_seq")
+    @SequenceGenerator(name = "match_seq", sequenceName = "match_seq", allocationSize = 1)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person person;
+
+    @ManyToOne
+    @JoinColumn(name = "partner_id", referencedColumnName = "id")
+    private Person partner;
 
     public Match() {
     }
 
-    public void setId(final Long id) {
-        this.id = id;
+    public Match(Person person, Person partner) {
+        this.person = person;
+        this.partner = partner;
     }
-
 }
