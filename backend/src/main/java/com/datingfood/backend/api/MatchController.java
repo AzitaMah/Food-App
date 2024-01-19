@@ -46,13 +46,13 @@ public class MatchController {
     }
 
     @PostMapping("/match/{username}")
-    ResponseEntity<String> setMatch(@PathVariable String username, @RequestBody UsernameDTO usernameDto) {
+    ResponseEntity<Void> setMatch(@PathVariable String username, @RequestBody UsernameDTO usernameDto) {
         final String partnerUsername = usernameDto.getUsername();
 
         try {
             matchService.addMatch(username, partnerUsername);
 
-            return ResponseEntity.ok("Match was created. " + username + "accepted " + partnerUsername);
+            return ResponseEntity.ok().build();
         } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }

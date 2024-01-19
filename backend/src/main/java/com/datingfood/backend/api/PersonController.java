@@ -34,13 +34,13 @@ public class PersonController {
     }
 
     @PutMapping("person/{username}")
-    ResponseEntity<String> updateFoodChoice(@PathVariable String username, @RequestBody FoodRequestDTO foodRequestDto) {
+    ResponseEntity<Void> updateFoodChoice(@PathVariable String username, @RequestBody FoodRequestDTO foodRequestDto) {
         final int foodId = foodRequestDto.getFoodId();
-        try{
-            personService.setFoodChoiceForPerson(username,foodId);
+        try {
+            personService.setFoodChoiceForPerson(username, foodId);
 
-            return ResponseEntity.ok("The food choice was saved successfully for: " + username);
-        } catch(NoSuchElementException exception) {
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -57,11 +57,11 @@ public class PersonController {
     }
 
     @DeleteMapping("admin/person/{username}")
-    ResponseEntity<String> deletePerson(@PathVariable String username) {
+    ResponseEntity<Void> deletePerson(@PathVariable String username) {
         try {
             personService.deletePersonEntry(username);
             return ResponseEntity.ok().build();
-        }catch (NoSuchElementException exception){
+        } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }
     }
