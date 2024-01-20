@@ -18,17 +18,14 @@ import java.time.LocalDate;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class )
 @ActiveProfiles("test")
 @AutoConfigureWebTestClient
-public class RegistrationControllerE2ETest {
+class RegistrationControllerE2ETest {
 
     @Autowired
-    private WebTestClient webTestClient;
+    WebTestClient webTestClient;
     LocalDate localDate = LocalDate.of(1982,9,21);
 
-
-
     @Test
-
-    public void testRegistrationEndpoint(){
+    void testRegistrationEndpoint(){
         // GIVEN
         RegisterDTO registerDTO = new RegisterDTO();
         registerDTO.setUsername("MiaE");
