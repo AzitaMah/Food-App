@@ -9,9 +9,12 @@ import FoodCard from './FoodCard';
 
 const FoodScreen: React.FC = () => {
   const initialFoods = [
-    { id: 1, name: 'Pizza', description: 'Delicious pizza with various toppings', imageUrl: 'pizza.jpg' },
-    { id: 2, name: 'Burger', description: 'Classic burger with a juicy patty', imageUrl: 'burger.jpg' },
-    { id: 3, name: 'Sushi', description: 'Fresh and tasty sushi rolls', imageUrl: 'sushi.jpg' },
+    { id: 1, name: 'Pizza', description: 'Delicious pizza with various toppings', imageUrl: '' },
+    { id: 2, name: 'Burger', description: 'Classic burger with a juicy patty', imageUrl: '' },
+    { id: 3, name: 'Sushi', description: 'Fresh and tasty sushi rolls', imageUrl: '' },
+    { id: 4, name: 'Food4', description: '', imageUrl: '' },
+    { id: 5, name: 'Food5', description: '', imageUrl: '' },
+    { id: 6, name: 'Food6', description: '', imageUrl: '' },
     // Fooods
   ];
 

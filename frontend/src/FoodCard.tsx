@@ -18,8 +18,11 @@ interface FoodCardProps {
 
 //handled when user drags left or right
 const FoodCard: React.FC<FoodCardProps> = ({ id, name, description, imageUrl, onSwipe }) => {
-  const [dragging, setDragging] = useState(false);
+  
   const cardRef = useRef<HTMLDivElement>(null);
+  const [dragging, setDragging] = useState(false);
+ 
+  
 
   const handleDragStart = () => {
     setDragging(true);
