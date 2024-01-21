@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Divider, Paper, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import burger from "../../assets/burger.jpg";
 import './Profile.module.css';
@@ -24,6 +24,8 @@ const initialFoods: Food[] = [
 
 export const mockPerson: ExtendedPerson = 
   {
+    id:0,
+    username: "Abc",
     image: "17cm",
     firstName: "Peter", 
     lastName: "Pan", 
@@ -34,13 +36,23 @@ export const mockPerson: ExtendedPerson =
 
     hobbies: ["Fußball", "Tiere Streicheln", "Basketball", "Enten fangen", "Gaming", "Pokemon Karten sammeln", "Lernen", "Schlafen", "Tinker Bell ärgern"], 
     description: "Ich bin Peter Pan amiefhjviejkv id dvc df9j vc voefko vcovm vvfoei vokfe vi mkvcc dsf9vk dfjvh bsdp09 v dfjkl bv09eqr viuldfsaz v9edfj gv98erqz veasdsadasd", 
-  
+  }
+  export const mockPerson2: Person =  
+  {
+    id:0,
+    username: "Abc",
+    image: "17cm",
+    firstName: "Peter", 
+    lastName: "Pan", 
+    birthDate: new Date("1995-11-16"),
+    food: initialFoods[0], 
+    contact: "+49 156 696969", 
   }
 
 
 const ProfileScreen: React.FC = () => {
     const theme = useTheme();
-
+    const [profile, setProfile] = useState<Person>(mockPerson2);
     useEffect(() => {
 
       async function getProfileData() {
@@ -54,7 +66,16 @@ const ProfileScreen: React.FC = () => {
               "Authorization": "Bearer " + accessToken
             },
           })
-          console.log(await response.json());
+          
+          // console.log(await response.json());
+           
+           if(response.status === 200){
+            const responseJson: Person = await response.json();
+           // setProfile(responseJson)
+            setProfile({...responseJson,birthDate: new Date(responseJson.birthDate)})
+            console.log(typeof profile.birthDate)
+            console.log( profile.birthDate)
+          }
         }
       }
 
@@ -84,23 +105,23 @@ const ProfileScreen: React.FC = () => {
             <Paper elevation={3} sx={{ padding: "15px", borderRadius: "20px" }}>
               <Stack direction="column" gap={"5px"}>
                 <img 
-                  src={burger} 
+                  src={burger} // profile.image
                   style={{width: "300px", margin: "5px auto"}}
                 />
 
                 <Stack direction="row" justifyContent="space-between">
-                  <Typography variant="h5">{mockPerson.firstName} {mockPerson.lastName}</Typography>
+                  <Typography variant="h5">{profile.firstName} {profile.lastName}</Typography>
 
                   <Stack direction="row" alignItems="center" gap="5px">
                     <RestaurantMenuIcon />
-                    <Typography variant="h5">{mockPerson.food.name}</Typography>
+                    <Typography variant="h5">{profile.food ? profile.food.name : mockPerson.food.name}</Typography>
                   </Stack>
                 </Stack>
                 <Typography variant="body1">
-                  {mockPerson.birthDate.getDate() +  "." + (1 + mockPerson.birthDate.getMonth()) + "." + mockPerson.birthDate.getFullYear() + " "
-                  + " (age " + calculateAge(mockPerson.birthDate) + ")"}
+                  {profile.birthDate.getDate() +  "." + (1 + profile.birthDate.getMonth()) + "." + profile.birthDate.getFullYear() + " "
+                  + " (age " + calculateAge(profile.birthDate) + ")"}
                 </Typography>
-                <Typography variant="body1">{mockPerson.contact}</Typography>
+                <Typography variant="body1">{profile.contact}</Typography>
               </Stack>
             </Paper>
           

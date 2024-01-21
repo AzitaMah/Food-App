@@ -8,4 +8,6 @@ export default interface Person {
     birthDate : Date,
     food : Food,
     image: string,
+    id: number,
+    username: string,
 }
