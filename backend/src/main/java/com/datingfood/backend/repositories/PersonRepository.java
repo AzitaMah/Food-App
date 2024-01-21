@@ -16,4 +16,6 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     List<Person> findAllByFood_Id(int foodId);
 
+    List<Person> findAllByOrderByIdAsc();
+
 }

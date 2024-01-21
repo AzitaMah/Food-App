@@ -20,11 +20,18 @@ public class Food {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false, name = "image_base64")
+    private String imageBase64;
+
     public Food() {
     }
-
     public Food(final String name) {
         this.name = name;
     }
 
+    public Food(int id, String name, String imageBase64) {
+        this.id = id;
+        this.name = name;
+        this.imageBase64 = imageBase64;
+    }
 }
