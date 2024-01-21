@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import FoodCard from './FoodCard';
+import Matches from './components/Matches/Matches';
 
 
 
@@ -56,7 +57,7 @@ const FoodScreen: React.FC = () => {
           ))}
         </div>
       </div>
-      {matchedFoods.length > 0 && <MatchingPage matchedFoods={matchedFoods} />}
+      {/* {matchedFoods.length > 0 && <Matches matchedFoods={matchedFoods} />} */}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import {FC, useState} from 'react';
 import styles from './SwipeList.module.css';
 import {Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText} from "@mui/material";
 import ImageIcon from "@mui/icons-material/Image";

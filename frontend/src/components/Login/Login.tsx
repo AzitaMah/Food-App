@@ -1,20 +1,50 @@
 import {Button, Container, Grid, TextField} from "@mui/material";
 import {useState} from "react";
 
+interface AuthResponseDTO {
+    accessToken: string;
+    tokenType: string;
+}
+
 const Login: React.FC = () => {
+    
+
     const [formData, setFormData] = useState({
         username: '',
         password: '',
     });
 
+    // Alice', 'Smith'
+
     /**
      * checks if user is already registered.
      * @param event
      */
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         console.log(formData);
         // TODO: Handle login logic, check for role as well?
+
+        const response = await fetch("http://localhost:8080/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            body: JSON.stringify(formData)
+        });
+        const responseJSON: AuthResponseDTO = await response.json();
+        const newAccessToken: string = responseJSON.accessToken;
+
+        localStorage.setItem("accessToken", newAccessToken);
+        const loggedInUsername = formData.username;
+        localStorage.setItem("username", loggedInUsername)
+
+
+
+        console.log(responseJSON);
+
+
     };
 
     /**
