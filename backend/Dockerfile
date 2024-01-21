@@ -1,11 +1,11 @@
 FROM amazoncorretto:17-alpine3.17-jdk AS builder
 WORKDIR /build
-COPY backend/.mvn/ ./.mvn
-COPY backend/mvnw ./
-COPY backend/pom.xml ./
+COPY ./.mvn/ ./.mvn
+COPY ./mvnw ./
+COPY ./pom.xml ./
 RUN ./mvnw dependency:go-offline
-COPY backend/src ./src
-RUN ./mvnw package -offline
+COPY ./src ./src
+RUN ./mvnw package
 
 
 FROM amazoncorretto:17-alpine3.17-jdk

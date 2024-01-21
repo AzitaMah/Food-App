@@ -2,8 +2,8 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     image: backend:latest
     container_name: dating-backend
     ports:
@@ -36,3 +36,12 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+#  frontend:
+#      build:
+#        context: ./frontend
+#        dockerfile: Dockerfile
+#      image: frontend:latest
+#      container_name: dating-frontend
+#      ports:
+#        - "3000:3000"
