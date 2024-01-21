@@ -6,6 +6,8 @@ import Person from "../../models/Person";
 import Food from "../../models/Food";
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import ProfileCard from "./ProfileCard";
+import { access } from "fs";
+import { log } from "console";
 
 
 interface ExtendedPerson extends Person {
@@ -38,6 +40,30 @@ export const mockPerson: ExtendedPerson =
 
 const ProfileScreen: React.FC = () => {
     const theme = useTheme();
+
+    useEffect(() => {
+
+      async function getProfileData() {
+        const accessToken: string | null = localStorage.getItem("accessToken");
+        const username: string | null = localStorage.getItem("username")
+        console.log(accessToken);
+        if (accessToken) {
+          const response = await fetch("http://localhost:8080/api/person/"+ username, {
+            method: "GET",
+            headers: {
+              "Authorization": "Bearer " + accessToken
+            },
+          })
+          console.log(await response.json());
+        }
+      }
+
+       getProfileData();
+
+      
+
+    }, []);
+
 
     function calculateAge(birthDate: Date): number {
       let timeDiff = Math.abs(Date.now() - birthDate.getTime());
