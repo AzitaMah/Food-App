@@ -1,84 +1,59 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import FoodCard from './FoodCard';
-import {useLocation} from "react-router-dom";
-import {BottomNavigation, BottomNavigationAction, Box, CssBaseline, Paper} from "@mui/material";
-import SwipeIcon from "@mui/icons-material/Swipe";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-
+import Matches from './Matches/Matches';
 
 const FoodScreen: React.FC = () => {
-    // Raw code Foods since not connected yet to the database
+  const initialFoods = [
+    { id: 1, name: 'pizza', description: 'Delicious pizza with various toppings', imageUrl: '' },
+    { id: 2, name: 'burger', description: 'Classic burger with a juicy patty', imageUrl: '' },
+    { id: 3, name: 'sushi', description: 'Fresh and tasty sushi rolls', imageUrl: '' },
+    { id: 4, name: 'spaghetti', description: '', imageUrl: '' },
+    { id: 5, name: 'satay-chicken', description: '', imageUrl: '' },
+    { id: 6, name: 'meatballs', description: '', imageUrl: '' },
+    // Fooods
+  ];
 
-    const initialFoods = [
-        {id: 1, name: 'Pizza', description: 'Delicious pizza with various toppings', imageUrl: '../assets/pizza.jpg'},
-        {id: 2, name: 'Burger', description: 'Classic burger with a juicy patty', imageUrl: '../assets/burger.jpg'},
-        {id: 3, name: 'Sushi', description: 'Fresh and tasty sushi rolls', imageUrl: '../assets/sushi.jpg'},
+  const [foods, setFoods] = useState(initialFoods);
+  const [matchedFoods, setMatchedFoods] = useState<string[]>([]);
+  const [swipeThreshold, setSwipeThreshold] = useState<number>(100);
 
-    ];
-
-
-    const [foods, setFoods] = useState(initialFoods);
-
-
-    const handleSwipe = (id: number, direction: 'left' | 'right') => {
-        // Handle swipe action remove food from the list, update preferences, etc.
-        console.log(`Swiped ${direction} on food with ID ${id}`);
-    };
-
-    function FixedBottomNavigation() {
-        const location = useLocation();
-        const [value, setValue] = useState(0);
-
-        // Effekt, um den Zustand basierend auf der aktuellen URL zu aktualisieren
-        useEffect(() => {
-            const path: string = location.pathname;
-            //to highlight correct bottom navigation icon
-            if (path === '/') {
-                setValue(0);
-            } else if (path === '/matches') {
-                setValue(1);
-            } else {
-                setValue(2);
-            }
-        }, [location.pathname]);
-
-        return (
-            <Box sx={{ pb: 7 }}>
-                <CssBaseline />
-                <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-                    <BottomNavigation
-                        showLabels
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                    >
-                        <BottomNavigationAction label="Swipe" href="/" icon={<SwipeIcon />} />
-                        <BottomNavigationAction label="Matches" href="/matches" icon={<FavoriteBorderIcon />} />
-                    </BottomNavigation>
-                </Paper>
-            </Box>
-        );
+  const handleSwipe = (id: number, direction: 'left' | 'right') => {
+    if (direction === 'right' && id === 3) {
+      setMatchedFoods(prev => [...prev, 'Sushi']);
     }
 
-    return (
+    setFoods(prevFoods => prevFoods.filter(food => food.id !== id));
+  };
+
+  return (
+    <div>
+      <div>
+        <h1>Food Swipe App</h1>
+        <label>
+          Swipe Threshold:
+          <input
+            type="number"
+            value={swipeThreshold}
+            onChange={(e) => setSwipeThreshold(Number(e.target.value))}
+          />
+        </label>
         <div>
-            <h1>Food Swipe App</h1>
-            <div>
-                {foods.map(food => (
-                    <FoodCard
-                        key={food.id}
-                        id={food.id}
-                        name={food.name}
-                        description={food.description}
-                        imageUrl={food.imageUrl}
-                        onSwipe={handleSwipe}
-                    />
-                ))}
-            </div>
-            <FixedBottomNavigation></FixedBottomNavigation>
+          {foods.map(food => (
+            <FoodCard
+              key={food.id}
+              id={food.id}
+              name={food.name}
+              description={food.description}
+              imageUrl={food.imageUrl}
+              onSwipe={(id, direction) => handleSwipe(id, direction)}
+              swipeThreshold={swipeThreshold}
+            />
+          ))}
         </div>
-    );
+      </div>
+      {/* {matchedFoods.length > 0 && <Matches matchedFoods={matchedFoods} />} */}
+    </div>
+  );
 }
 
 

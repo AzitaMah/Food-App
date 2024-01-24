@@ -23,7 +23,9 @@ import ProfileScreen from "./components/Profile/Profile";
 import Matches from "./components/Matches/Matches";
 import SwipeList from "./components/SwipeList/SwipeList";
 import Toolbar from "./components/Toolbars/Toolbar/Toolbar";
-import HomeScreen from './components/HomeScreen';
+import HomeScreen from "./components/HomeScreen";
+import FoodScreen from "./components/HomeScreen";
+import FoodSwipe from "./components/FoodSwipe/FoodSwipe";
 
 //Fixed Tabbar which is always displayed
 function FixedBottomNavigation() {
@@ -88,7 +90,7 @@ const App: React.FC = () => {
             </aside>
             <main>
                 <Routes>
-                    <Route path="/" element={<HomeScreen/>}/>
+                    <Route path="/" element={<FoodSwipe/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/matches" element={<Matches/>}/>
                     <Route path="/profile" element={<ProfileScreen/>}/>
