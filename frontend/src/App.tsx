@@ -17,15 +17,13 @@ import AccessDeniedPage from "./components/AccessDeniedPage/AccessDeniedPage";
 import LoginToolbar from "./components/Toolbars/LoginToolbar/LoginToolbar";
 import MatchesToolbar from "./components/Toolbars/MatchesToolbar/MatchesToolbar";
 import ProfileToolbar from "./components/Toolbars/ProfileToolbar/ProfileToolbar";
-import SwipeToolbar from "./components/Toolbars/SwipeToolbar/SwipeToolbar";
 import RegistrationToolbar from "./components/Toolbars/RegistrationToolbar/RegistrationToolbar";
 import ProfileScreen from "./components/Profile/Profile";
 import Matches from "./components/Matches/Matches";
 import SwipeList from "./components/SwipeList/SwipeList";
-import Toolbar from "./components/Toolbars/Toolbar/Toolbar";
-import HomeScreen from "./components/HomeScreen";
-import FoodScreen from "./components/HomeScreen";
 import FoodSwipe from "./components/FoodSwipe/FoodSwipe";
+import AppToolbar from "./components/Toolbars/AppToolbar/AppToolbar";
+import SwipeListToolbar from "./components/Toolbars/SwipeListToolbar/SwipeListToolbar";
 
 //Fixed Tabbar which is always displayed
 function FixedBottomNavigation() {
@@ -45,9 +43,9 @@ function FixedBottomNavigation() {
         }
 
         //to hide bottom navigation for special urls
-        if (!(path === '/login' || path === '/registration' ||path === '/access-denied')) {
+        /*if (!(path === '/login' || path === '/registration' ||path === '/access-denied')) {
             hideBottomNavBar = false;
-        }
+        }*/
     }, [location.pathname]);
 
     if(hideBottomNavBar) {
@@ -71,22 +69,20 @@ function FixedBottomNavigation() {
         </Box>
     );
 }
-let hideBottomNavBar: boolean = true;
+let hideBottomNavBar: boolean = false;
 
 const App: React.FC = () => {
     return (
         <Router>
             <aside>
                 <Routes>
-                    <Route path="/" element={<MatchesToolbar/>}/>
+                    <Route path="/" element={<AppToolbar/>}/>
                     <Route path="/login" element={<LoginToolbar/>}/>
                     <Route path="/matches" element={<MatchesToolbar/>}/>
                     <Route path="/profile" element={<ProfileToolbar/>}/>
-                    <Route path="/swipe-list" element={<SwipeToolbar/>}/>
+                    <Route path="/swipe-list" element={<SwipeListToolbar/>}/>
                     <Route path="/registration" element={<RegistrationToolbar/>}/>
-                    <Route path="*" element={<LoginToolbar/>}/>
                 </Routes>
-
             </aside>
             <main>
                 <Routes>
