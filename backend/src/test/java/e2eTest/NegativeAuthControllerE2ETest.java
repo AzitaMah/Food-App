@@ -1,26 +1,18 @@
 package e2eTest;
 
-import com.datingfood.backend.dto.AuthResponseDTO;
 import com.datingfood.backend.dto.LoginDTO;
 import com.datingfood.backend.dto.RegisterDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.context.ActiveProfiles;
 import com.datingfood.backend.BackendApplication;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.time.LocalDate;
 
-@TestPropertySource(locations = "classpath:application-test.properties")
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
-@ActiveProfiles("test")
 @AutoConfigureWebTestClient
 class NegativeAuthControllerE2ETest {
 
