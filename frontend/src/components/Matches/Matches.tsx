@@ -14,15 +14,36 @@ interface Person {
     image: string;
 }
 
-const dummyPerson: Person = {
-    userName: "maxi_food",
-    firstName: "Max",
-    contactInformation: "insta: maxixmuster",
-    birthDate: "01.08.2007",
+const dummyPerson1: Person = {
+    userName: "john.doe",
+    firstName: "John",
+    contactInformation: "+1234567890",
+    birthDate: "1990-01-01",
+    image: "3",
+}
+const dummyPerson2: Person = {
+    userName: "alice.smith",
+    firstName: "Alice",
+    contactInformation: "+9876543210",
+    birthDate: "1985-05-15",
+    image: "3",
+}
+const dummyPerson3: Person = {
+    userName: "michael.j",
+    firstName: "Michael",
+    contactInformation: "+1122334455",
+    birthDate: "1982-09-22",
+    image: "3",
+}
+const dummyPerson4: Person = {
+    userName: "emily.w",
+    firstName: "Emily",
+    contactInformation: "+9876543210",
+    birthDate: "1995-07-08",
     image: "3",
 }
 
-const dummyPersons: Person[] = Array.from({length: 15}, () => dummyPerson);
+const dummyPersons: Person[] =  [dummyPerson1, dummyPerson2, dummyPerson3, dummyPerson4];
 
 const Matches: FC<MatchesProps> = () => {
     const [onlyMatches, setOnlyMatches] = useState(false);
