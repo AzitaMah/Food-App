@@ -33,7 +33,6 @@ public class MatchUtils {
      * @param partnerList
      * @return
      */
-    // TODO change naming?
     public static  List<Person> findDifferentPersons(final List<Person> personList, final List<Person> partnerList){
         personList.removeAll(partnerList);
 

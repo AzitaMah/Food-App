@@ -1,4 +1,5 @@
 package e2eTest;
+
 import com.datingfood.backend.dto.RegisterDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +16,17 @@ import com.datingfood.backend.BackendApplication;
 import java.time.LocalDate;
 
 @TestPropertySource(locations = "classpath:application-test.properties")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class )
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
 @ActiveProfiles("test")
 @AutoConfigureWebTestClient
-class RegistrationControllerE2ETest {
+class AuthControllerE2ETest {
 
     @Autowired
     WebTestClient webTestClient;
-    LocalDate localDate = LocalDate.of(1982,9,21);
+    LocalDate localDate = LocalDate.of(1982, 9, 21);
 
     @Test
-    void testRegistrationEndpoint(){
+    void test_register() {
         // GIVEN
         RegisterDTO registerDTO = new RegisterDTO();
         registerDTO.setUsername("MiaE");
@@ -36,13 +37,13 @@ class RegistrationControllerE2ETest {
         registerDTO.setContact("01745376");
 
         // WHEN
-    webTestClient.post()
-            .uri("/api/auth/registration")
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(registerDTO)
-            .exchange()
-            .expectStatus().isOk() // THEN
-            .expectBody().isEmpty();
+        webTestClient.post()
+                .uri("/api/auth/registration")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(registerDTO)
+                .exchange()
+                .expectStatus().isOk() // THEN
+                .expectBody().isEmpty();
     }
 
     @TestConfiguration
