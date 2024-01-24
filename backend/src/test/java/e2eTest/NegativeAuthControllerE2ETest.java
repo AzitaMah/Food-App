@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -21,58 +22,45 @@ import java.time.LocalDate;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = BackendApplication.class)
 @ActiveProfiles("test")
 @AutoConfigureWebTestClient
-class AuthControllerE2ETest {
+class NegativeAuthControllerE2ETest {
 
     @Autowired
     WebTestClient webTestClient;
 
+
     @Test
-    void test_register() {
+    void test_invalidRegister() {
         // GIVEN
-        LocalDate localDate = LocalDate.of(1982, 9, 21);
+        LocalDate localDate = LocalDate.of(1985, 5, 15);
         RegisterDTO registerDTO = new RegisterDTO();
-        registerDTO.setUsername("MiaE");
-        registerDTO.setPassword("MiaPW");
-        registerDTO.setFirstname("Mia");
-        registerDTO.setLastname("Eiching");
+        registerDTO.setUsername("alice.smith");
+        registerDTO.setPassword("strongpassword");
+        registerDTO.setFirstname("Alice");
+        registerDTO.setLastname("Smith");
         registerDTO.setBirthdate(localDate);
-        registerDTO.setContact("01745376");
+        registerDTO.setContact("+9876543210");
 
         // WHEN
         webTestClient.post()
                 .uri("/api/auth/registration")
-                .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(registerDTO)
                 .exchange()
-                .expectStatus().isOk() // THEN
-                .expectBody().isEmpty();
-    }
-    @Test
-    void test_login(){
-        // GIVEN
-        LoginDTO loginDTO = new LoginDTO("alice.smith", "strongpassword");
+                .expectStatus()
+                .isEqualTo(HttpStatus.BAD_REQUEST);// THEN
 
+    }
+
+    @Test
+    void test_invalidLogin(){
+        // GIVEN
+        LoginDTO loginDTO = new LoginDTO("alce.smith", "strongpassword");
         // WHEN
-        String token = webTestClient.post()
+        webTestClient.post()
                 .uri("/api/auth/login")
-                .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(loginDTO)
                 .exchange()
-                .expectStatus().isOk() // THEN
-                .expectBody(AuthResponseDTO.class)
-                .returnResult()
-                .getResponseBody().getAccessToken();
-
-        assertNotNull(token, "Access token should not be null");
-    }
-
-    @TestConfiguration
-    public static class TestConfig {
-        @Bean
-        public WebTestClient webTestClient() {
-            return WebTestClient.bindToServer().baseUrl("http://localhost:8080").build();
-            //WebTestClient bean, configured to connect to the server at the specified base URL ("http://localhost:8080")
-        }
+                .expectStatus()
+                .isEqualTo(HttpStatus.NOT_FOUND);// THEN
     }
 
 }

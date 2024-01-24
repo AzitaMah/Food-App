@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,12 +39,16 @@ public class AuthService {
     }
 
     public AuthResponseDTO authenticatePerson(LoginDTO loginDTO) {
+        try{
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generateToken(authentication);
 
-        return new AuthResponseDTO(token);
+        return new AuthResponseDTO(token);}
+        catch (AuthenticationException exception){
+            throw new IllegalArgumentException("Invalid username or password");
+        }
     }
 
     public void registerPerson(RegisterDTO registerDTO) {

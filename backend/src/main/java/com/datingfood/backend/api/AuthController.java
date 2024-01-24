@@ -24,8 +24,12 @@ public class AuthController {
 
     @PostMapping("login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
-        AuthResponseDTO authResponseDTO = authService.authenticatePerson(loginDTO);
-        return ResponseEntity.ok(authResponseDTO);
+        try{
+            AuthResponseDTO authResponseDTO = authService.authenticatePerson(loginDTO);
+            return ResponseEntity.ok(authResponseDTO);}
+        catch (IllegalArgumentException exception){
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("registration")
