@@ -4,6 +4,8 @@ import com.datingfood.backend.BackendApplication;
 import com.datingfood.backend.dto.AuthResponseDTO;
 import com.datingfood.backend.dto.FoodRequestDTO;
 import com.datingfood.backend.dto.LoginDTO;
+import com.datingfood.backend.entities.Person;
+import com.datingfood.backend.repositories.PersonRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
