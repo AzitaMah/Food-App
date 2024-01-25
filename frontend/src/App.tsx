@@ -38,11 +38,9 @@ function FixedBottomNavigation() {
         if (path === '/') {
             setValue(0);
         } else if(path === '/swipe-list') {
-            setValue(1)
-        } else if (path === '/swipe-list') {
-            setValue(2);
+            setValue(1);
         } else if (path === '/matches') {
-            setValue(3);
+            setValue(2);
         } else {
             setValue(3);
         }
