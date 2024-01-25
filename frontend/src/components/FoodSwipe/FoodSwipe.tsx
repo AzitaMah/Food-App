@@ -29,7 +29,7 @@ const FoodSwipe: FC<FoodSwipeProps> = () => {
                     <CardActionArea>
                         <CardMedia
                             component="img"
-                            height="140"
+                            height="300"
                             src={`${process.env.PUBLIC_URL}/${currentFood.toLowerCase()}.jpg`}
                             alt={currentFood}
                         />

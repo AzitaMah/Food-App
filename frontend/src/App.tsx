@@ -9,6 +9,7 @@ import {
     Paper,
 } from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import ChecklistRtlIcon from '@mui/icons-material/ChecklistRtl';
 import SwipeIcon from '@mui/icons-material/Swipe';
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
@@ -36,10 +37,14 @@ function FixedBottomNavigation() {
         //to highlight correct bottom navigation icon
         if (path === '/') {
             setValue(0);
-        } else if (path === '/matches') {
-            setValue(1);
-        } else {
+        } else if(path === '/swipe-list') {
+            setValue(1)
+        } else if (path === '/swipe-list') {
             setValue(2);
+        } else if (path === '/matches') {
+            setValue(3);
+        } else {
+            setValue(3);
         }
 
         //to hide bottom navigation for special urls
@@ -63,6 +68,7 @@ function FixedBottomNavigation() {
                     }}
                 >
                     <BottomNavigationAction label="Swipe" href="/" icon={<SwipeIcon />} />
+                    <BottomNavigationAction label="Candidates" href="/swipe-list" icon={<ChecklistRtlIcon />} />
                     <BottomNavigationAction label="Matches" href="/matches" icon={<FavoriteBorderIcon />} />
                 </BottomNavigation>
             </Paper>
