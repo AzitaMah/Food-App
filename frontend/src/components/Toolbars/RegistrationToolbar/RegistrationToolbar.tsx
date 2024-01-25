@@ -9,10 +9,10 @@ const RegistrationToolbar: FC<RegistrationToolbarProps> = () => (
       <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
               <Toolbar>
-                  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1, color: 'black' }}>
                       Register
                   </Typography>
-                  <Button color="inherit" href="/login">already a member?</Button>
+                  <Button color="inherit" href="/login" sx={{ color: 'black', ml: 2 }}>already a member?</Button>
               </Toolbar>
           </AppBar>
       </Box>

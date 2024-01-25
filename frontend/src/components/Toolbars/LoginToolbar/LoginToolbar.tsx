@@ -8,7 +8,7 @@ const LoginToolbar: FC<LoginToolbarProps> = () => (
   <div className={styles.LoginToolbar} data-testid="LoginToolbar">
       <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
           <Toolbar variant="dense">
-              <Typography variant="h6" color="inherit" component="div">
+              <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1, color: 'black'}}>
                   Login
               </Typography>
           </Toolbar>

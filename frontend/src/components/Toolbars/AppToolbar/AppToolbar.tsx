@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styles from './AppToolbar.module.css';
-import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
+import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 interface AppToolbarProps {}
@@ -9,12 +9,12 @@ const AppToolbar: FC<AppToolbarProps> = () => (
     <div className={styles.AppToolbar} data-testid="AppToolbar">
         <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
             <Toolbar variant="dense">
-                <IconButton href="/profile" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                    <AccountCircleIcon />
-                </IconButton>
-                <Typography variant="h6" color="inherit" component="div">
+                <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1, color: 'black' }}>
                     Swipe Your Food
                 </Typography>
+                <IconButton href="/profile" edge="end" color="inherit" aria-label="menu" sx={{ color: 'black', ml: 2 }}>
+                    <AccountCircleIcon />
+                </IconButton>
             </Toolbar>
         </AppBar>
     </div>

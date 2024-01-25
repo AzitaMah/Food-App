@@ -9,12 +9,12 @@ const AdminToolbar: FC<AdminToolbarProps> = () => (
   <div className={styles.AdminToolbar} data-testid="AdminToolbar">
       <AppBar position="static" sx={{ backgroundColor: 'lightgrey' }}>
           <Toolbar variant="dense">
-              <IconButton href="/profile" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                  <AccountCircleIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit" component="div">
+              <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1, color: 'black' }}>
                   Admin Page
               </Typography>
+              <IconButton href="/profile" edge="end" color="inherit" aria-label="menu" sx={{ color: 'black', ml: 2 }}>
+                  <AccountCircleIcon />
+              </IconButton>
           </Toolbar>
       </AppBar>
   </div>
