@@ -6,7 +6,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 
 interface FoodSwipeProps {}
 
-const foodOptions: string[] = ["Sushi", "Burger", "Pizza", "Pasta", "Fast Food"];
+const foodOptions: string[] = ["Sushi", "Burger", "Pizza", "Ramen", "Meatballs"];
 
 const FoodSwipe: FC<FoodSwipeProps> = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,6 +19,9 @@ const FoodSwipe: FC<FoodSwipeProps> = () => {
         console.log(foodOptions[currentIndex]);
     };
 
+    const currentFood = foodOptions[currentIndex];
+    //const imagePath = `../../assets/${currentFood.toLowerCase()}.jpg`;
+
     return (
         <Stack direction="row" justifyContent="center" sx={{ p: "20px" }}>
             <div className={styles.FoodSwipe} data-testid="FoodSwipe">
@@ -27,12 +30,12 @@ const FoodSwipe: FC<FoodSwipeProps> = () => {
                         <CardMedia
                             component="img"
                             height="140"
-                            src="frontend/src/assets/sushi.png"
-                            alt="sushi"
+                            src={`${process.env.PUBLIC_URL}/${currentFood.toLowerCase()}.jpg`}
+                            alt={currentFood}
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                                {foodOptions[currentIndex]}
+                                {currentFood}
                             </Typography>
                         </CardContent>
                     </CardActionArea>

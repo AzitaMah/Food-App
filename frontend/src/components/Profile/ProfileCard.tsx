@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Divider, Paper} from "@mui/material";
 import { mockPerson } from "./Profile";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import burger from "../../assets/burger.jpg"
+import burger from "../../../public/burger.jpg"
 
 
 
