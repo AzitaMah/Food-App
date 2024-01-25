@@ -100,7 +100,7 @@ const SwipeList: FC<SwipeListProps> = () => {
 
     return (
         <div className={styles.SwipeList} data-testid="SwipeList">
-            <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
+            <List sx={{width: '100%', maxWidth: 360 }}>
                 {listItems}
             </List>
             <Button href="/matches">
