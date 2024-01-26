@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS food
 (
     id           INTEGER      NOT NULL,
     name         VARCHAR(255) NOT NULL,
-    image_base64 VARCHAR(255) NOT NULL,
+    image_base64 VARCHAR NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE person
     password      VARCHAR(255) NOT NULL,
     username      VARCHAR(255) NOT NULL UNIQUE,
     food_id       INTEGER,
-    profile_image VARCHAR(255),
+    profile_image VARCHAR,
     PRIMARY KEY (id),
     CONSTRAINT fk_food FOREIGN KEY (food_id) REFERENCES food
 );
