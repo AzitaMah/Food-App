@@ -18,6 +18,5 @@ public class PersonInfoDTO {
         this.username = username;
         this.profileimage = profileimage;
         this.birthdate = birthdate;
-
     }
 }

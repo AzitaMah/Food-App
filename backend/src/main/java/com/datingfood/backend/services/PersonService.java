@@ -12,6 +12,7 @@ import com.datingfood.backend.entities.Food;
 import com.datingfood.backend.entities.Person;
 import com.datingfood.backend.repositories.FoodRepository;
 import com.datingfood.backend.repositories.PersonRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PersonService {
@@ -37,15 +38,17 @@ public class PersonService {
             Person person = optionalPerson.get();
 
             return person;
+        }else {
+            throw new NoSuchElementException(username + " does not exist");
         }
-        throw new NoSuchElementException(username + " does not exist");
     }
 
     /**
-     * updates the food choice in the database
+     * updates the food choice in the database and clears all old match entries
      * @param username username of client
      * @param foodId id of food which the client chose
      */
+    @Transactional
     public void setFoodChoiceForPerson(final String username, final int foodId) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
         final Optional<Food> optionalFood = foodRepository.findFoodById(foodId);
@@ -56,7 +59,7 @@ public class PersonService {
             person.setFood(food);
             personRepository.save(person);
 
-            matchRepository.deleteAll(matchRepository.findAllMatchesForPerson(person));
+            matchRepository.deleteAllWherePersonInvolved(person);
 
         } else {
             throw new NoSuchElementException("Person or food not found");
@@ -72,5 +75,22 @@ public class PersonService {
         final List<Person> personList = personRepository.findAllByOrderByIdAsc();
 
         return personList;
+    }
+
+    /**
+     * method for admin only. Deletes a person and all references of this person in the database
+     * @param username username of client
+     */
+    @Transactional
+    public void deletePersonEntry(final String username){
+        final Optional<Person> optionalPerson = personRepository.findByUsername(username);
+        if (optionalPerson.isPresent()) {
+            Person person = optionalPerson.get();
+            matchRepository.deleteAllWherePersonInvolved(person);
+            personRepository.deleteByUsername(username);
+        }
+        else {
+            throw new NoSuchElementException(username + " does not exist");
+        }
     }
 }
