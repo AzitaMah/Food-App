@@ -82,6 +82,35 @@ public class PersonControllerE2ETest {
                 .isEqualTo(HttpStatus.FORBIDDEN);// THEN
     }
 
+    @Test
+    void test_updateFoodChoice_foodId_not_existing(){
+        // GIVEN
+        LoginDTO loginDTO = new LoginDTO("alice.smith", "strongpassword");
+        String token = webTestClient.post()
+                .uri("/api/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(loginDTO)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(AuthResponseDTO.class)
+                .returnResult()
+                .getResponseBody().getAccessToken();
+
+
+        FoodRequestDTO foodRequestDTO = new FoodRequestDTO();
+        foodRequestDTO.setFoodId(100);
+
+        // WHEN
+        webTestClient.put()
+                .uri("/api/person/alice.smith")
+                .header(HttpHeaders.AUTHORIZATION,"Bearer "+ token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(foodRequestDTO)
+                .exchange()
+                .expectStatus()
+                .isEqualTo(HttpStatus.NOT_FOUND);// THEN
+    }
+
 
     @Test
     void test_deletePerson(){
