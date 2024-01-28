@@ -33,6 +33,7 @@ public class FoodService {
                     .toList();
             return foodResponseDTOList;
         }
+        logger.error("Failed to retrieve food selection from the database. The result is empty.");
         throw new RuntimeException();
     }
 }

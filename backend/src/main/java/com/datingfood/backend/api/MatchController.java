@@ -38,10 +38,12 @@ public class MatchController {
     ResponseEntity<List<PersonInfoDTO>> getUsersByFoodId(@PathVariable final String username) {
         try {
             final List<PersonInfoDTO> usernameDTOList = matchService.getAllPersonInfoWithSameFood(username);
-
             return ResponseEntity.ok(usernameDTOList);
         } catch (NoSuchElementException exception) {
+            logger.warn("User with username '{}' not found", username, exception);
             return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception){
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -51,10 +53,13 @@ public class MatchController {
 
         try {
             matchService.addMatch(username, partnerUsername);
-
+            logger.info("A match was made");
             return ResponseEntity.ok().build();
         } catch (NoSuchElementException exception) {
+            logger.warn("User with username '{}' or '{}' not found", username, partnerUsername, exception);
             return ResponseEntity.notFound().build();
+        }catch (RuntimeException exception){
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -70,8 +75,10 @@ public class MatchController {
 
             return ResponseEntity.ok(allMatchInfo);
         } catch (NoSuchElementException exception) {
-            logger.error(exception.getMessage());
+            logger.error("Error while retrieving partners and matches for user '{}'", username, exception);
             return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception){
+            return ResponseEntity.internalServerError().build();
         }
     }
 
