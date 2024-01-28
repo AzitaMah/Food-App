@@ -1,6 +1,5 @@
 package com.datingfood.backend.repositories;
 
-import com.datingfood.backend.entities.Food;
 import com.datingfood.backend.entities.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,5 +16,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> findAllByFood_Id(int foodId);
 
     List<Person> findAllByOrderByIdAsc();
+
+    void deleteByUsername(String username);
 
 }

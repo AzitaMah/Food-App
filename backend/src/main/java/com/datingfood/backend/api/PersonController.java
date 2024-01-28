@@ -5,12 +5,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.datingfood.backend.dto.FoodRequestDTO;
 import com.datingfood.backend.entities.Person;
@@ -39,13 +34,13 @@ public class PersonController {
     }
 
     @PutMapping("person/{username}")
-    ResponseEntity<String> updateFoodChoice(@PathVariable String username, @RequestBody FoodRequestDTO foodRequestDto) {
+    ResponseEntity<Void> updateFoodChoice(@PathVariable String username, @RequestBody FoodRequestDTO foodRequestDto) {
         final int foodId = foodRequestDto.getFoodId();
-        try{
-            personService.setFoodChoiceForPerson(username,foodId);
+        try {
+            personService.setFoodChoiceForPerson(username, foodId);
 
-            return ResponseEntity.ok("The food choice was saved successfully for: " + username);
-        } catch(NoSuchElementException exception) {
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException exception) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -61,4 +56,13 @@ public class PersonController {
         return ResponseEntity.ok(personList);
     }
 
+    @DeleteMapping("admin/person/{username}")
+    ResponseEntity<Void> deletePerson(@PathVariable String username) {
+        try {
+            personService.deletePersonEntry(username);
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException exception) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
