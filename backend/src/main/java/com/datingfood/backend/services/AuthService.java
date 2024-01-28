@@ -8,6 +8,8 @@ import com.datingfood.backend.entities.Role;
 import com.datingfood.backend.repositories.PersonRepository;
 import com.datingfood.backend.repositories.RoleRepository;
 import com.datingfood.backend.security.JwtGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +29,7 @@ public class AuthService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtGenerator jwtGenerator;
+    private final static Logger logger = LoggerFactory.getLogger(AuthService.class);
 
     @Autowired
     public AuthService(final AuthenticationManager authenticationManager, final PersonRepository personRepository,
@@ -47,6 +50,7 @@ public class AuthService {
 
         return new AuthResponseDTO(token);}
         catch (AuthenticationException exception){
+            logger.warn("Authentication failed for username: {}", loginDTO.getUsername());
             throw new IllegalArgumentException("Invalid username or password");
         }
     }

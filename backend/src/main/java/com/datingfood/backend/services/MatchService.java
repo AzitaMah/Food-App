@@ -40,14 +40,20 @@ public class MatchService {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
         final Optional<Person> optionalPartner = personRepository.findByUsername(partnerUsername);
 
-        if (optionalPerson.isPresent() && optionalPartner.isPresent()) {
-            final Person person = optionalPerson.get();
-            final Person partner = optionalPartner.get();
+        try{
+            if (optionalPerson.isPresent() && optionalPartner.isPresent()) {
+                final Person person = optionalPerson.get();
+                final Person partner = optionalPartner.get();
 
-            final Match match = new Match(person, partner);
-            matchRepository.save(match);
-        } else {
-            throw new NoSuchElementException();
+                final Match match = new Match(person, partner);
+                matchRepository.save(match);
+            }
+        }catch(NoSuchElementException exception){
+            logger.error("Failed to add match. Usernames {} or {} not found.", username, partnerUsername);
+            throw exception;
+        }catch (Exception exception){
+            logger.error("An unexpected error occurred while adding a match.", exception);
+            throw new RuntimeException("Failed to add match.", exception);
         }
     }
 
@@ -60,18 +66,23 @@ public class MatchService {
      */
     public List<ContactDTO> getAllAcceptedPartners(final String username) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        if (optionalPerson.isPresent()) {
-            final Person person = optionalPerson.get();
+        try {
+            if (optionalPerson.isPresent()) {
+                final Person person = optionalPerson.get();
 
-            final List<Person> chosenPartners = matchRepository.findAllPartnersOfPerson(person);
-            final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
+                final List<Person> chosenPartners = matchRepository.findAllPartnersOfPerson(person);
+                final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
 
-            final List<ContactDTO> acceptedPartners =
-                    MatchUtils.createPersonContactDTOList(MatchUtils.findCommonPersons(chosenPartners, personChosen));
+                final List<ContactDTO> acceptedPartners =
+                        MatchUtils.createPersonContactDTOList(MatchUtils.findCommonPersons(chosenPartners, personChosen));
 
-            return acceptedPartners;
-        } else {
-            throw new NoSuchElementException("Username does not exist.");
+                return acceptedPartners;
+            }else {
+                throw new NoSuchElementException("Username '" + username + "' does not exist");
+            }
+        }catch (Exception exception){
+            logger.error("An unexpected error occurred while retrieving accepted partners.", exception);
+            throw new RuntimeException("Failed to retrieve accepted partners.", exception);
         }
     }
 
@@ -94,7 +105,7 @@ public class MatchService {
 
             return incompleteMatches;
         } else {
-            throw new NoSuchElementException("Username does not exist.");
+            throw new NoSuchElementException("Username does not exist");
         }
     }
 
@@ -106,36 +117,58 @@ public class MatchService {
      */
     public List<PersonInfoDTO> getAllPersonInfoWithSameFood(final String username) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        if (optionalPerson.isPresent()) {
-            final Person person = optionalPerson.get();
-            final List<Person> personList = personRepository.findAllByFood_Id(person.getFood().getId());
+        try {
+            if (optionalPerson.isPresent()) {
+                final Person person = optionalPerson.get();
+                final List<Person> personList = personRepository.findAllByFood_Id(person.getFood().getId());
 
-            final List<Person> personSelectionList = getPossiblePartners(username, personList);
+                final List<Person> personSelectionList = getPossiblePartners(username, personList);
 
-            final List<PersonInfoDTO> personInfoDTOList = personSelectionList
-                    .stream()
-                    .map(p ->
-                            new PersonInfoDTO(p.getUsername(), p.getProfileImage(), p.getBirthDate()))
-                    .filter(p -> !p.getUsername().equals(username))
-                    .toList();
+                final List<PersonInfoDTO> personInfoDTOList = personSelectionList
+                        .stream()
+                        .map(p ->
+                                new PersonInfoDTO(p.getUsername(), p.getProfileImage(), p.getBirthDate()))
+                        .filter(p -> !p.getUsername().equals(username))
+                        .toList();
 
-            return personInfoDTOList;
+                return personInfoDTOList;
+            }
+            logger.error("Failed to retrieve persons with the same food choice ");
+            throw new NoSuchElementException();
+        }catch (Exception exception) {
+            logger.error("An unexpected error occurred while retrieving persons with the same food choice.", exception);
+            throw new RuntimeException("Failed to retrieve persons with the same food choice.", exception);
         }
-        throw new NoSuchElementException();
+
     }
 
+    /**
+     * Gets a list of possible partners for a given user by finding persons with the same food choice
+     * who are not already in a match with the user.
+     *
+     * @param username   The username of the user for whom to find possible partners.
+     * @param personList The list of persons with the same food choice.
+     * @return List of persons who are possible partners for the user.
+     * @throws NoSuchElementException If the user with the given username is not found in the repository.
+     */
     private List<Person> getPossiblePartners(final String username, final List<Person> personList) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        if (optionalPerson.isPresent()) {
-            final Person person = optionalPerson.get();
+        try{
+            if (optionalPerson.isPresent()) {
+                final Person person = optionalPerson.get();
 
-            final List<Person> partnerInMatch = matchRepository.findAllPartnersOfPerson(person);
+                final List<Person> partnerInMatch = matchRepository.findAllPartnersOfPerson(person);
 
-            final List<Person> possiblePartner = MatchUtils.findDifferentPersons(personList, partnerInMatch);
+                final List<Person> possiblePartner = MatchUtils.findDifferentPersons(personList, partnerInMatch);
 
-            return possiblePartner;
+                return possiblePartner;
+            }
+            throw new NoSuchElementException("Person with " + username + " can't be found");
+        }catch (Exception exception) {
+            logger.error("An unexpected error occurred while retrieving possible matches.", exception);
+            throw new RuntimeException("Failed to retrieve incomplete matches.", exception);
         }
-        throw new NoSuchElementException("Person with " + username + " can't be found");
+
     }
 
 }

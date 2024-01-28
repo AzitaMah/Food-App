@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class JwtGenerator {
 
-    private final Logger logger = LoggerFactory.getLogger(JwtGenerator.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtGenerator.class);
 
     private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 

@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +23,7 @@ import com.datingfood.backend.repositories.PersonRepository;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private PersonRepository personRepository;
+    private static  final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     @Autowired
     public CustomUserDetailsService(final PersonRepository personRepository) {
@@ -35,7 +38,10 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        final Person person = personRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        final Person person = personRepository.findByUsername(username).orElseThrow(() -> {
+            logger.warn("Username '{}' not found in the database", username);
+            return new UsernameNotFoundException("Username not found");
+        });
         return new User(person.getUsername(), person.getPassword(), mapRolesToAuthorities(person.getRoles()));
     }
 

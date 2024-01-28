@@ -4,6 +4,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +25,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private JwtGenerator tokenGenerator;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+    private static final Logger logger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
 
     /**
      * Filters incoming requests to extract and validate JWT tokens, setting up Spring Security
@@ -51,6 +54,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
             // Set the authentication in the Spring Security context
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }else {
+            logger.debug("JWT token not found or invalid");
         }
         // Continue with the filter chain
         filterChain.doFilter(request,response);
