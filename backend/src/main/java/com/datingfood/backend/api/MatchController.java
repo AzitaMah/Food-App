@@ -42,6 +42,8 @@ public class MatchController {
         } catch (NoSuchElementException exception) {
             logger.warn("User with username '{}' not found", username, exception);
             return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception){
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -55,6 +57,8 @@ public class MatchController {
         } catch (NoSuchElementException exception) {
             logger.warn("User with username '{}' or '{}' not found", username, partnerUsername, exception);
             return ResponseEntity.notFound().build();
+        }catch (RuntimeException exception){
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -72,6 +76,8 @@ public class MatchController {
         } catch (NoSuchElementException exception) {
             logger.error("Error while retrieving partners and matches for user '{}'", username, exception);
             return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception){
+            return ResponseEntity.internalServerError().build();
         }
     }
 

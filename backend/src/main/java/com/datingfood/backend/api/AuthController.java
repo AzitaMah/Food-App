@@ -44,7 +44,7 @@ public class AuthController {
             authService.registerPerson(registerDTO);
             return ResponseEntity.ok().build();
         } catch (IllegalArgumentException exception) {
-            logger.warn("Authentication failed: Invalid argument", exception);
+            logger.warn("Registration failed: Invalid argument", exception);
             return ResponseEntity.badRequest().build();
         }
     }

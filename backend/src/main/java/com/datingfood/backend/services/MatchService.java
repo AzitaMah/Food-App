@@ -135,7 +135,7 @@ public class MatchService {
             }
             logger.error("Failed to retrieve persons with the same food choice ");
             throw new NoSuchElementException();
-        }catch (Exception exception) {
+        } catch (Exception exception) {
             logger.error("An unexpected error occurred while retrieving persons with the same food choice.", exception);
             throw new RuntimeException("Failed to retrieve persons with the same food choice.", exception);
         }

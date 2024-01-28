@@ -44,7 +44,7 @@ public class PersonController {
             personService.setFoodChoiceForPerson(username, foodId);
             return ResponseEntity.ok().build();
         } catch (NoSuchElementException exception) {
-            logger.error("Peron with username '{}' not found to update food choice",username,exception);
+            logger.error("Peron with username '{}' or foodId '{}'  not found to update food choice",username,foodId,exception);
             return ResponseEntity.notFound().build();
         }
     }
