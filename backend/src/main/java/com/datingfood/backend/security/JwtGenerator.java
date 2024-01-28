@@ -40,6 +40,7 @@ public class JwtGenerator {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
+        logger.info("Token successfully generated");
         return token;
     }
 

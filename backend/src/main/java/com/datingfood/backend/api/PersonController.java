@@ -58,6 +58,7 @@ public class PersonController {
                 logger.warn("No users found when retrieving all users for admin");
                 return ResponseEntity.internalServerError().build();
             }
+            logger.info("List of all users generated for administration purposes");
             return ResponseEntity.ok(personList);
         }catch (Exception exception){
             logger.error("Error while retrieving all users for admin", exception);

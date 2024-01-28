@@ -53,6 +53,7 @@ public class MatchController {
 
         try {
             matchService.addMatch(username, partnerUsername);
+            logger.info("A match was made");
             return ResponseEntity.ok().build();
         } catch (NoSuchElementException exception) {
             logger.warn("User with username '{}' or '{}' not found", username, partnerUsername, exception);
