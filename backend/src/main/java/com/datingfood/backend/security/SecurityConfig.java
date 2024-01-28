@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .authorizeRequests(authz -> authz
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/actuator/health/**").permitAll()
                         .anyRequest().authenticated());
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
