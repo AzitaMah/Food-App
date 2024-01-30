@@ -1,40 +1,27 @@
 stages:
-  - build
-  - test
+  - setup
+  - unit-test
+  - e2e-test
 
-variables:
-  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-
-before_script:
-  - apt-get update -qy
-  - apt-get install -y maven
-  - apt-get install -y nodejs
-  - apt-get install -y npm
-  - cd backend
-
-backend_build:
-  stage: build
+cache-node-modules:
+  stage: setup
+  image: node:alpine
   script:
-    - mvn $MAVEN_CLI_OPTS clean install
+    - npm ci
+  artifacts:
+    name: node_modules
+    paths:
+      - node_modules
+    expire_in: 1h
 
-frontend_build:
-  stage: build
+unit-tests:
+  stage: unit-test
+  image: node:alpine
   script:
-    - cd ../frontend
-    - npm install
+    - npm run test
 
-backend_tests:
-  stage: test
-  script:
-    - cd ../backend
-    - mvn $MAVEN_CLI_OPTS test
-  
-#frontend_tests:
-#  stage: test
-#  script:
-#    - cd ../frontend
-#    - npm test
-#  only:
-#    - main
-#    - dev
+#e2e-tests:
+ # stage: e2e-test
+  #image: node:alpine
+  #script:
+  #  - npm run test:e2e
