@@ -7,6 +7,7 @@ cache-node-modules:
   stage: setup
   image: node:alpine
   script:
+    - cd frontend
     - npm ci
   artifacts:
     name: node_modules
