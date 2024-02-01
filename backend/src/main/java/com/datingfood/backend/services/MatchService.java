@@ -40,20 +40,15 @@ public class MatchService {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
         final Optional<Person> optionalPartner = personRepository.findByUsername(partnerUsername);
 
-        try{
-            if (optionalPerson.isPresent() && optionalPartner.isPresent()) {
-                final Person person = optionalPerson.get();
-                final Person partner = optionalPartner.get();
+        if (optionalPerson.isPresent() && optionalPartner.isPresent()) {
+            final Person person = optionalPerson.get();
+            final Person partner = optionalPartner.get();
 
-                final Match match = new Match(person, partner);
-                matchRepository.save(match);
-            }
-        }catch(NoSuchElementException exception){
+            final Match match = new Match(person, partner);
+            matchRepository.save(match);
+        } else {
             logger.error("Failed to add match. Usernames {} or {} not found.", username, partnerUsername);
-            throw exception;
-        }catch (Exception exception){
-            logger.error("An unexpected error occurred while adding a match.", exception);
-            throw new RuntimeException("Failed to add match.", exception);
+            throw new NoSuchElementException("User not found");
         }
     }
 
