@@ -46,13 +46,13 @@ frontend_test:
   stage: test
   script:
     - echo "Run frontend tests here"
-    - # Add frontend test steps here
+    #- # Add frontend test steps here
 
 deploy_frontend:
   stage: deploy
   script:
     - echo "Deploying frontend"
-    - # Add your frontend deployment steps here
+    #- # Add your frontend deployment steps here
 
 deploy:
   stage: deploy
