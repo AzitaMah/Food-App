@@ -92,19 +92,13 @@ public class PersonService {
     @Transactional
     public void deletePersonEntry(final String username) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        try {
-            if (optionalPerson.isPresent()) {
-                Person person = optionalPerson.get();
-                matchRepository.deleteAllWherePersonInvolved(person);
-                personRepository.deleteByUsername(username);
-            } else {
-                throw new NoSuchElementException(username + " does not exist");
-            }
-        } catch (Exception exception) {
-            // Log an error message if an unexpected exception occurs
-            logger.error("An unexpected error occurred while deleting user entry.", exception);
-            throw new RuntimeException("Failed to delete user entry.", exception);
-
+        if (optionalPerson.isPresent()) {
+            Person person = optionalPerson.get();
+            matchRepository.deleteAllWherePersonInvolved(person);
+            personRepository.deleteByUsername(username);
+        }
+        else {
+            throw new NoSuchElementException(username + " does not exist");
         }
     }
 }

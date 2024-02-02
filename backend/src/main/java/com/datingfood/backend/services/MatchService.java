@@ -61,7 +61,7 @@ public class MatchService {
      */
     public List<ContactDTO> getAllAcceptedPartners(final String username) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        try {
+
             if (optionalPerson.isPresent()) {
                 final Person person = optionalPerson.get();
 
@@ -75,10 +75,6 @@ public class MatchService {
             }else {
                 throw new NoSuchElementException("Username '" + username + "' does not exist");
             }
-        }catch (Exception exception){
-            logger.error("An unexpected error occurred while retrieving accepted partners.", exception);
-            throw new RuntimeException("Failed to retrieve accepted partners.", exception);
-        }
     }
 
     /**
@@ -112,7 +108,6 @@ public class MatchService {
      */
     public List<PersonInfoDTO> getAllPersonInfoWithSameFood(final String username) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        try {
             if (optionalPerson.isPresent()) {
                 final Person person = optionalPerson.get();
                 final List<Person> personList = personRepository.findAllByFood_Id(person.getFood().getId());
@@ -128,13 +123,9 @@ public class MatchService {
 
                 return personInfoDTOList;
             }
-            logger.error("Failed to retrieve persons with the same food choice ");
+           else{ logger.error("Failed to retrieve persons with the same food choice ");
             throw new NoSuchElementException();
-        } catch (Exception exception) {
-            logger.error("An unexpected error occurred while retrieving persons with the same food choice.", exception);
-            throw new RuntimeException("Failed to retrieve persons with the same food choice.", exception);
-        }
-
+           }
     }
 
     /**
@@ -148,7 +139,7 @@ public class MatchService {
      */
     private List<Person> getPossiblePartners(final String username, final List<Person> personList) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
-        try{
+
             if (optionalPerson.isPresent()) {
                 final Person person = optionalPerson.get();
 
@@ -158,12 +149,9 @@ public class MatchService {
 
                 return possiblePartner;
             }
-            throw new NoSuchElementException("Person with " + username + " can't be found");
-        }catch (Exception exception) {
-            logger.error("An unexpected error occurred while retrieving possible matches.", exception);
-            throw new RuntimeException("Failed to retrieve incomplete matches.", exception);
-        }
-
+           else {
+                throw new NoSuchElementException("Person with " + username + " can't be found");
+            }
     }
 
 }
