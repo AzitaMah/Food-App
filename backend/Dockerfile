@@ -1,4 +1,15 @@
 FROM amazoncorretto:17-alpine3.17-jdk AS builder
+
+# Install Maven
+ARG MAVEN_VERSION=3.8.4
+ENV MAVEN_HOME=/usr/share/maven
+ENV PATH=$PATH:$MAVEN_HOME/bin
+
+RUN wget -q "https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz" -O /tmp/apache-maven.tar.gz \
+    && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share \
+    && ln -s /usr/share/apache-maven-$MAVEN_VERSION $MAVEN_HOME \
+    && rm -f /tmp/apache-maven.tar.gz
+
 WORKDIR /build
 COPY ./.mvn/ ./.mvn
 COPY ./mvnw ./
