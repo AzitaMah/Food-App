@@ -44,7 +44,7 @@ public class PersonController {
             personService.setFoodChoiceForPerson(username, foodId);
             return ResponseEntity.ok().build();
         } catch (NoSuchElementException exception) {
-            logger.error("Peron with username '{}' or foodId '{}'  not found to update food choice",username,foodId,exception);
+            logger.error("Person with username '{}' or foodId '{}'  not found to update food choice",username,foodId,exception);
             return ResponseEntity.notFound().build();
         }
     }
@@ -55,7 +55,7 @@ public class PersonController {
             List<Person> personList = personService.getOverviewForAdmin();
 
             if (personList.isEmpty()) {
-                logger.warn("No users found when retrieving all users for admin");
+                logger.error("No users found when retrieving all users for admin");
                 return ResponseEntity.internalServerError().build();
             }
             logger.info("List of all users generated for administration purposes");
@@ -75,6 +75,8 @@ public class PersonController {
         } catch (NoSuchElementException exception) {
             logger.error("Person with username '{}' not found while trying to delete", username, exception);
             return ResponseEntity.notFound().build();
+        } catch (Exception exception) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

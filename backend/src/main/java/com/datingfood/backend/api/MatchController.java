@@ -58,7 +58,7 @@ public class MatchController {
         } catch (NoSuchElementException exception) {
             logger.warn("User with username '{}' or '{}' not found", username, partnerUsername, exception);
             return ResponseEntity.notFound().build();
-        }catch (RuntimeException exception){
+        }catch (Exception exception){
             return ResponseEntity.internalServerError().build();
         }
     }

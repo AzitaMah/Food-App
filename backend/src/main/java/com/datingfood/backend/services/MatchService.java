@@ -62,19 +62,19 @@ public class MatchService {
     public List<ContactDTO> getAllAcceptedPartners(final String username) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
 
-            if (optionalPerson.isPresent()) {
-                final Person person = optionalPerson.get();
+        if (optionalPerson.isPresent()) {
+            final Person person = optionalPerson.get();
 
-                final List<Person> chosenPartners = matchRepository.findAllPartnersOfPerson(person);
-                final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
+            final List<Person> chosenPartners = matchRepository.findAllPartnersOfPerson(person);
+            final List<Person> personChosen = matchRepository.findPersonAsPartner(person);
 
-                final List<ContactDTO> acceptedPartners =
-                        MatchUtils.createPersonContactDTOList(MatchUtils.findCommonPersons(chosenPartners, personChosen));
+            final List<ContactDTO> acceptedPartners =
+                    MatchUtils.createPersonContactDTOList(MatchUtils.findCommonPersons(chosenPartners, personChosen));
 
-                return acceptedPartners;
-            }else {
-                throw new NoSuchElementException("Username '" + username + "' does not exist");
-            }
+            return acceptedPartners;
+        } else {
+            throw new NoSuchElementException("Username '" + username + "' does not exist");
+        }
     }
 
     /**
@@ -108,24 +108,24 @@ public class MatchService {
      */
     public List<PersonInfoDTO> getAllPersonInfoWithSameFood(final String username) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
-            if (optionalPerson.isPresent()) {
-                final Person person = optionalPerson.get();
-                final List<Person> personList = personRepository.findAllByFood_Id(person.getFood().getId());
+        if (optionalPerson.isPresent()) {
+            final Person person = optionalPerson.get();
+            final List<Person> personList = personRepository.findAllByFood_Id(person.getFood().getId());
 
-                final List<Person> personSelectionList = getPossiblePartners(username, personList);
+            final List<Person> personSelectionList = getPossiblePartners(username, personList);
 
-                final List<PersonInfoDTO> personInfoDTOList = personSelectionList
-                        .stream()
-                        .map(p ->
-                                new PersonInfoDTO(p.getUsername(), p.getProfileImage(), p.getBirthDate()))
-                        .filter(p -> !p.getUsername().equals(username))
-                        .toList();
+            final List<PersonInfoDTO> personInfoDTOList = personSelectionList
+                    .stream()
+                    .map(p ->
+                            new PersonInfoDTO(p.getUsername(), p.getProfileImage(), p.getBirthDate()))
+                    .filter(p -> !p.getUsername().equals(username))
+                    .toList();
 
-                return personInfoDTOList;
-            }
-           else{ logger.error("Failed to retrieve persons with the same food choice ");
+            return personInfoDTOList;
+        } else {
+            logger.error("Failed to retrieve persons with the same food choice ");
             throw new NoSuchElementException();
-           }
+        }
     }
 
     /**
@@ -140,18 +140,17 @@ public class MatchService {
     private List<Person> getPossiblePartners(final String username, final List<Person> personList) {
         final Optional<Person> optionalPerson = personRepository.findByUsername(username);
 
-            if (optionalPerson.isPresent()) {
-                final Person person = optionalPerson.get();
+        if (optionalPerson.isPresent()) {
+            final Person person = optionalPerson.get();
 
-                final List<Person> partnerInMatch = matchRepository.findAllPartnersOfPerson(person);
+            final List<Person> partnerInMatch = matchRepository.findAllPartnersOfPerson(person);
 
-                final List<Person> possiblePartner = MatchUtils.findDifferentPersons(personList, partnerInMatch);
+            final List<Person> possiblePartner = MatchUtils.findDifferentPersons(personList, partnerInMatch);
 
-                return possiblePartner;
-            }
-           else {
-                throw new NoSuchElementException("Person with " + username + " can't be found");
-            }
+            return possiblePartner;
+        } else {
+            throw new NoSuchElementException("Person with " + username + " can't be found");
+        }
     }
 
 }

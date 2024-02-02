@@ -42,6 +42,7 @@ public class PersonService {
         if (optionalPerson.isPresent()) {
             Person person = optionalPerson.get();
 
+            logger.debug("Retrieved Person from database: {}", username);
             return person;
         } else {
             throw new NoSuchElementException(username + " does not exist");
