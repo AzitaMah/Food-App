@@ -5,59 +5,46 @@ stages:
 
 variables:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version"
-  DOCKER_IMAGE_BACKEND: "dating-food-app/backend-image:0.0.1-SNAPSHOT"
-  DOCKER_IMAGE_FRONTEND: "dating-food-app/frontend-image:0.1.0"
-  MAVEN_IMAGE: "maven:3.8-openjdk-18"
 
 before_script:
   - cd backend
 
 build_backend:
   stage: build
+  image: maven:3-openjdk-17
   script:
     - mvn $MAVEN_CLI_OPTS clean package
-    - docker build -t $DOCKER_IMAGE_BACKEND .
 
 unit_tests:
   stage: test
   script:
-    - docker run $DOCKER_IMAGE_BACKEND mvn $MAVEN_CLI_OPTS test
+    - mvn $MAVEN_CLI_OPTS test
 
 e2e_tests:
   stage: test
   script:
-     - cd dating-food-app/backend
-     - docker run -v $(pwd):/app -w /app --network host -e SPRING_PROFILES_ACTIVE=test $DOCKER_IMAGE_BACKEND mvn $MAVEN_CLI_OPTS test -Dtest=e2eTest.AuthControllerE2ETest,e2eTest.PersonControllerE2ETest
+    - cd dating-food-app/backend
+    - mvn $MAVEN_CLI_OPTS test -Dtest=e2eTest.AuthControllerE2ETest,e2eTest.PersonControllerE2ETest
 
 deploy_backend:
   stage: deploy
-  
   script:
     - echo "Deploying backend"
-  #  - mvn $MAVEN_CLI_OPTS clean install
-  image: $MAVEN_IMAGE
-  
+    - mvn $MAVEN_CLI_OPTS clean install
+
 frontend_build:
   stage: build
   script:
     - cd ../frontend
     - npm install
     - ng build --prod
-    - docker build -t $DOCKER_IMAGE_FRONTEND .
 
 frontend_test:
   stage: test
   script:
     - echo "Run frontend tests here"
-    #- # Add frontend test steps here
 
 deploy_frontend:
   stage: deploy
   script:
     - echo "Deploying frontend"
-    #- # Add your frontend deployment steps here
-
-deploy:
-  stage: deploy
-  script:
-    - echo "Final deployment steps"
