@@ -7,7 +7,6 @@ variables:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version"
   DOCKER_IMAGE_BACKEND: "dating-food-app/backend-image:0.0.1-SNAPSHOT"
   DOCKER_IMAGE_FRONTEND: "dating-food-app/frontend-image:0.1.0"
-  MAVEN_IMAGE: "maven:3.8-openjdk-18"
 
 before_script:
   - cd backend
@@ -16,7 +15,7 @@ build_backend:
   stage: build
   script:
     - mvn $MAVEN_CLI_OPTS clean package
-    - docker build -t $DOCKER_IMAGE_BACKEND .
+    - docker build -t $DOCKER_IMAGE_BACKEND 
 
 unit_tests:
   stage: test
@@ -34,8 +33,7 @@ deploy_backend:
   
   script:
     - echo "Deploying backend"
-  #  - mvn $MAVEN_CLI_OPTS clean install
-  image: $MAVEN_IMAGE
+    - mvn $MAVEN_CLI_OPTS clean install
   
 frontend_build:
   stage: build
