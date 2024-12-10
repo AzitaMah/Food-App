@@ -1,0 +1,50 @@
+stages:
+  - build
+  - test
+
+variables:
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version"
+
+before_script:
+  - cd backend
+
+build_backend:
+  stage: build
+  image: maven:3-openjdk-17
+  script:
+    - mvn $MAVEN_CLI_OPTS clean package
+  only:
+    - main
+    - dev
+
+
+unit_tests:
+  stage: test
+  image: maven:3-openjdk-17
+  script:
+    - mvn $MAVEN_CLI_OPTS test
+    - mvn $MAVEN_CLI_OPTS verify
+  only:
+    - main
+    - dev
+
+
+e2e_tests:
+  stage: test
+  image: maven:3-openjdk-17
+  script:
+    - mvn $MAVEN_CLI_OPTS verify -P e2e-tests
+  only:
+    - main
+    - dev
+
+frontend_build:
+  stage: build
+  image: node:alpine
+  script:
+    - cd ../frontend
+    - npm ci
+  only:
+    - main
+    - dev
+
